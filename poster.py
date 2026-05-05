@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Threads 朝鑑定誘導 自動投稿スクリプト
-@todaysdragon 向け　5〜9時 1時間おき投稿
+@kokoronomatsukiyo80 向け　5〜9時 1時間おき投稿
 """
 
 import os

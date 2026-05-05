@@ -1,5 +1,5 @@
 # こころのまつきよ 自動投稿ツール
-**@todaysdragon** 向け　自動投稿システム
+**@kokoronomatsukiyo80** 向け　自動投稿システム
 
 ---
 

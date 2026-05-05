@@ -519,7 +519,7 @@
 
 ## 主な業務
 - こころのまつきよブランドの占い・恋愛鑑定
-- Threads（@todaysdragon）の投稿運用
+- Threads（@kokoronomatsukiyo80）の投稿運用
 - note（note.com/miraclecycle369）の記事執筆・販売
 - メルカリ・store（kokoronomatsukiyo.stores.jp）での鑑定販売
 - X・Instagramの運用
