@@ -1,0 +1,31 @@
+name: 朝鑑定誘導 自動投稿
+
+on:
+  schedule:
+    - cron: '0 20 * * *'  # 5時 JST
+    - cron: '0 21 * * *'  # 6時 JST
+    - cron: '0 22 * * *'  # 7時 JST
+    - cron: '0 23 * * *'  # 8時 JST
+    - cron: '0 0 * * *'   # 9時 JST
+  workflow_dispatch:       # 手動実行ボタン（テスト用）
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Python セットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 依存パッケージをインストール
+        run: pip install -r requirements.txt
+
+      - name: Threadsに投稿
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+        run: python poster.py
