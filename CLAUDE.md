@@ -1,22 +1,22 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルは、リポジトリ内のコードを扱う際に Claude Code (claude.ai/code) へ指示を提供します。
 
-## Project Overview
+## プロジェクト概要
 
-`notion-twitter-auto-post` is an early-stage project. As of the initial commit, no application code, dependencies, or tooling have been added yet. This file should be updated as the project takes shape.
+`notion-twitter-auto-post` は初期段階のプロジェクトです。初回コミット時点では、アプリケーションコード・依存関係・ツール設定はまだ存在しません。プロジェクトが具体化されたら、このファイルを随時更新してください。
 
-## Current State
+## 現在の状態
 
-- `README.md` exists but is empty.
-- No language runtime, package manager, or build system has been chosen yet.
-- No tests, linter, or CI configuration exists.
+- `README.md` は存在するが内容は空。
+- 言語ランタイム・パッケージマネージャー・ビルドシステムは未選定。
+- テスト・リンター・CI 設定は未作成。
 
-## Next Steps for Setup
+## 初期設定後に追記すべき内容
 
-When the project is initialized, update this file to include:
+プロジェクトが初期化されたら、以下の情報をこのファイルに追記してください。
 
-1. **Build / run commands** — how to install dependencies, start the app, and run tests.
-2. **Architecture overview** — how the Notion polling/webhook side connects to the Twitter posting side (authentication flow, data transformation, scheduling).
-3. **Environment variables** — which secrets are required (Notion API key, Twitter/X bearer token, OAuth credentials) and where they are loaded from (e.g., `.env`, secret manager).
-4. **Data flow** — the pipeline from a Notion page/database entry being detected as "ready to publish" through to a tweet being posted and the Notion record being marked as done.
+1. **ビルド／実行コマンド** — 依存関係のインストール方法、アプリの起動方法、テストの実行方法。
+2. **アーキテクチャ概要** — Notion のポーリング／Webhook 側と Twitter への投稿側がどのように連携するか（認証フロー・データ変換・スケジューリング）。
+3. **環境変数** — 必要なシークレット（Notion API キー、Twitter/X ベアラートークン、OAuth 認証情報など）と、それらの読み込み元（`.env`、シークレットマネージャーなど）。
+4. **データフロー** — Notion のページ／データベースエントリが「投稿準備完了」と判定されてからツイートが投稿され、Notion のレコードが完了済みとしてマークされるまでの一連のパイプライン。
