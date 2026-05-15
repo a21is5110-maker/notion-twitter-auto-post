@@ -1,17 +1,17 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルは、リポジトリ内のコードを扱う際に Claude Code（claude.ai/code）へのガイダンスを提供します。
 
-## Project Overview
+## プロジェクト概要
 
-`notion-twitter-auto-post` is a project intended to automatically post content from Notion to Twitter/X. The repository is currently in its initial bootstrapping phase — no implementation exists yet beyond an empty README.md.
+`notion-twitter-auto-post` は、Notion のコンテンツを Twitter/X へ自動投稿することを目的としたプロジェクトです。現在はリポジトリの初期段階であり、空の README.md 以外に実装は存在しません。
 
-## Current State
+## 現在の状態
 
-This repository has no source code, no build system, no tests, and no package configuration. When implementation begins, update this file with:
+ソースコード・ビルドシステム・テスト・パッケージ設定はまだ何もありません。実装を開始する際は、このファイルを以下の内容で更新してください。
 
-- The chosen runtime/language and how to install dependencies
-- Build, lint, and test commands
-- The architecture of the Notion → Twitter pipeline (polling strategy, scheduling, data mapping)
-- How credentials/secrets are managed (environment variables, secret store, etc.)
-- Any Notion API or Twitter/X API quirks discovered during development
+- 選択したランタイム／言語と依存関係のインストール方法
+- ビルド・リント・テストの実行コマンド
+- Notion → Twitter パイプラインのアーキテクチャ（ポーリング戦略・スケジューリング・データマッピング）
+- 認証情報／シークレットの管理方法（環境変数・シークレットストアなど）
+- 開発中に判明した Notion API または Twitter/X API の注意点
