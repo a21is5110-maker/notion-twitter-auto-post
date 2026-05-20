@@ -128,6 +128,12 @@ def post_to_x(client: tweepy.Client, text: str) -> str:
     return str(response.data["id"])
 
 
+def like_tweet(client: tweepy.Client, tweet_id: str) -> None:
+    """自分のツイートにいいね（大好き❤️）をつける。"""
+    me = client.get_me()
+    client.like(user_id=me.data.id, tweet_id=tweet_id)
+
+
 def run() -> None:
     notion = get_notion_client()
     x_client = get_x_client()
@@ -155,6 +161,11 @@ def run() -> None:
             tweet_id = post_to_x(x_client, text)
             mark_as_posted(notion, page_id)
             log.info("Posted tweet %s for page %s.", tweet_id, page_id)
+            try:
+                like_tweet(x_client, tweet_id)
+                log.info("Liked tweet %s ❤️", tweet_id)
+            except Exception as like_exc:
+                log.warning("Could not like tweet %s: %s", tweet_id, like_exc)
             posted += 1
         except Exception as exc:
             log.error("Failed to post page %s: %s", page_id, exc)
