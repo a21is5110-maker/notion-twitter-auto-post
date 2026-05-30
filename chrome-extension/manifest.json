@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "note → X 拡散ツール",
+  "version": "1.0",
+  "description": "noteの記事導入部をXに投稿してnoteへ流入させる",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["https://note.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://note.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
