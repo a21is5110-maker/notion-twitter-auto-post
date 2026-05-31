@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>恋のランプは、まだ消えていない。</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a1a;
+    --panel: #12122a;
+    --border: #3a2a6a;
+    --lamp-off: #2a1a4a;
+    --lamp-pink: #f472b6;
+    --lamp-purple: #c084fc;
+    --lamp-yellow: #fbbf24;
+    --lamp-blue: #60a5fa;
+    --reel-bg: #0d0d22;
+    --reel-border: #4a3a7a;
+    --text-main: #ffffff;
+    --text-sub: #c084fc;
+    --gold: #fbbf24;
+    --glow-pink: 0 0 20px #f472b6, 0 0 40px #f472b688;
+    --glow-purple: 0 0 20px #c084fc, 0 0 40px #c084fc88;
+  }
+
+  body {
+    font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic Pro', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 16px;
+    overflow-x: hidden;
+  }
+
+  /* ========== HEADER LAMPS ========== */
+  .header-lamps {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    align-items: center;
+  }
+
+  .lamp {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--lamp-off);
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+  .lamp.pink  { background: var(--lamp-pink);   box-shadow: var(--glow-pink); }
+  .lamp.purple{ background: var(--lamp-purple);  box-shadow: var(--glow-purple); }
+  .lamp.yellow{ background: var(--lamp-yellow);  box-shadow: 0 0 20px #fbbf24, 0 0 40px #fbbf2488; }
+  .lamp.blue  { background: var(--lamp-blue);    box-shadow: 0 0 20px #60a5fa, 0 0 40px #60a5fa88; }
+
+  /* ========== MACHINE FRAME ========== */
+  .machine {
+    width: 100%;
+    max-width: 375px;
+    background: linear-gradient(160deg, #1a1040 0%, #0e0e28 60%, #1a0a30 100%);
+    border: 3px solid var(--border);
+    border-radius: 20px;
+    padding: 20px 16px 24px;
+    box-shadow: 0 0 40px #6d28d944, inset 0 0 30px #00000066;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .machine::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #f472b6, #c084fc, #60a5fa, #c084fc, #f472b6);
+    background-size: 200% 100%;
+    animation: rainbow-bar 3s linear infinite;
+  }
+  @keyframes rainbow-bar {
+    0%   { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+  }
+
+  /* ========== TITLE ========== */
+  .machine-title {
+    text-align: center;
+    color: var(--lamp-pink);
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 10px #f472b6;
+    margin-bottom: 8px;
+  }
+
+  /* ========== BIG LAMP ========== */
+  .big-lamp-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .big-lamp {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--lamp-off);
+    border: 2px solid #3a2a6a;
+    transition: all 0.4s ease;
+    position: relative;
+  }
+  .big-lamp::after {
+    content: '';
+    position: absolute;
+    top: 4px; left: 4px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+  }
+  .big-lamp.on-pink   { background: #f472b6; box-shadow: var(--glow-pink);   border-color: #f472b6; }
+  .big-lamp.on-purple { background: #c084fc; box-shadow: var(--glow-purple);  border-color: #c084fc; }
+  .big-lamp.on-yellow { background: #fbbf24; box-shadow: 0 0 20px #fbbf24, 0 0 50px #fbbf2466; border-color: #fbbf24; }
+
+  /* ========== REEL WINDOW ========== */
+  .reel-frame {
+    background: #050510;
+    border: 3px solid var(--reel-border);
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: inset 0 0 20px #00000088;
+    margin-bottom: 14px;
+    position: relative;
+  }
+
+  .reel-frame::before,
+  .reel-frame::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 32px;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .reel-frame::before {
+    top: 8px;
+    background: linear-gradient(to bottom, #050510, transparent);
+    border-radius: 9px 9px 0 0;
+  }
+  .reel-frame::after {
+    bottom: 8px;
+    background: linear-gradient(to top, #050510, transparent);
+    border-radius: 0 0 9px 9px;
+  }
+
+  .reels-container {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .reel-col {
+    width: 88px;
+    height: 96px;
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid #2a1a4a;
+    background: var(--reel-bg);
+    position: relative;
+  }
+
+  .reel-strip {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    will-change: transform;
+  }
+
+  .reel-cell {
+    width: 88px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    border-bottom: 1px solid #1a1030;
+    user-select: none;
+  }
+
+  /* Center line highlight */
+  .reel-col::before {
+    content: '';
+    position: absolute;
+    top: 32px; left: 0; right: 0;
+    height: 32px;
+    background: rgba(192, 132, 252, 0.07);
+    border-top: 1px solid #4a3a7a;
+    border-bottom: 1px solid #4a3a7a;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  /* ========== STATUS TEXT ========== */
+  .status-text {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-sub);
+    letter-spacing: 0.1em;
+    min-height: 18px;
+    margin-bottom: 14px;
+    text-shadow: 0 0 8px #c084fc;
+    transition: opacity 0.3s;
+  }
+
+  /* ========== RESULT PANEL ========== */
+  .result-panel {
+    background: linear-gradient(135deg, #1a0a30, #0d0d22);
+    border: 2px solid var(--lamp-purple);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    text-align: center;
+    box-shadow: 0 0 20px #c084fc44;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .result-panel.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .result-axis {
+    font-size: 11px;
+    color: var(--lamp-yellow);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+    text-shadow: 0 0 8px #fbbf24;
+  }
+
+  .result-message {
+    font-size: 14px;
+    color: var(--text-main);
+    line-height: 1.6;
+    font-weight: 700;
+  }
+
+  /* ========== TAGLINE ========== */
+  .tagline {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--lamp-pink);
+    letter-spacing: 0.1em;
+    text-shadow: var(--glow-pink);
+    opacity: 0;
+    transition: opacity 1s ease;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+  .tagline.show { opacity: 1; }
+
+  /* ========== START BUTTON ========== */
+  .btn-start {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #9333ea, #c084fc);
+    border: none;
+    border-radius: 30px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    box-shadow: 0 4px 20px #9333ea66;
+    transition: transform 0.1s, box-shadow 0.1s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-start::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: btn-shine 3s ease infinite;
+  }
+  @keyframes btn-shine {
+    0%   { left: -100%; }
+    40%  { left: 120%; }
+    100% { left: 120%; }
+  }
+  .btn-start:active { transform: scale(0.97); box-shadow: 0 2px 10px #9333ea66; }
+  .btn-start:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ========== FOOTER LAMPS ========== */
+  .footer-lamps {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 14px;
+  }
+  .footer-lamp {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--lamp-off);
+    transition: all 0.3s;
+  }
+
+  /* ========== AMBIENT PARTICLES ========== */
+  .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: float-up var(--dur, 4s) var(--delay, 0s) ease-in infinite;
+  }
+  @keyframes float-up {
+    0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.2; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+
+<div class="header-lamps" id="headerLamps">
+  <div class="lamp"></div>
+  <div class="lamp"></div>
+  <div class="lamp"></div>
+  <div class="lamp"></div>
+  <div class="lamp"></div>
+  <div class="lamp"></div>
+  <div class="lamp"></div>
+</div>
+
+<div class="machine">
+
+  <div class="machine-title">✦ KOI NO LAMP ✦</div>
+
+  <div class="big-lamp-row" id="bigLamps">
+    <div class="big-lamp" id="bl0"></div>
+    <div class="big-lamp" id="bl1"></div>
+    <div class="big-lamp" id="bl2"></div>
+    <div class="big-lamp" id="bl3"></div>
+    <div class="big-lamp" id="bl4"></div>
+  </div>
+
+  <div class="reel-frame">
+    <div class="reels-container">
+      <div class="reel-col"><div class="reel-strip" id="reel0"></div></div>
+      <div class="reel-col"><div class="reel-strip" id="reel1"></div></div>
+      <div class="reel-col"><div class="reel-strip" id="reel2"></div></div>
+    </div>
+  </div>
+
+  <div class="status-text" id="statusText">リールを回して、今の気持ちを確かめよう</div>
+
+  <div class="result-panel" id="resultPanel">
+    <div class="result-axis" id="resultAxis">判断軸</div>
+    <div class="result-message" id="resultMessage">メッセージ</div>
+  </div>
+
+  <div class="tagline" id="tagline">
+    恋のランプは、<br>まだ消えていない。
+  </div>
+
+  <button class="btn-start" id="btnStart" onclick="startReel()">
+    ❤ リールを回す ❤
+  </button>
+
+  <div class="footer-lamps" id="footerLamps">
+    <div class="footer-lamp"></div>
+    <div class="footer-lamp"></div>
+    <div class="footer-lamp"></div>
+    <div class="footer-lamp"></div>
+    <div class="footer-lamp"></div>
+    <div class="footer-lamp"></div>
+    <div class="footer-lamp"></div>
+    <div class="footer-lamp"></div>
+    <div class="footer-lamp"></div>
+  </div>
+
+</div>
+
+<script>
+// ====== SYMBOLS ======
+const SYMBOLS = ['💜','🩷','💛','💙','🤍','⭐','🌙','💫','✨','🌸'];
+
+const RESULTS = [
+  {
+    axis: '🌡 最後の言葉の温度',
+    message: 'あの一言は、冷たかった？\nそれとも…照れてただけかもしれない。'
+  },
+  {
+    axis: '🕊 今追うか、待つか',
+    message: '動くのは今じゃないかもしれない。\n少しだけ、待つ勇気を持ってみて。'
+  },
+  {
+    axis: '↔ 距離感',
+    message: '近すぎず、遠すぎず。\nその「間」にこそ、答えがある。'
+  },
+  {
+    axis: '〜 関係の流れ',
+    message: '流れはまだ、続いている。\n止まったわけじゃない。'
+  }
+];
+
+// ====== BUILD REELS ======
+function buildReel(id) {
+  const strip = document.getElementById(id);
+  const cells = [];
+  for (let i = 0; i < 30; i++) {
+    const sym = SYMBOLS[i % SYMBOLS.length];
+    cells.push(`<div class="reel-cell">${sym}</div>`);
+  }
+  strip.innerHTML = cells.join('');
+}
+['reel0','reel1','reel2'].forEach(buildReel);
+
+// ====== PARTICLES ======
+(function initParticles() {
+  const colors = ['#f472b6','#c084fc','#60a5fa','#fbbf24'];
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 6 + 3;
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      background:${colors[i % colors.length]};
+      left:${Math.random() * 100}%;
+      --dur:${3 + Math.random() * 5}s;
+      --delay:${Math.random() * 5}s;
+    `;
+    container.appendChild(p);
+  }
+})();
+
+// ====== AMBIENT LAMP FLICKER ======
+const headerLamps = document.querySelectorAll('#headerLamps .lamp');
+const lampColors = ['pink','purple','yellow','blue'];
+function ambientLamps() {
+  headerLamps.forEach(l => l.className = 'lamp');
+  const count = Math.floor(Math.random() * 4) + 2;
+  const shuffled = [...headerLamps].sort(() => Math.random() - 0.5);
+  shuffled.slice(0, count).forEach(l => {
+    l.classList.add(lampColors[Math.floor(Math.random() * lampColors.length)]);
+  });
+}
+setInterval(ambientLamps, 800);
+ambientLamps();
+
+const footerLamps = document.querySelectorAll('#footerLamps .footer-lamp');
+const fColors = ['#f472b6','#c084fc','#fbbf24','#60a5fa'];
+function footerFlicker() {
+  footerLamps.forEach(l => {
+    if (Math.random() > 0.4) {
+      const c = fColors[Math.floor(Math.random() * fColors.length)];
+      l.style.background = c;
+      l.style.boxShadow = `0 0 8px ${c}`;
+    } else {
+      l.style.background = 'var(--lamp-off)';
+      l.style.boxShadow = 'none';
+    }
+  });
+}
+setInterval(footerFlicker, 600);
+footerFlicker();
+
+// ====== BIG LAMPS ======
+const bigLampColors = ['on-pink','on-purple','on-yellow','on-purple','on-pink'];
+function setBigLamps(pattern) {
+  for (let i = 0; i < 5; i++) {
+    const el = document.getElementById('bl' + i);
+    el.className = 'big-lamp';
+    if (pattern[i]) el.classList.add(pattern[i]);
+  }
+}
+
+// ====== REEL ANIMATION ======
+const CELL_H = 32;
+let spinning = [false, false, false];
+let positions = [0, 0, 0];
+let animIds = [null, null, null];
+let speeds = [0, 0, 0];
+
+function spinReel(idx, speed) {
+  speeds[idx] = speed;
+  spinning[idx] = true;
+
+  function frame() {
+    if (!spinning[idx]) return;
+    positions[idx] += speeds[idx];
+    const strip = document.getElementById('reel' + idx);
+    const totalH = CELL_H * 30;
+    if (positions[idx] >= totalH) positions[idx] -= totalH;
+    strip.style.transform = `translateY(-${positions[idx]}px)`;
+    animIds[idx] = requestAnimationFrame(frame);
+  }
+  animIds[idx] = requestAnimationFrame(frame);
+}
+
+function stopReel(idx, onDone) {
+  spinning[idx] = false;
+  cancelAnimationFrame(animIds[idx]);
+
+  // snap to cell boundary
+  const snap = Math.round(positions[idx] / CELL_H) * CELL_H;
+  const strip = document.getElementById('reel' + idx);
+  strip.style.transition = 'transform 0.25s ease-out';
+  strip.style.transform = `translateY(-${snap}px)`;
+  positions[idx] = snap;
+
+  setTimeout(() => {
+    strip.style.transition = '';
+    if (onDone) onDone();
+  }, 300);
+}
+
+function setStatus(text) {
+  document.getElementById('statusText').textContent = text;
+}
+
+function startReel() {
+  const btn = document.getElementById('btnStart');
+  btn.disabled = true;
+
+  // reset
+  const resultPanel = document.getElementById('resultPanel');
+  const tagline = document.getElementById('tagline');
+  resultPanel.classList.remove('show');
+  tagline.classList.remove('show');
+
+  setStatus('リールが回っている…');
+  setBigLamps(['on-pink','on-purple','on-yellow','on-purple','on-pink']);
+
+  // start all 3 reels
+  spinReel(0, 4.5);
+  spinReel(1, 5.0);
+  spinReel(2, 4.8);
+
+  // t=1.5s: stop reel 0
+  setTimeout(() => {
+    stopReel(0, () => {
+      setStatus('止まった…？');
+      setBigLamps(['on-yellow','on-purple',null,'on-purple','on-yellow']);
+    });
+  }, 1500);
+
+  // t=3.0s: reel 1 slips 1 cell then continues
+  setTimeout(() => {
+    setStatus('…まだ動いてる');
+    const strip1 = document.getElementById('reel1');
+    // visual slip: slow down briefly
+    speeds[1] = 1.5;
+    setTimeout(() => { speeds[1] = 5.2; }, 400);
+  }, 3000);
+
+  // t=4.5s: stop reel 1
+  setTimeout(() => {
+    stopReel(1, () => {
+      setStatus('あと1コマ…');
+      setBigLamps([null,'on-pink','on-purple','on-pink',null]);
+    });
+    // reel 2 slows then kicks again
+    speeds[2] = 1.2;
+    setTimeout(() => { speeds[2] = 4.9; }, 500);
+  }, 4500);
+
+  // t=5.8s: stop reel 2
+  setTimeout(() => {
+    stopReel(2, () => {
+      // show result
+      const r = RESULTS[Math.floor(Math.random() * RESULTS.length)];
+      document.getElementById('resultAxis').textContent = r.axis;
+      document.getElementById('resultMessage').textContent = r.message;
+      resultPanel.classList.add('show');
+
+      setBigLamps(['on-pink','on-yellow','on-purple','on-yellow','on-pink']);
+      setStatus('答えが、見えてきた');
+
+      // t=7s tagline
+      setTimeout(() => {
+        tagline.classList.add('show');
+        setBigLamps(['on-purple','on-pink','on-yellow','on-pink','on-purple']);
+        btn.disabled = false;
+        btn.textContent = '❤ もう一度回す ❤';
+      }, 1200);
+    });
+  }, 5800);
+}
+</script>
+</body>
+</html>
