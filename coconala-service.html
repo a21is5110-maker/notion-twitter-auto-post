@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coconalaサービスページ 掲載用コンテンツ｜こころのまつきよ</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0410; --bg2: #110820; --card: #160c28;
+      --border: #2e1a50; --gold: #c8a04a; --gold2: #eedda0;
+      --purple: #9b6dc5; --muted: #9480b0; --text: #f0e8ff;
+      --rose: #d4708a; --green: #4ade80; --r: 12px;
+    }
+    body { font-family: -apple-system, 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+    .w { max-width: 820px; margin: 0 auto; padding: 24px 20px; }
+
+    /* ---- TABS ---- */
+    .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 40px; }
+    .tab {
+      padding: 12px 24px; cursor: pointer;
+      font-size: .9rem; font-weight: 600; color: var(--muted);
+      border-bottom: 2px solid transparent; margin-bottom: -2px;
+      transition: all .2s;
+    }
+    .tab.active { color: var(--gold); border-color: var(--gold); }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ---- SECTION ---- */
+    .sec { margin-bottom: 48px; }
+    .sec-head {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 16px;
+    }
+    .sec-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(200,160,74,.2); color: var(--gold);
+      font-weight: 800; font-size: .85rem;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .sec-title { font-size: 1rem; font-weight: 700; color: var(--gold2); }
+    .copy-btn {
+      margin-left: auto; background: rgba(200,160,74,.15); border: 1px solid var(--gold);
+      border-radius: 6px; color: var(--gold); padding: 4px 12px;
+      font-size: .75rem; cursor: pointer; transition: background .2s;
+    }
+    .copy-btn:hover { background: rgba(200,160,74,.3); }
+
+    .content-box {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 20px 22px;
+      font-size: .9rem; color: var(--text); line-height: 2;
+      white-space: pre-wrap; word-break: break-word;
+    }
+    .note {
+      font-size: .8rem; color: var(--muted); margin-top: 8px;
+      padding: 8px 12px; border-left: 2px solid var(--border);
+    }
+
+    /* ---- PURCHASE FLOW PREVIEW ---- */
+    .flow-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 28px 24px; margin-bottom: 16px;
+    }
+    .flow-title { font-weight: 700; color: var(--gold2); margin-bottom: 6px; }
+    .flow-desc { font-size: .875rem; color: var(--muted); }
+    .flow-arrow { text-align: center; color: var(--purple); font-size: 1.4rem; margin: 6px 0; }
+
+    /* ---- COCONALA PREVIEW ---- */
+    .coconala-mock {
+      background: #fff; border-radius: var(--r); overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,.5);
+      font-family: -apple-system, sans-serif;
+      color: #333;
+    }
+    .mock-header {
+      background: #f8971d;
+      padding: 12px 20px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .mock-logo { color: #fff; font-weight: 900; font-size: 1.2rem; }
+    .mock-body { padding: 24px; }
+    .mock-title { font-size: 1.25rem; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; line-height: 1.4; }
+    .mock-stars { color: #f8971d; font-size: .9rem; margin-bottom: 16px; }
+    .mock-catch {
+      background: linear-gradient(135deg, #f8f0ff, #fff0f8);
+      border-left: 4px solid #9b59b6;
+      padding: 14px 16px; margin-bottom: 20px;
+      font-size: .9rem; line-height: 1.8; color: #333;
+      border-radius: 0 8px 8px 0;
+    }
+    .mock-section-title { font-weight: 700; color: #1a1a2e; margin: 20px 0 8px; font-size: .95rem; }
+    .mock-list { list-style: none; }
+    .mock-list li { display: flex; gap: 8px; padding: 6px 0; font-size: .875rem; color: #555; border-bottom: 1px solid #f0f0f0; }
+    .mock-list li::before { content: '✦'; color: #9b59b6; flex-shrink: 0; }
+    .mock-pkg {
+      border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px;
+      margin-bottom: 12px; position: relative;
+    }
+    .mock-pkg.popular { border-color: #f8971d; }
+    .mock-popular-badge {
+      position: absolute; top: -10px; right: 12px;
+      background: #f8971d; color: #fff;
+      font-size: .7rem; font-weight: 700;
+      padding: 2px 10px; border-radius: 999px;
+    }
+    .mock-pkg-name { font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+    .mock-pkg-price { font-size: 1.4rem; font-weight: 900; color: #f8971d; }
+    .mock-pkg-desc { font-size: .8rem; color: #777; margin-top: 4px; }
+    .mock-buy-btn {
+      display: block; width: 100%;
+      background: linear-gradient(135deg, #f8971d, #e07b00);
+      color: #fff; border: none; border-radius: 8px;
+      padding: 16px; font-size: 1rem; font-weight: 700;
+      text-align: center; cursor: pointer; margin-top: 20px;
+    }
+    .mock-urgency {
+      text-align: center; font-size: .8rem; color: #e74c3c;
+      margin-top: 8px; font-weight: 600;
+    }
+    .mock-faq-item { padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+    .mock-faq-q { font-weight: 600; font-size: .875rem; color: #333; margin-bottom: 4px; }
+    .mock-faq-a { font-size: .85rem; color: #777; line-height: 1.7; }
+
+    /* ---- PLACEMENT GUIDE ---- */
+    .placement-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .placement-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 20px;
+    }
+    .placement-card h4 { font-size: .9rem; font-weight: 700; color: var(--gold2); margin-bottom: 8px; }
+    .placement-card p { font-size: .825rem; color: var(--muted); line-height: 1.7; }
+    .tag { display: inline-block; background: rgba(200,160,74,.15); border: 1px solid rgba(200,160,74,.3); border-radius: 999px; padding: 2px 10px; font-size: .72rem; color: var(--gold); margin-bottom: 8px; }
+    .tag.red { background: rgba(212,112,138,.15); border-color: rgba(212,112,138,.3); color: var(--rose); }
+    .tag.green { background: rgba(74,222,128,.1); border-color: rgba(74,222,128,.3); color: var(--green); }
+
+    h1 { font-size: 1.4rem; font-weight: 800; color: var(--gold2); margin-bottom: 8px; }
+    .subtitle { color: var(--muted); font-size: .9rem; margin-bottom: 32px; }
+
+    @media (max-width: 480px) { .tab { padding: 10px 14px; font-size: .8rem; } }
+  </style>
+</head>
+<body>
+<div class="w">
+  <h1>🔮 Coconalaサービスページ 掲載用コンテンツ</h1>
+  <p class="subtitle">こころのまつきよ｜復縁霊視 — 各テキストをそのままCoconalaにコピペしてください</p>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showPanel('copy')">📋 コピペ用テキスト</div>
+    <div class="tab" onclick="showPanel('preview')">👁 ページプレビュー</div>
+    <div class="tab" onclick="showPanel('placement')">📍 配置・導線ガイド</div>
+  </div>
+
+  <!-- ====== PANEL 1: コピペ ====== -->
+  <div class="panel active" id="panel-copy">
+
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-num">1</div>
+        <div class="sec-title">サービスタイトル（SEO重要）</div>
+        <button class="copy-btn" onclick="copyText('title1')">コピー</button>
+      </div>
+      <div class="content-box" id="title1">【既読スルー・音信不通】彼の気持ちと今後の流れを手相&霊視で視ます</div>
+      <p class="note">※ Coconalaの検索で引っかかるキーワードを先頭に。「既読スルー」「音信不通」は検索ボリュームが高い。</p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-num">2</div>
+        <div class="sec-title">サービス説明文（冒頭キャッチ）</div>
+        <button class="copy-btn" onclick="copyText('catch1')">コピー</button>
+      </div>
+      <div class="content-box" id="catch1">「もう限界…」そう感じているあなたへ。
+
+既読スルー、音信不通、曖昧なまま止まっている関係——
+不安だから送りたい気持ち、すごくわかります。
+でも、「なんとなく送る」は、かなりの確率で逆効果なんです。
+
+私は霊視と手相で「彼の今の本音」と「あなたが動くべきタイミング」を
+具体的にお伝えします。感覚ではなく、状況ベースで判断できる状態にします。
+
+やさしく、でも曖昧にせず。それが私のスタイルです。</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-num">3</div>
+        <div class="sec-title">こんな方にご依頼いただいています</div>
+        <button class="copy-btn" onclick="copyText('target1')">コピー</button>
+      </div>
+      <div class="content-box" id="target1">✦ 既読スルーが続いて、彼の気持ちが全くわからない
+✦ 音信不通になって、どう動けばいいか判断できない
+✦ 「好きだけど曖昧なまま」の状態に疲れてきた
+✦ 複雑な事情（既婚者・W不倫・年の差など）があって誰にも話せない
+✦ 復縁したいが、今動くべきかどうか確信が持てない
+✦ 占いで「大丈夫」と言われ続けたのに何も変わらなかった経験がある</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-num">4</div>
+        <div class="sec-title">鑑定でお伝えする内容</div>
+        <button class="copy-btn" onclick="copyText('content1')">コピー</button>
+      </div>
+      <div class="content-box" id="content1">【基本鑑定で視ること】
+① 彼の今の本音・あなたへの感情
+② 関係の現状と今後の流れ
+③ 連絡を入れるべきか・待つべきかの判断
+④ 最適な行動タイミング
+
+【オプション追加（ランチ）で追加できること】
+⑤ 関係の分岐点となるターニングポイントの特定
+⑥ 2〜3パターンの未来シナリオ
+
+【オプション追加（ディナー）で追加できること】
+⑦ 上記すべてを深掘り
+⑧ 具体的な言葉・LINEの文面アドバイス
+⑨ 心理的なサポートメッセージ付き</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-num">5</div>
+        <div class="sec-title">購入時にお知らせください（必須情報）</div>
+        <button class="copy-btn" onclick="copyText('info1')">コピー</button>
+      </div>
+      <div class="content-box" id="info1">ご購入後のメッセージにて、以下をお知らせください。
+
+【必須】
+・あなたと彼の年齢
+・関係性（元彼、片思い、既婚者など）
+・現在の状況（最後の連絡からどのくらい経つか）
+・一番知りたいこと（例：「彼は今どう思っているか」「連絡すべきかどうか」など）
+
+【任意】
+・生年月日（より精度が上がります）
+・これまでの経緯を簡単に
+
+※ お相手の個人情報（フルネーム・住所など）は不要です。</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-num">6</div>
+        <div class="sec-title">プロフィール文（自己紹介欄）</div>
+        <button class="copy-btn" onclick="copyText('profile1')">コピー</button>
+      </div>
+      <div class="content-box" id="profile1">こころのまつきよ｜復縁・複雑恋愛の霊視鑑定士
+
+「もう諦めるべきなのか、まだ可能性はあるのか」
+答えが出ないまま何ヶ月も過ごしてきた方へ。
+
+私は霊視と手相を使って、彼の感情と関係の流れを視ます。
+「大丈夫ですよ」という言葉ではなく、
+「今はこういう状態で、このタイミングに動いてください」という
+具体的な判断材料をお渡しすることを大切にしています。
+
+特に30代女性の復縁・複雑恋愛を多く拝見しています。
+どんな事情でも批判しません。ただ、正直に向き合います。
+
+✦ 霊視歴：10年以上
+✦ 対応ジャンル：復縁・複雑恋愛・音信不通・不倫・片思い
+✦ 返信目安：24時間以内（平均2時間以内）</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-num">7</div>
+        <div class="sec-title">FAQ（よくある質問）</div>
+        <button class="copy-btn" onclick="copyText('faq1')">コピー</button>
+      </div>
+      <div class="content-box" id="faq1">Q. 複雑な関係（不倫・既婚者など）でも相談できますか？
+A. はい、どんな状況でも批判せず対応します。ニックネームでのご利用も可能です。
+
+Q. 占い初めてで緊張しています。
+A. 初めての方が多くいらっしゃいます。まずメッセージだけでも大丈夫です。購入前のご質問も歓迎します。
+
+Q. 結果が希望通りでない場合はどうなりますか？
+A. 現状の流れを正直にお伝えします。厳しい結果でも「ではどう動くか」まで一緒に考えます。
+
+Q. 鑑定にはどのくらい時間がかかりますか？
+A. 購入後、平均2時間以内にお返事しています。最長でも24時間以内を目安にしています。
+
+Q. 生年月日がわからなくても大丈夫ですか？
+A. 大丈夫です。なくても霊視は可能です。あれば精度が上がる程度です。</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-num">8</div>
+        <div class="sec-title">サービスタグ・検索キーワード</div>
+        <button class="copy-btn" onclick="copyText('tags1')">コピー</button>
+      </div>
+      <div class="content-box" id="tags1">復縁占い　既読スルー　音信不通　彼の気持ち　複雑恋愛　不倫相談　片思い　霊視鑑定　手相　復縁可能性　連絡すべきか　タロット　恋愛相談　復縁アドバイス</div>
+      <p class="note">※ Coconalaのタグ設定欄に入力。最大10個まで。最も検索される順に設定してください。</p>
+    </div>
+
+  </div><!-- /panel-copy -->
+
+  <!-- ====== PANEL 2: プレビュー ====== -->
+  <div class="panel" id="panel-preview">
+    <div class="coconala-mock">
+      <div class="mock-header">
+        <span class="mock-logo">coconala</span>
+      </div>
+      <div class="mock-body">
+        <div class="mock-title">【既読スルー・音信不通】彼の気持ちと今後の流れを手相&霊視で視ます</div>
+        <div class="mock-stars">⭐ 5.0 &nbsp;|&nbsp; 出品者：こころのまつきよ｜復縁霊視 &nbsp;|&nbsp; 残り2枠</div>
+
+        <div class="mock-catch">
+          「もう限界…」そう感じているあなたへ。<br><br>
+          既読スルー、音信不通、曖昧なまま止まっている関係——<br>
+          不安だから送りたい気持ち、すごくわかります。<br>
+          でも、「なんとなく送る」は、かなりの確率で逆効果なんです。<br><br>
+          <strong>私は霊視と手相で「彼の今の本音」と「あなたが動くべきタイミング」を具体的にお伝えします。</strong>
+        </div>
+
+        <!-- パッケージ -->
+        <div class="mock-section-title">📦 プランを選ぶ</div>
+
+        <div class="mock-pkg">
+          <div class="mock-pkg-name">🌙 基本鑑定</div>
+          <div class="mock-pkg-price">¥1,500</div>
+          <div class="mock-pkg-desc">彼の気持ち・今後の流れ・行動タイミング</div>
+        </div>
+
+        <div class="mock-pkg popular">
+          <div class="mock-popular-badge">人気No.1</div>
+          <div class="mock-pkg-name">✦ 流れ＆分岐点分析（ランチ）</div>
+          <div class="mock-pkg-price">¥5,000</div>
+          <div class="mock-pkg-desc">基本鑑定＋ターニングポイント特定・複数シナリオ</div>
+        </div>
+
+        <div class="mock-pkg">
+          <div class="mock-pkg-name">🔮 完全深掘り鑑定（ディナー）</div>
+          <div class="mock-pkg-price">¥10,000</div>
+          <div class="mock-pkg-desc">全項目徹底鑑定＋LINE文面アドバイス付き</div>
+        </div>
+
+        <button class="mock-buy-btn">✦ このサービスを購入する ✦</button>
+        <div class="mock-urgency">⚠ 残り2枠 — 今月の受付は埋まり次第締め切ります</div>
+
+        <!-- こんな方へ -->
+        <div class="mock-section-title">✦ こんな方にご依頼いただいています</div>
+        <ul class="mock-list">
+          <li>既読スルーが続いて、彼の気持ちが全くわからない</li>
+          <li>音信不通になって、どう動けばいいか判断できない</li>
+          <li>複雑な事情（既婚者・不倫・年の差）があって誰にも話せない</li>
+          <li>「大丈夫」と言われ続けたのに変わらなかった経験がある</li>
+        </ul>
+
+        <!-- FAQ -->
+        <div class="mock-section-title">❓ よくある質問</div>
+        <div class="mock-faq-item">
+          <div class="mock-faq-q">Q. 複雑な関係（不倫・既婚者）でも相談できますか？</div>
+          <div class="mock-faq-a">はい、どんな状況でも批判せず対応します。匿名OK。</div>
+        </div>
+        <div class="mock-faq-item">
+          <div class="mock-faq-q">Q. 鑑定にはどのくらいかかりますか？</div>
+          <div class="mock-faq-a">平均2時間以内にお返事。最長24時間以内。</div>
+        </div>
+
+        <button class="mock-buy-btn" style="margin-top:24px;">✦ このサービスを購入する ✦</button>
+        <div class="mock-urgency">⚠ 残り2枠</div>
+      </div>
+    </div>
+  </div><!-- /panel-preview -->
+
+  <!-- ====== PANEL 3: 配置ガイド ====== -->
+  <div class="panel" id="panel-placement">
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-num">!</div>
+        <div class="sec-title">売れるページの配置原則</div>
+      </div>
+      <div class="placement-grid">
+        <div class="placement-card">
+          <div class="tag green">最重要</div>
+          <h4>① 冒頭3行で共感を取る</h4>
+          <p>「既読スルー・音信不通」のキーワードを冒頭に。悩みを言語化してあげると「この人わかってくれる」と感じ読み続けてもらえる。</p>
+        </div>
+        <div class="placement-card">
+          <div class="tag red">購入率直結</div>
+          <h4>② 購入ボタンは3回登場させる</h4>
+          <p>冒頭・中間・末尾。Coconalaは説明文の中に購入リンクは入れられないが、パッケージを上部に表示させることで「最初に見える」位置に置ける。</p>
+        </div>
+        <div class="placement-card">
+          <div class="tag">信頼構築</div>
+          <h4>③ 「残り枠数」を使う</h4>
+          <p>「残り2枠」の表示は購入を急かす最強の要素。Coconalaの在庫数設定を常に少なめ（2〜3）に設定する。</p>
+        </div>
+        <div class="placement-card">
+          <div class="tag red">離脱防止</div>
+          <h4>④ 「初めてでも大丈夫」を明記</h4>
+          <p>占い未経験者は「失礼にならないか」「何を言えばいいか」を不安に感じる。FAQで先に解消しておく。</p>
+        </div>
+        <div class="placement-card">
+          <div class="tag green">CV率UP</div>
+          <h4>⑤ 中間プランを「人気No.1」にする</h4>
+          <p>¥5,000のランチプランに「人気No.1」バッジを付ける。人は極端を避けるため、真ん中が一番売れる（松竹梅効果）。</p>
+        </div>
+        <div class="placement-card">
+          <div class="tag">SEO</div>
+          <h4>⑥ タイトルに検索ワードを入れる</h4>
+          <p>「既読スルー」「音信不通」「彼の気持ち」はCoconala内検索で上位表示される。必ずタイトル先頭に入れる。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-num">→</div>
+        <div class="sec-title">購入までの導線設計</div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-title">STEP 1｜集客（外部LP → Coconala）</div>
+        <div class="flow-desc">affiliate.html（GitHub Pages）からCoconalaサービスページへ誘導。SNS・X投稿・ブログからもリンク。</div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-card">
+        <div class="flow-title">STEP 2｜共感・信頼（ページ冒頭〜中間）</div>
+        <div class="flow-desc">「既読スルー・音信不通」の悩みに共感 → 具体的な鑑定内容 → FAQ で不安解消</div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-card">
+        <div class="flow-title">STEP 3｜購入決断（パッケージ選択）</div>
+        <div class="flow-desc">3プランを見せ、真ん中（¥5,000）を「人気No.1」として誘導。残り枠数で緊急性を演出。</div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-card">
+        <div class="flow-title">STEP 4｜購入後フォロー</div>
+        <div class="flow-desc">購入直後に「ありがとうメッセージ」を即送信。安心感を与え、リピート・レビュー投稿につなげる。</div>
+      </div>
+    </div>
+  </div><!-- /panel-placement -->
+
+</div>
+
+<script>
+  function showPanel(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function copyText(id) {
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = event.target;
+      btn.textContent = 'コピーしました！';
+      setTimeout(() => btn.textContent = 'コピー', 2000);
+    });
+  }
+</script>
+</body>
+</html>
