@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>復縁・複雑恋愛｜霊視鑑定 こころのまつきよ</title>
+  <meta name="description" content="相手の気持ちが分からず苦しい…復縁・複雑恋愛に特化した霊視鑑定士「こころのまつきよ」が、今のあなたの状況を丁寧に視ます。" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #08040f;
+      --bg2:    #100820;
+      --card:   #130a22;
+      --border: #2e1a50;
+      --gold:   #c8a04a;
+      --gold2:  #eedda0;
+      --purple: #9b6dc5;
+      --muted:  #9480b0;
+      --text:   #f0e8ff;
+      --rose:   #d4708a;
+      --r:      14px;
+    }
+
+    body {
+      font-family: 'Noto Serif JP', serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.9;
+      overflow-x: hidden;
+    }
+
+    /* ---- 星空背景 ---- */
+    .sky {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 50% at 30% 10%, rgba(155,109,197,.18), transparent),
+        radial-gradient(ellipse 60% 40% at 75% 85%, rgba(212,112,138,.12), transparent),
+        var(--bg);
+    }
+    .sky::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(1px 1px at  8% 12%, #fff, transparent),
+        radial-gradient(1px 1px at 22%  4%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 45% 18%, #f8e9a1, transparent),
+        radial-gradient(1px 1px at 63%  8%, #fff, transparent),
+        radial-gradient(1px 1px at 82% 22%, #fff, transparent),
+        radial-gradient(1px 1px at 12% 38%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 35% 55%, #f8e9a1, transparent),
+        radial-gradient(1px 1px at 57% 47%, #fff, transparent),
+        radial-gradient(1px 1px at 78% 60%, #fff, transparent),
+        radial-gradient(2px 2px at 20% 72%, #f8e9a1, transparent),
+        radial-gradient(1px 1px at 50% 82%, #fff, transparent),
+        radial-gradient(1px 1px at 88% 75%, #fff, transparent),
+        radial-gradient(1px 1px at  5% 90%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 70% 92%, #f8e9a1, transparent);
+      opacity: .55;
+    }
+
+    /* ---- LAYOUT ---- */
+    .w { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+    /* ---- HERO ---- */
+    .hero {
+      text-align: center;
+      padding: 70px 20px 50px;
+      position: relative; z-index: 1;
+    }
+    .hero-icon { font-size: 3.2rem; display: block; margin-bottom: 14px; animation: float 5s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+    .hero-catch {
+      font-size: clamp(1.05rem, 3.5vw, 1.25rem);
+      color: var(--muted);
+      letter-spacing: .1em;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-size: clamp(1.7rem, 5vw, 2.5rem);
+      font-weight: 700;
+      color: var(--gold2);
+      line-height: 1.4;
+      letter-spacing: .04em;
+      text-shadow: 0 0 40px rgba(200,160,74,.45);
+      margin-bottom: 18px;
+    }
+    .hero-sub {
+      color: var(--muted);
+      font-size: .95rem;
+      max-width: 500px;
+      margin: 0 auto 36px;
+      line-height: 2;
+    }
+    .hero-name {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 5px 22px;
+      font-size: .85rem;
+      color: var(--gold);
+      letter-spacing: .12em;
+      margin-bottom: 36px;
+    }
+
+    /* ---- PAIN SECTION ---- */
+    .pain-card {
+      background: linear-gradient(135deg, var(--card), #1a0d30);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 36px 28px;
+      margin-bottom: 16px;
+    }
+    .pain-title {
+      color: var(--rose);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .pain-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .pain-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .95rem; color: var(--muted); line-height: 1.7;
+    }
+    .pain-list li::before { content: '…'; color: var(--rose); flex-shrink: 0; font-size: 1.1rem; }
+
+    /* ---- DIVIDER ---- */
+    .divider {
+      display: flex; align-items: center; gap: 10px;
+      margin: 32px 0;
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
+    .divider span { color: var(--gold); font-size: 1rem; }
+
+    /* ---- INTRO ---- */
+    .sec-label {
+      text-align: center; font-size: .78rem;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+    }
+    h2 {
+      text-align: center;
+      font-size: clamp(1.3rem, 4vw, 1.9rem);
+      font-weight: 700;
+      color: var(--gold2);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .profile-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 32px 28px;
+      display: flex; gap: 24px; align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .profile-avatar {
+      width: 90px; height: 90px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #4a1a8a, #8e2de2);
+      border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+    }
+    .profile-info { flex: 1; min-width: 180px; }
+    .profile-name { font-size: 1.2rem; font-weight: 700; color: var(--gold2); margin-bottom: 4px; }
+    .profile-tag {
+      display: inline-block;
+      background: rgba(200,160,74,.12);
+      border: 1px solid rgba(200,160,74,.3);
+      border-radius: 999px;
+      padding: 2px 12px;
+      font-size: .75rem; color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .profile-desc { font-size: .9rem; color: var(--muted); line-height: 1.9; }
+
+    /* ---- FEATURES ---- */
+    .features { display: flex; flex-direction: column; gap: 14px; }
+    .feat-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 22px 22px;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .feat-icon { font-size: 1.6rem; flex-shrink: 0; padding-top: 2px; }
+    .feat-title { font-size: .95rem; font-weight: 700; color: var(--gold2); margin-bottom: 5px; }
+    .feat-desc { font-size: .875rem; color: var(--muted); line-height: 1.8; }
+
+    /* ---- VOICE ---- */
+    .voices { display: flex; flex-direction: column; gap: 14px; }
+    .voice-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--rose);
+      border-radius: 0 var(--r) var(--r) 0;
+      padding: 20px 22px;
+    }
+    .voice-stars { color: var(--gold); font-size: .85rem; letter-spacing: 2px; margin-bottom: 8px; }
+    .voice-text { font-size: .9rem; color: var(--muted); line-height: 1.9; }
+    .voice-user { font-size: .8rem; color: var(--purple); margin-top: 10px; }
+
+    /* ---- CTA ---- */
+    .cta-card {
+      background: linear-gradient(160deg, #1c0a36, #2e0d5c);
+      border: 1px solid var(--gold);
+      border-radius: var(--r);
+      padding: 48px 28px;
+      text-align: center;
+      box-shadow: 0 0 80px rgba(155,109,197,.2);
+    }
+    .cta-card .icon { font-size: 2.4rem; display: block; margin-bottom: 14px; }
+    .cta-card h3 {
+      font-size: clamp(1.2rem, 3.5vw, 1.7rem);
+      font-weight: 700; color: var(--gold2);
+      line-height: 1.5; margin-bottom: 14px;
+    }
+    .cta-card p { color: var(--muted); font-size: .9rem; margin-bottom: 28px; line-height: 2; }
+
+    .cta-points {
+      display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 32px; text-align: left;
+    }
+    .cta-pt { display: flex; gap: 10px; align-items: flex-start; font-size: .9rem; color: var(--text); }
+    .cta-pt .ck { color: var(--gold); flex-shrink: 0; }
+
+    .btn-main {
+      display: block; width: 100%;
+      background: linear-gradient(135deg, #7b2ff7, #4a00b4);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      color: var(--gold2);
+      padding: 20px 24px;
+      font-size: 1.1rem;
+      font-family: inherit; font-weight: 700;
+      letter-spacing: .06em;
+      text-decoration: none;
+      transition: all .25s;
+      box-shadow: 0 6px 36px rgba(123,47,247,.5);
+      animation: glow 2.8s ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%,100% { box-shadow: 0 6px 36px rgba(123,47,247,.5); }
+      50%      { box-shadow: 0 6px 56px rgba(200,160,74,.4), 0 0 0 4px rgba(200,160,74,.1); }
+    }
+    .btn-main:hover { transform: translateY(-3px); }
+    .btn-main .sub { display: block; font-size: .78rem; font-weight: 400; opacity: .8; margin-top: 5px; }
+
+    .cta-note { font-size: .75rem; color: var(--muted); margin-top: 14px; line-height: 1.8; }
+
+    /* ---- FAQ ---- */
+    .faq { display: flex; flex-direction: column; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+    .faq-q {
+      display: flex; justify-content: space-between; gap: 12px;
+      cursor: pointer; font-size: .95rem; font-weight: 700; color: var(--gold2);
+    }
+    .faq-q .arr { color: var(--muted); transition: transform .25s; flex-shrink: 0; }
+    .faq-item.open .faq-q .arr { transform: rotate(180deg); }
+    .faq-a {
+      color: var(--muted); font-size: .875rem; line-height: 1.9;
+      max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding-top: 12px; }
+
+    /* ---- FOOTER ---- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .78rem;
+      line-height: 2;
+      position: relative; z-index: 1;
+    }
+
+    section { margin-bottom: 60px; }
+  </style>
+</head>
+<body>
+<div class="sky"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="w">
+    <span class="hero-icon">🔮</span>
+    <p class="hero-catch">― 復縁・複雑恋愛 霊視鑑定 ―</p>
+    <h1>相手の気持ちが分からなくて<br>もう限界…そう感じていませんか</h1>
+    <p class="hero-sub">
+      やさしく、でも曖昧にせず。<br>
+      あなたの状況を霊視で丁寧に視ます。
+    </p>
+    <span class="hero-name">こころのまつきよ｜復縁霊視</span>
+
+    <a href="https://coconala.com/services/4064307" class="btn-main" target="_blank" rel="noopener">
+      ✦ 今すぐ鑑定を申し込む ✦
+      <span class="sub">¥1,500〜 ｜ 評価 ⭐5.0 ｜ Coconalaで安全に購入</span>
+    </a>
+  </div>
+</div>
+
+<div class="w">
+
+  <!-- PAIN -->
+  <section>
+    <div class="pain-card">
+      <div class="pain-title">こんなお気持ちではありませんか？</div>
+      <ul class="pain-list">
+        <li>連絡が来なくなって、今どう思われているのか分からない</li>
+        <li>復縁できる可能性があるのか、もう諦めるべきなのか</li>
+        <li>好きな人に既婚者・複雑な事情があって誰にも相談できない</li>
+        <li>行動するタイミングが分からず、ずっと立ち止まっている</li>
+        <li>友人には言えない、でも一人で抱えるのはもう辛い</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- PROFILE -->
+  <section>
+    <div class="sec-label">About</div>
+    <h2>鑑定士のご紹介</h2>
+    <div class="profile-card">
+      <div class="profile-avatar">🌙</div>
+      <div class="profile-info">
+        <div class="profile-name">こころのまつきよ</div>
+        <span class="profile-tag">復縁・複雑恋愛 霊視専門</span>
+        <p class="profile-desc">
+          30代女性の復縁・複雑恋愛に特化した霊視鑑定士。<br>
+          「やさしく、でも曖昧にせず」をモットーに、相手の感情・関係の今後・行動時期を丁寧にお伝えします。感情的な判断から守るための、伴走型の鑑定スタイルが特徴です。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- FEATURES -->
+  <section>
+    <div class="sec-label">Service</div>
+    <h2>彼の気持ちと今後の流れを<br>手相&霊視で詳しく視ます</h2>
+    <div class="features">
+      <div class="feat-item">
+        <div class="feat-icon">💭</div>
+        <div>
+          <div class="feat-title">彼の本音・今の感情</div>
+          <div class="feat-desc">既読スルー・音信不通・曖昧な関係…その本当の理由を霊視で視ます。「連絡すべきか、待つべきか」が明確になります。</div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🌿</div>
+        <div>
+          <div class="feat-title">今後の関係の流れ・転機</div>
+          <div class="feat-desc">このまま進むとどうなるか、転機はいつ来るか。感覚ではなく「状況ベースで判断できる状態」にします。</div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">📩</div>
+        <div>
+          <div class="feat-title">動くべきタイミング・行動アドバイス</div>
+          <div class="feat-desc">「不安だから送る」はほぼ逆効果です。最善のタイミングと言葉を具体的にお伝えします。</div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🤝</div>
+        <div>
+          <div class="feat-title">複雑な事情にも対応</div>
+          <div class="feat-desc">既婚者・W不倫・片思い・年の差など、誰にも言えない状況でも批判せず丁寧に向き合います。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section>
+    <div class="sec-label">Pricing</div>
+    <h2>料金プラン</h2>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div>
+          <div style="font-size:.8rem;color:var(--gold);letter-spacing:.1em;margin-bottom:4px;">BASIC</div>
+          <div style="font-weight:700;color:var(--gold2);">基本鑑定</div>
+          <div style="font-size:.85rem;color:var(--muted);margin-top:4px;">彼の気持ち・今後の流れ</div>
+        </div>
+        <div style="font-size:1.6rem;font-weight:700;color:var(--gold2);">¥1,500</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--purple);border-radius:var(--r);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div>
+          <div style="font-size:.8rem;color:var(--purple);letter-spacing:.1em;margin-bottom:4px;">LUNCH</div>
+          <div style="font-weight:700;color:var(--gold2);">流れ&分岐点分析</div>
+          <div style="font-size:.85rem;color:var(--muted);margin-top:4px;">基本鑑定＋今後の分岐点を詳細に</div>
+        </div>
+        <div style="font-size:1.6rem;font-weight:700;color:var(--gold2);">+¥3,500</div>
+      </div>
+      <div style="background:linear-gradient(135deg,var(--card),#1d0a38);border:1px solid var(--gold);border-radius:var(--r);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div>
+          <div style="font-size:.8rem;color:var(--gold);letter-spacing:.1em;margin-bottom:4px;">DINNER ✦ 人気</div>
+          <div style="font-weight:700;color:var(--gold2);">完全深掘り鑑定</div>
+          <div style="font-size:.85rem;color:var(--muted);margin-top:4px;">基本鑑定＋全項目を徹底的に</div>
+        </div>
+        <div style="font-size:1.6rem;font-weight:700;color:var(--gold2);">+¥8,500</div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:.8rem;color:var(--muted);margin-top:14px;">⭐ 総合評価 5.0 ｜ Coconala安全決済</p>
+  </section>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- CTA 1 -->
+  <section>
+    <div class="cta-card">
+      <span class="icon">🌙</span>
+      <h3>一人で抱え込まないでください。<br>あなたの状況を、視させてください。</h3>
+      <p>
+        どこにも言えない複雑な気持ち、ここで話してみてください。<br>
+        Coconalaのメッセージ機能から、まず無料でご相談いただけます。
+      </p>
+      <div class="cta-points">
+        <div class="cta-pt"><span class="ck">✦</span>30代女性の復縁・複雑恋愛に特化</div>
+        <div class="cta-pt"><span class="ck">✦</span>やさしく、でも曖昧にせず本音をお伝え</div>
+        <div class="cta-pt"><span class="ck">✦</span>匿名OK・秘密厳守・安心の個別鑑定</div>
+        <div class="cta-pt"><span class="ck">✦</span>Coconala上で安全にやり取り</div>
+      </div>
+      <a href="https://coconala.com/services/4064307" class="btn-main" target="_blank" rel="noopener">
+        ✦ こころのまつきよに鑑定を申し込む ✦
+        <span class="sub">¥1,500〜 ｜ 評価⭐5.0 ｜ Coconala安全決済</span>
+      </a>
+      <p class="cta-note">※ Coconalaの安全な決済システムを使用しています</p>
+    </div>
+  </section>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- VOICES -->
+  <section>
+    <div class="sec-label">Review</div>
+    <h2>実際のお客様の声</h2>
+    <div class="voices">
+      <div class="voice-item">
+        <div class="voice-stars">★★★★★</div>
+        <div class="voice-text">「安心して鑑定をお願いできました。」</div>
+        <div class="voice-user">— miwakorirakumaさん ｜ Coconala 認証済みレビュー</div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:.8rem;color:var(--muted);margin-top:16px;">
+      ⭐ 総合評価 5.0 ／ Coconalaの公式レビューより
+    </p>
+  </section>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- FAQ -->
+  <section>
+    <div class="sec-label">FAQ</div>
+    <h2>よくあるご質問</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>初めてで緊張しています。大丈夫ですか？</span>
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">はじめての方が多くいらっしゃいます。まずはメッセージでご状況をお聞かせいただくだけで大丈夫です。プレッシャーをかけることは一切ありません。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>複雑な事情があって話しにくいのですが…</span>
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">既婚者との関係、不倫、W不倫など、どんな複雑な状況でもお話しいただけます。批判や否定は一切しません。あなたの状況に寄り添います。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>鑑定はどのような形式ですか？</span>
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">Coconala上でのテキストメッセージ形式での鑑定です。ご自身のペースでやり取りいただけます。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>個人情報は守られますか？</span>
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">Coconalaのプラットフォーム上でやり取りするため、個人情報が直接伝わることはありません。ニックネームでのご利用も可能です。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section>
+    <div class="cta-card">
+      <span class="icon">🔮</span>
+      <h3>あなたの恋愛に、<br>光を見つけましょう。</h3>
+      <p>今一番辛いあなたへ。<br>一人で抱えなくていいです。まず話してみてください。</p>
+      <a href="https://coconala.com/services/4064307" class="btn-main" target="_blank" rel="noopener">
+        ✦ こころのまつきよに鑑定を申し込む ✦
+        <span class="sub">¥1,500〜 ｜ Coconalaで詳細・料金を確認する</span>
+      </a>
+    </div>
+  </section>
+
+</div><!-- /.w -->
+
+<footer>
+  <p>© こころのまつきよ｜復縁霊視鑑定</p>
+  <p style="margin-top:6px;">
+    本サイトは Coconala 上のサービスの紹介ページです。<br>
+    鑑定はエンターテイメント・スピリチュアル目的であり、結果を保証するものではありません。
+  </p>
+</footer>
+
+<script>
+  function toggleFaq(el) {
+    el.parentElement.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
