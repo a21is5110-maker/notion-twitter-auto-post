@@ -3,91 +3,135 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>無料占い｜あなたの運命を今すぐ鑑定</title>
+  <title>復縁・複雑恋愛｜霊視鑑定 こころのまつきよ</title>
+  <meta name="description" content="相手の気持ちが分からず苦しい…復縁・複雑恋愛に特化した霊視鑑定士「こころのまつきよ」が、今のあなたの状況を丁寧に視ます。" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Cinzel:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap');
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0612;
-      --bg2: #110920;
-      --card: #160d28;
-      --border: #3a2060;
-      --gold: #c9a84c;
-      --gold2: #f0d080;
-      --purple: #9b59b6;
-      --purple2: #c39bd3;
-      --text: #f0e8ff;
-      --muted: #9b89b8;
-      --star: #f8e9a1;
-      --radius: 14px;
+      --bg:     #08040f;
+      --bg2:    #100820;
+      --card:   #130a22;
+      --border: #2e1a50;
+      --gold:   #c8a04a;
+      --gold2:  #eedda0;
+      --purple: #9b6dc5;
+      --muted:  #9480b0;
+      --text:   #f0e8ff;
+      --rose:   #d4708a;
+      --r:      14px;
     }
 
     body {
       font-family: 'Noto Serif JP', serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.8;
+      line-height: 1.9;
       overflow-x: hidden;
     }
 
-    /* ---- STARS BG ---- */
-    .stars {
+    /* ---- 星空背景 ---- */
+    .sky {
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background:
-        radial-gradient(ellipse at 20% 20%, rgba(155,89,182,.15), transparent 60%),
-        radial-gradient(ellipse at 80% 80%, rgba(201,168,76,.1), transparent 60%),
+        radial-gradient(ellipse 70% 50% at 30% 10%, rgba(155,109,197,.18), transparent),
+        radial-gradient(ellipse 60% 40% at 75% 85%, rgba(212,112,138,.12), transparent),
         var(--bg);
     }
-    .stars::before {
+    .sky::after {
       content: '';
       position: absolute; inset: 0;
       background-image:
-        radial-gradient(1px 1px at 10% 15%, #fff 0%, transparent 100%),
-        radial-gradient(1px 1px at 30% 5%, #fff 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 50% 20%, #fff 0%, transparent 100%),
-        radial-gradient(1px 1px at 70% 10%, #fff 0%, transparent 100%),
-        radial-gradient(1px 1px at 90% 25%, #fff 0%, transparent 100%),
-        radial-gradient(1px 1px at 15% 40%, #fff 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 40% 35%, var(--star) 0%, transparent 100%),
-        radial-gradient(1px 1px at 60% 50%, #fff 0%, transparent 100%),
-        radial-gradient(1px 1px at 80% 45%, #fff 0%, transparent 100%),
-        radial-gradient(2px 2px at 25% 70%, var(--star) 0%, transparent 100%),
-        radial-gradient(1px 1px at 55% 75%, #fff 0%, transparent 100%),
-        radial-gradient(1px 1px at 75% 80%, #fff 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 90% 60%, var(--star) 0%, transparent 100%),
-        radial-gradient(1px 1px at 5% 85%, #fff 0%, transparent 100%),
-        radial-gradient(1px 1px at 45% 90%, #fff 0%, transparent 100%);
-      opacity: .6;
+        radial-gradient(1px 1px at  8% 12%, #fff, transparent),
+        radial-gradient(1px 1px at 22%  4%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 45% 18%, #f8e9a1, transparent),
+        radial-gradient(1px 1px at 63%  8%, #fff, transparent),
+        radial-gradient(1px 1px at 82% 22%, #fff, transparent),
+        radial-gradient(1px 1px at 12% 38%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 35% 55%, #f8e9a1, transparent),
+        radial-gradient(1px 1px at 57% 47%, #fff, transparent),
+        radial-gradient(1px 1px at 78% 60%, #fff, transparent),
+        radial-gradient(2px 2px at 20% 72%, #f8e9a1, transparent),
+        radial-gradient(1px 1px at 50% 82%, #fff, transparent),
+        radial-gradient(1px 1px at 88% 75%, #fff, transparent),
+        radial-gradient(1px 1px at  5% 90%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 70% 92%, #f8e9a1, transparent);
+      opacity: .55;
     }
 
     /* ---- LAYOUT ---- */
-    .wrap { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; padding: 0 20px; }
+    .w { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 0 20px; }
 
-    /* ---- HEADER ---- */
-    header {
+    /* ---- HERO ---- */
+    .hero {
       text-align: center;
-      padding: 60px 20px 40px;
+      padding: 70px 20px 50px;
       position: relative; z-index: 1;
     }
-    .moon { font-size: 3.5rem; margin-bottom: 12px; display: block; animation: float 4s ease-in-out infinite; }
-    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .hero-icon { font-size: 3.2rem; display: block; margin-bottom: 14px; animation: float 5s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 
+    .hero-catch {
+      font-size: clamp(1.05rem, 3.5vw, 1.25rem);
+      color: var(--muted);
+      letter-spacing: .1em;
+      margin-bottom: 14px;
+    }
     h1 {
-      font-family: 'Noto Serif JP', serif;
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-size: clamp(1.7rem, 5vw, 2.5rem);
       font-weight: 700;
       color: var(--gold2);
-      letter-spacing: .06em;
-      text-shadow: 0 0 30px rgba(201,168,76,.5);
-      margin-bottom: 10px;
+      line-height: 1.4;
+      letter-spacing: .04em;
+      text-shadow: 0 0 40px rgba(200,160,74,.45);
+      margin-bottom: 18px;
     }
-    .header-sub { color: var(--muted); font-size: .9rem; letter-spacing: .08em; }
+    .hero-sub {
+      color: var(--muted);
+      font-size: .95rem;
+      max-width: 500px;
+      margin: 0 auto 36px;
+      line-height: 2;
+    }
+    .hero-name {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      padding: 5px 22px;
+      font-size: .85rem;
+      color: var(--gold);
+      letter-spacing: .12em;
+      margin-bottom: 36px;
+    }
+
+    /* ---- PAIN SECTION ---- */
+    .pain-card {
+      background: linear-gradient(135deg, var(--card), #1a0d30);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 36px 28px;
+      margin-bottom: 16px;
+    }
+    .pain-title {
+      color: var(--rose);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .pain-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .pain-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .95rem; color: var(--muted); line-height: 1.7;
+    }
+    .pain-list li::before { content: '…'; color: var(--rose); flex-shrink: 0; font-size: 1.1rem; }
 
     /* ---- DIVIDER ---- */
     .divider {
-      display: flex; align-items: center; gap: 12px;
+      display: flex; align-items: center; gap: 10px;
       margin: 32px 0;
     }
     .divider::before, .divider::after {
@@ -95,535 +139,363 @@
       height: 1px;
       background: linear-gradient(to right, transparent, var(--border), transparent);
     }
-    .divider span { color: var(--gold); font-size: 1.1rem; }
+    .divider span { color: var(--gold); font-size: 1rem; }
 
-    /* ---- SECTION TITLE ---- */
-    .sec-title {
+    /* ---- INTRO ---- */
+    .sec-label {
+      text-align: center; font-size: .78rem;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+    }
+    h2 {
       text-align: center;
-      font-size: 1.2rem;
+      font-size: clamp(1.3rem, 4vw, 1.9rem);
       font-weight: 700;
-      color: var(--gold);
-      letter-spacing: .1em;
-      margin-bottom: 24px;
-    }
-
-    /* ---- FORM CARD ---- */
-    .form-card {
-      background: linear-gradient(135deg, var(--card), #1d1035);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 36px 32px;
-      text-align: center;
-      box-shadow: 0 8px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(201,168,76,.1);
-    }
-    .form-card p { color: var(--muted); font-size: .9rem; margin-bottom: 28px; line-height: 1.9; }
-
-    .form-row { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
-    label { font-size: .85rem; color: var(--gold); letter-spacing: .08em; text-align: left; margin-bottom: 4px; display: block; }
-    select, input[type=text] {
-      width: 100%;
-      background: rgba(0,0,0,.4);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      padding: 12px 16px;
-      font-size: .95rem;
-      font-family: inherit;
-      outline: none;
-      transition: border-color .2s, box-shadow .2s;
-      appearance: none;
-    }
-    select:focus, input[type=text]:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 12px rgba(201,168,76,.2);
-    }
-    select option { background: #160d28; }
-
-    .concern-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-    .concern-btn {
-      background: rgba(0,0,0,.3);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--muted);
-      padding: 12px 8px;
-      font-size: .85rem;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all .2s;
-    }
-    .concern-btn.selected, .concern-btn:hover {
-      border-color: var(--gold);
       color: var(--gold2);
-      background: rgba(201,168,76,.1);
+      margin-bottom: 20px;
+      line-height: 1.5;
     }
 
-    .btn-divine {
-      width: 100%;
-      background: linear-gradient(135deg, #6b3fa0, #9b59b6);
-      border: 1px solid var(--gold);
-      border-radius: 10px;
-      color: var(--gold2);
-      padding: 16px;
-      font-size: 1.05rem;
-      font-family: inherit;
-      font-weight: 700;
-      letter-spacing: .1em;
-      cursor: pointer;
-      transition: all .2s;
-      box-shadow: 0 4px 20px rgba(107,63,160,.4);
+    .profile-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 32px 28px;
+      display: flex; gap: 24px; align-items: flex-start;
+      flex-wrap: wrap;
     }
-    .btn-divine:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(107,63,160,.6); }
-    .btn-divine:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-
-    /* ---- RESULT ---- */
-    #result { display: none; }
-    .result-card {
-      background: linear-gradient(160deg, #1a0d35, #0e0820);
-      border: 1px solid var(--gold);
-      border-radius: var(--radius);
-      padding: 36px 28px;
-      box-shadow: 0 0 60px rgba(201,168,76,.15), inset 0 0 40px rgba(0,0,0,.3);
+    .profile-avatar {
+      width: 90px; height: 90px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #4a1a8a, #8e2de2);
+      border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
     }
-    .result-header {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-    .result-sign { font-size: 3rem; margin-bottom: 8px; }
-    .result-name { font-size: 1.3rem; font-weight: 700; color: var(--gold2); margin-bottom: 4px; }
-    .result-keyword {
+    .profile-info { flex: 1; min-width: 180px; }
+    .profile-name { font-size: 1.2rem; font-weight: 700; color: var(--gold2); margin-bottom: 4px; }
+    .profile-tag {
       display: inline-block;
-      border: 1px solid var(--gold);
+      background: rgba(200,160,74,.12);
+      border: 1px solid rgba(200,160,74,.3);
       border-radius: 999px;
-      padding: 3px 16px;
-      font-size: .8rem;
-      color: var(--gold);
-      letter-spacing: .1em;
+      padding: 2px 12px;
+      font-size: .75rem; color: var(--gold);
+      margin-bottom: 10px;
     }
+    .profile-desc { font-size: .9rem; color: var(--muted); line-height: 1.9; }
 
-    .fortune-bars { margin: 24px 0; }
-    .fortune-bar-item { margin-bottom: 14px; }
-    .fortune-bar-label {
-      display: flex; justify-content: space-between;
-      font-size: .85rem; color: var(--muted);
-      margin-bottom: 6px;
+    /* ---- FEATURES ---- */
+    .features { display: flex; flex-direction: column; gap: 14px; }
+    .feat-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 22px 22px;
+      display: flex; gap: 16px; align-items: flex-start;
     }
-    .bar-track {
-      height: 6px;
-      background: rgba(255,255,255,.07);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-    .bar-fill {
-      height: 100%; border-radius: 999px;
-      background: linear-gradient(to right, var(--purple), var(--gold));
-      width: 0;
-      transition: width 1.2s ease;
-    }
+    .feat-icon { font-size: 1.6rem; flex-shrink: 0; padding-top: 2px; }
+    .feat-title { font-size: .95rem; font-weight: 700; color: var(--gold2); margin-bottom: 5px; }
+    .feat-desc { font-size: .875rem; color: var(--muted); line-height: 1.8; }
 
-    .result-message {
-      background: rgba(0,0,0,.3);
-      border-left: 3px solid var(--gold);
-      border-radius: 0 8px 8px 0;
-      padding: 20px;
-      margin: 24px 0;
-      font-size: .95rem;
-      line-height: 2;
-      color: var(--text);
+    /* ---- VOICE ---- */
+    .voices { display: flex; flex-direction: column; gap: 14px; }
+    .voice-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--rose);
+      border-radius: 0 var(--r) var(--r) 0;
+      padding: 20px 22px;
     }
-
-    .lucky-row {
-      display: flex; gap: 12px; flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .lucky-item {
-      background: rgba(201,168,76,.08);
-      border: 1px solid rgba(201,168,76,.3);
-      border-radius: 8px;
-      padding: 10px 16px;
-      font-size: .8rem;
-      color: var(--gold2);
-      flex: 1; min-width: 100px;
-      text-align: center;
-    }
-    .lucky-item .li-label { color: var(--muted); font-size: .75rem; margin-bottom: 4px; }
+    .voice-stars { color: var(--gold); font-size: .85rem; letter-spacing: 2px; margin-bottom: 8px; }
+    .voice-text { font-size: .9rem; color: var(--muted); line-height: 1.9; }
+    .voice-user { font-size: .8rem; color: var(--purple); margin-top: 10px; }
 
     /* ---- CTA ---- */
     .cta-card {
-      background: linear-gradient(135deg, #1a0535, #2d0b5a);
+      background: linear-gradient(160deg, #1c0a36, #2e0d5c);
       border: 1px solid var(--gold);
-      border-radius: var(--radius);
-      padding: 40px 28px;
+      border-radius: var(--r);
+      padding: 48px 28px;
       text-align: center;
-      box-shadow: 0 0 60px rgba(155,89,182,.2);
-      margin-top: 32px;
+      box-shadow: 0 0 80px rgba(155,109,197,.2);
     }
-    .cta-card .moon-sm { font-size: 2rem; display: block; margin-bottom: 12px; }
+    .cta-card .icon { font-size: 2.4rem; display: block; margin-bottom: 14px; }
     .cta-card h3 {
-      font-size: 1.3rem; font-weight: 700;
-      color: var(--gold2);
-      margin-bottom: 10px;
-      line-height: 1.5;
+      font-size: clamp(1.2rem, 3.5vw, 1.7rem);
+      font-weight: 700; color: var(--gold2);
+      line-height: 1.5; margin-bottom: 14px;
     }
-    .cta-card p { color: var(--muted); font-size: .9rem; margin-bottom: 28px; line-height: 1.9; }
-    .cta-features {
-      display: flex; flex-direction: column; gap: 8px;
-      margin-bottom: 28px; text-align: left;
-    }
-    .cta-feat {
-      display: flex; align-items: flex-start; gap: 10px;
-      font-size: .9rem; color: var(--purple2);
-    }
-    .cta-feat .icon { flex-shrink: 0; color: var(--gold); }
+    .cta-card p { color: var(--muted); font-size: .9rem; margin-bottom: 28px; line-height: 2; }
 
-    .btn-cta {
+    .cta-points {
+      display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 32px; text-align: left;
+    }
+    .cta-pt { display: flex; gap: 10px; align-items: flex-start; font-size: .9rem; color: var(--text); }
+    .cta-pt .ck { color: var(--gold); flex-shrink: 0; }
+
+    .btn-main {
       display: block; width: 100%;
-      background: linear-gradient(135deg, #8e2de2, #4a00e0);
+      background: linear-gradient(135deg, #7b2ff7, #4a00b4);
       border: 2px solid var(--gold);
       border-radius: 12px;
       color: var(--gold2);
-      padding: 18px 24px;
+      padding: 20px 24px;
       font-size: 1.1rem;
-      font-family: inherit;
-      font-weight: 700;
+      font-family: inherit; font-weight: 700;
       letter-spacing: .06em;
-      cursor: pointer;
       text-decoration: none;
-      transition: all .2s;
-      box-shadow: 0 6px 30px rgba(142,45,226,.5);
-      animation: pulse 2.5s ease-in-out infinite;
+      transition: all .25s;
+      box-shadow: 0 6px 36px rgba(123,47,247,.5);
+      animation: glow 2.8s ease-in-out infinite;
     }
-    @keyframes pulse {
-      0%,100% { box-shadow: 0 6px 30px rgba(142,45,226,.5); }
-      50% { box-shadow: 0 6px 50px rgba(201,168,76,.4), 0 0 0 4px rgba(201,168,76,.1); }
+    @keyframes glow {
+      0%,100% { box-shadow: 0 6px 36px rgba(123,47,247,.5); }
+      50%      { box-shadow: 0 6px 56px rgba(200,160,74,.4), 0 0 0 4px rgba(200,160,74,.1); }
     }
-    .btn-cta:hover { transform: translateY(-2px); }
-    .btn-cta .btn-sub { display: block; font-size: .75rem; font-weight: 400; opacity: .8; margin-top: 4px; }
+    .btn-main:hover { transform: translateY(-3px); }
+    .btn-main .sub { display: block; font-size: .78rem; font-weight: 400; opacity: .8; margin-top: 5px; }
 
-    .cta-note { font-size: .75rem; color: var(--muted); margin-top: 12px; }
+    .cta-note { font-size: .75rem; color: var(--muted); margin-top: 14px; line-height: 1.8; }
 
-    /* ---- REVIEWS ---- */
-    .reviews { margin-top: 16px; display: flex; flex-direction: column; gap: 14px; }
-    .review-item {
-      background: rgba(0,0,0,.3);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 20px;
+    /* ---- FAQ ---- */
+    .faq { display: flex; flex-direction: column; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+    .faq-q {
+      display: flex; justify-content: space-between; gap: 12px;
+      cursor: pointer; font-size: .95rem; font-weight: 700; color: var(--gold2);
     }
-    .review-stars { color: var(--gold); font-size: .85rem; letter-spacing: 2px; margin-bottom: 6px; }
-    .review-text { font-size: .875rem; color: var(--muted); line-height: 1.8; }
-    .review-user { font-size: .8rem; color: var(--purple2); margin-top: 8px; }
+    .faq-q .arr { color: var(--muted); transition: transform .25s; flex-shrink: 0; }
+    .faq-item.open .faq-q .arr { transform: rotate(180deg); }
+    .faq-a {
+      color: var(--muted); font-size: .875rem; line-height: 1.9;
+      max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding-top: 12px; }
 
     /* ---- FOOTER ---- */
     footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 20px;
       text-align: center;
-      padding: 40px 20px;
-      position: relative; z-index: 1;
       color: var(--muted);
       font-size: .78rem;
-      border-top: 1px solid var(--border);
-      margin-top: 60px;
-      line-height: 1.9;
+      line-height: 2;
+      position: relative; z-index: 1;
     }
-    footer a { color: var(--muted); text-decoration: underline; }
 
-    @media (max-width: 480px) {
-      .form-card { padding: 28px 18px; }
-      .result-card { padding: 28px 16px; }
-      .cta-card { padding: 32px 18px; }
-      .concern-grid { grid-template-columns: 1fr; }
-    }
+    section { margin-bottom: 60px; }
   </style>
 </head>
 <body>
+<div class="sky"></div>
 
-<div class="stars"></div>
-
-<!-- HEADER -->
-<header>
-  <div class="wrap">
-    <span class="moon">🌙</span>
-    <h1>今日のあなたへの鑑定</h1>
-    <p class="header-sub">星と月が、あなたの運命を映し出す</p>
-  </div>
-</header>
-
-<!-- FORM -->
-<div class="wrap">
-  <div class="form-card">
-    <p>
-      生まれた星座と今一番気になっていることを教えてください。<br>
-      星の導きにより、あなたへのメッセージをお伝えします。
+<!-- HERO -->
+<div class="hero">
+  <div class="w">
+    <span class="hero-icon">🔮</span>
+    <p class="hero-catch">― 復縁・複雑恋愛 霊視鑑定 ―</p>
+    <h1>相手の気持ちが分からなくて<br>もう限界…そう感じていませんか</h1>
+    <p class="hero-sub">
+      やさしく、でも曖昧にせず。<br>
+      あなたの状況を霊視で丁寧に視ます。
     </p>
+    <span class="hero-name">こころのまつきよ｜復縁霊視</span>
 
-    <div class="form-row">
-      <div>
-        <label>✦ あなたの星座</label>
-        <select id="sign">
-          <option value="">星座を選んでください</option>
-          <option value="aries">♈ 牡羊座（3/21〜4/19）</option>
-          <option value="taurus">♉ 牡牛座（4/20〜5/20）</option>
-          <option value="gemini">♊ 双子座（5/21〜6/21）</option>
-          <option value="cancer">♋ 蟹座（6/22〜7/22）</option>
-          <option value="leo">♌ 獅子座（7/23〜8/22）</option>
-          <option value="virgo">♍ 乙女座（8/23〜9/22）</option>
-          <option value="libra">♎ 天秤座（9/23〜10/23）</option>
-          <option value="scorpio">♏ 蠍座（10/24〜11/22）</option>
-          <option value="sagittarius">♐ 射手座（11/23〜12/21）</option>
-          <option value="capricorn">♑ 山羊座（12/22〜1/19）</option>
-          <option value="aquarius">♒ 水瓶座（1/20〜2/18）</option>
-          <option value="pisces">♓ 魚座（2/19〜3/20）</option>
-        </select>
-      </div>
-      <div>
-        <label>✦ お名前（ニックネームでOK）</label>
-        <input type="text" id="username" placeholder="例：さくら" maxlength="10" />
-      </div>
-    </div>
-
-    <label style="margin-bottom:12px;">✦ 今一番気になっていること</label>
-    <div class="concern-grid" id="concern-grid">
-      <button class="concern-btn" onclick="selectConcern(this, 'love')">💕 恋愛・復縁</button>
-      <button class="concern-btn" onclick="selectConcern(this, 'marriage')">💍 結婚・縁結び</button>
-      <button class="concern-btn" onclick="selectConcern(this, 'work')">💼 仕事・転職</button>
-      <button class="concern-btn" onclick="selectConcern(this, 'money')">💰 金運・財運</button>
-      <button class="concern-btn" onclick="selectConcern(this, 'human')">🤝 人間関係</button>
-      <button class="concern-btn" onclick="selectConcern(this, 'future')">🔮 総合運・未来</button>
-    </div>
-
-    <button class="btn-divine" id="divine-btn" onclick="divineStart()" disabled>
-      ✦ 鑑定を始める ✦
-    </button>
+    <a href="https://coconala.com/blogs/4701221/733703" class="btn-main" target="_blank" rel="noopener">
+      ✦ 今すぐ鑑定を申し込む ✦
+      <span class="sub">ococナラで詳細を見る → 無料メッセージ相談あり</span>
+    </a>
   </div>
+</div>
+
+<div class="w">
+
+  <!-- PAIN -->
+  <section>
+    <div class="pain-card">
+      <div class="pain-title">こんなお気持ちではありませんか？</div>
+      <ul class="pain-list">
+        <li>連絡が来なくなって、今どう思われているのか分からない</li>
+        <li>復縁できる可能性があるのか、もう諦めるべきなのか</li>
+        <li>好きな人に既婚者・複雑な事情があって誰にも相談できない</li>
+        <li>行動するタイミングが分からず、ずっと立ち止まっている</li>
+        <li>友人には言えない、でも一人で抱えるのはもう辛い</li>
+      </ul>
+    </div>
+  </section>
 
   <div class="divider"><span>✦</span></div>
 
-  <!-- RESULT -->
-  <div id="result">
-    <div class="result-card">
-      <div class="result-header">
-        <div class="result-sign" id="res-emoji"></div>
-        <div class="result-name" id="res-name"></div>
-        <div class="result-keyword" id="res-keyword"></div>
+  <!-- PROFILE -->
+  <section>
+    <div class="sec-label">About</div>
+    <h2>鑑定士のご紹介</h2>
+    <div class="profile-card">
+      <div class="profile-avatar">🌙</div>
+      <div class="profile-info">
+        <div class="profile-name">こころのまつきよ</div>
+        <span class="profile-tag">復縁・複雑恋愛 霊視専門</span>
+        <p class="profile-desc">
+          30代女性の復縁・複雑恋愛に特化した霊視鑑定士。<br>
+          「やさしく、でも曖昧にせず」をモットーに、相手の感情・関係の今後・行動時期を丁寧にお伝えします。感情的な判断から守るための、伴走型の鑑定スタイルが特徴です。
+        </p>
       </div>
-
-      <div class="fortune-bars">
-        <div class="fortune-bar-item">
-          <div class="fortune-bar-label"><span>💕 恋愛運</span><span id="bar-love-val"></span></div>
-          <div class="bar-track"><div class="bar-fill" id="bar-love"></div></div>
-        </div>
-        <div class="fortune-bar-item">
-          <div class="fortune-bar-label"><span>💼 仕事運</span><span id="bar-work-val"></span></div>
-          <div class="bar-track"><div class="bar-fill" id="bar-work"></div></div>
-        </div>
-        <div class="fortune-bar-item">
-          <div class="fortune-bar-label"><span>💰 金運</span><span id="bar-money-val"></span></div>
-          <div class="bar-track"><div class="bar-fill" id="bar-money"></div></div>
-        </div>
-        <div class="fortune-bar-item">
-          <div class="fortune-bar-label"><span>🌟 総合運</span><span id="bar-total-val"></span></div>
-          <div class="bar-track"><div class="bar-fill" id="bar-total"></div></div>
-        </div>
-      </div>
-
-      <div class="result-message" id="res-message"></div>
-
-      <div class="lucky-row" id="lucky-row"></div>
     </div>
+  </section>
 
-    <!-- CTA -->
+  <div class="divider"><span>✦</span></div>
+
+  <!-- FEATURES -->
+  <section>
+    <div class="sec-label">Service</div>
+    <h2>鑑定でお伝えできること</h2>
+    <div class="features">
+      <div class="feat-item">
+        <div class="feat-icon">💭</div>
+        <div>
+          <div class="feat-title">相手の今の本音・感情</div>
+          <div class="feat-desc">あなたのことをどう思っているか、今の気持ちの変化を霊視で視ます。</div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🌿</div>
+        <div>
+          <div class="feat-title">関係の今後の展開</div>
+          <div class="feat-desc">このまま進むとどうなるか、転機はいつ来るかをお伝えします。</div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">📩</div>
+        <div>
+          <div class="feat-title">連絡方法・行動のアドバイス</div>
+          <div class="feat-desc">何をどう伝えればいいか、動くべきタイミングを具体的にお伝えします。</div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🤝</div>
+        <div>
+          <div class="feat-title">心理的なサポート</div>
+          <div class="feat-desc">不安や辛さに寄り添いながら、前に進むための支えとなります。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- CTA 1 -->
+  <section>
     <div class="cta-card">
-      <span class="moon-sm">🔮</span>
-      <h3 id="cta-title">もっと深く、あなたの運命を<br>紐解きませんか？</h3>
-      <p id="cta-desc">今の鑑定はほんの入口です。電話占いでは、あなたのお悩みに寄り添いながら、より詳しい鑑定をお受けいただけます。</p>
-
-      <div class="cta-features">
-        <div class="cta-feat"><span class="icon">🌙</span>業界最大級の占い師が在籍・24時間対応</div>
-        <div class="cta-feat"><span class="icon">✦</span>初回最大2,500円分の無料ポイントプレゼント</div>
-        <div class="cta-feat"><span class="icon">💕</span>恋愛・復縁・仕事・金運など全ジャンル対応</div>
-        <div class="cta-feat"><span class="icon">🔒</span>匿名OK・秘密厳守・安心の電話占い</div>
+      <span class="icon">🌙</span>
+      <h3>一人で抱え込まないでください。<br>あなたの状況を、視させてください。</h3>
+      <p>
+        どこにも言えない複雑な気持ち、ここで話してみてください。<br>
+        Coconalaのメッセージ機能から、まず無料でご相談いただけます。
+      </p>
+      <div class="cta-points">
+        <div class="cta-pt"><span class="ck">✦</span>30代女性の復縁・複雑恋愛に特化</div>
+        <div class="cta-pt"><span class="ck">✦</span>やさしく、でも曖昧にせず本音をお伝え</div>
+        <div class="cta-pt"><span class="ck">✦</span>匿名OK・秘密厳守・安心の個別鑑定</div>
+        <div class="cta-pt"><span class="ck">✦</span>Coconala上で安全にやり取り</div>
       </div>
-
-      <a href="https://coconala.com/categories/9" class="btn-cta" target="_blank" rel="nofollow noopener">
-        ✦ 今すぐ無料ポイントをもらう ✦
-        <span class="btn-sub">ココナラ電話占い — 初回限定特典あり</span>
+      <a href="https://coconala.com/blogs/4701221/733703" class="btn-main" target="_blank" rel="noopener">
+        ✦ こころのまつきよに鑑定を申し込む ✦
+        <span class="sub">Coconalaのページへ移動します</span>
       </a>
-      <p class="cta-note">※ 本リンクはアフィリエイトリンクです</p>
+      <p class="cta-note">※ Coconalaの安全な決済システムを使用しています</p>
     </div>
+  </section>
 
-    <!-- REVIEWS -->
-    <div class="divider"><span>✦</span></div>
-    <div class="sec-title">実際に電話占いを利用した方の声</div>
-    <div class="reviews">
-      <div class="review-item">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">「彼との関係が行き詰まっていたとき、先生に相談しました。具体的なアドバイスをいただき、その通り行動したら2ヶ月後に復縁できました。本当に感謝しています。」</div>
-        <div class="review-user">— 30代 女性（恋愛相談）</div>
+  <div class="divider"><span>✦</span></div>
+
+  <!-- VOICES -->
+  <section>
+    <div class="sec-label">Voice</div>
+    <h2>鑑定を受けた方の声</h2>
+    <div class="voices">
+      <div class="voice-item">
+        <div class="voice-stars">★★★★★</div>
+        <div class="voice-text">「音信不通になっていた彼の気持ちを視ていただきました。先生の言葉通りに行動したら、1ヶ月後に連絡が来て、今は少しずつ関係が戻ってきています。」</div>
+        <div class="voice-user">— 32歳 女性（音信不通からの復縁）</div>
       </div>
-      <div class="review-item">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">「転職のタイミングを迷っていて、何度か相談しました。背中を押してもらえて、今は新しい職場でとても充実しています。電話なので匿名で話せるのも安心でした。」</div>
-        <div class="review-user">— 40代 男性（仕事・転職相談）</div>
+      <div class="voice-item">
+        <div class="voice-stars">★★★★★</div>
+        <div class="voice-text">「既婚者との関係で誰にも相談できず、ずっと一人で苦しんでいました。まつきよ先生は批判せず、ただ真剣に向き合ってくださって、涙が出ました。」</div>
+        <div class="voice-user">— 38歳 女性（複雑恋愛・不倫相談）</div>
       </div>
-      <div class="review-item">
-        <div class="review-stars">★★★★☆</div>
-        <div class="review-text">「初回の無料ポイントで試してみました。予想以上に当たっていて驚きました。リピートしています。」</div>
-        <div class="review-user">— 20代 女性（総合運）</div>
+      <div class="voice-item">
+        <div class="voice-stars">★★★★★</div>
+        <div class="voice-text">「曖昧な答えではなく、具体的に『この時期に動いてください』と言っていただけて、すごく助かりました。行動に迷いがなくなりました。」</div>
+        <div class="voice-user">— 35歳 女性（復縁タイミング相談）</div>
       </div>
     </div>
+  </section>
 
-    <div class="divider"><span>✦</span></div>
-  </div>
+  <div class="divider"><span>✦</span></div>
 
-</div>
+  <!-- FAQ -->
+  <section>
+    <div class="sec-label">FAQ</div>
+    <h2>よくあるご質問</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>初めてで緊張しています。大丈夫ですか？</span>
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">はじめての方が多くいらっしゃいます。まずはメッセージでご状況をお聞かせいただくだけで大丈夫です。プレッシャーをかけることは一切ありません。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>複雑な事情があって話しにくいのですが…</span>
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">既婚者との関係、不倫、W不倫など、どんな複雑な状況でもお話しいただけます。批判や否定は一切しません。あなたの状況に寄り添います。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>鑑定はどのような形式ですか？</span>
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">Coconala上でのテキストメッセージ形式での鑑定です。ご自身のペースでやり取りいただけます。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>個人情報は守られますか？</span>
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">Coconalaのプラットフォーム上でやり取りするため、個人情報が直接伝わることはありません。ニックネームでのご利用も可能です。</div>
+      </div>
+    </div>
+  </section>
 
-<!-- FOOTER -->
+  <!-- FINAL CTA -->
+  <section>
+    <div class="cta-card">
+      <span class="icon">🔮</span>
+      <h3>あなたの恋愛に、<br>光を見つけましょう。</h3>
+      <p>今一番辛いあなたへ。<br>一人で抱えなくていいです。まず話してみてください。</p>
+      <a href="https://coconala.com/blogs/4701221/733703" class="btn-main" target="_blank" rel="noopener">
+        ✦ こころのまつきよに相談する ✦
+        <span class="sub">Coconalaのページへ → 詳細・料金を確認する</span>
+      </a>
+    </div>
+  </section>
+
+</div><!-- /.w -->
+
 <footer>
-  <p>※ 本サイトの占い結果はエンターテイメント目的です。</p>
-  <p>※ ページ内のリンクにはアフィリエイトリンクが含まれます。</p>
-  <p style="margin-top:8px;">
-    <a href="#">プライバシーポリシー</a> ／ <a href="#">お問い合わせ</a>
+  <p>© こころのまつきよ｜復縁霊視鑑定</p>
+  <p style="margin-top:6px;">
+    本サイトは Coconala 上のサービスの紹介ページです。<br>
+    鑑定はエンターテイメント・スピリチュアル目的であり、結果を保証するものではありません。
   </p>
 </footer>
 
 <script>
-  const SIGNS = {
-    aries:       { emoji:'♈', name:'牡羊座', keyword:'情熱と行動力', color:'#e74c3c' },
-    taurus:      { emoji:'♉', name:'牡牛座', keyword:'安定と豊かさ', color:'#27ae60' },
-    gemini:      { emoji:'♊', name:'双子座', keyword:'変化と好奇心', color:'#f39c12' },
-    cancer:      { emoji:'♋', name:'蟹座',   keyword:'直感と愛情', color:'#2980b9' },
-    leo:         { emoji:'♌', name:'獅子座', keyword:'輝きとカリスマ', color:'#f1c40f' },
-    virgo:       { emoji:'♍', name:'乙女座', keyword:'誠実と完成美', color:'#1abc9c' },
-    libra:       { emoji:'♎', name:'天秤座', keyword:'調和と美意識', color:'#9b59b6' },
-    scorpio:     { emoji:'♏', name:'蠍座',   keyword:'深さと変容', color:'#8e44ad' },
-    sagittarius: { emoji:'♐', name:'射手座', keyword:'自由と探求', color:'#e67e22' },
-    capricorn:   { emoji:'♑', name:'山羊座', keyword:'努力と達成', color:'#95a5a6' },
-    aquarius:    { emoji:'♒', name:'水瓶座', keyword:'革新と個性', color:'#3498db' },
-    pisces:      { emoji:'♓', name:'魚座',   keyword:'夢と共感', color:'#1abc9c' },
-  };
-
-  const MESSAGES = {
-    love: [
-      '星はあなたの恋愛に大きな変化が近づいていることを示しています。今は焦らず、相手の気持ちに寄り添うことが大切です。小さな親切が大きな絆へと育っていきます。',
-      '月のエネルギーがあなたの恋愛運を後押しするとき。過去の縁が再び動き始める予感があります。心を開いて、素直な気持ちを伝えてみてください。',
-      '深い縁がある相手との関係が次のステージへ進もうとしています。あなたの誠実な気持ちは必ず相手に届いています。',
-    ],
-    marriage: [
-      '結婚の縁は確かにあなたのそばに存在しています。焦らず、自分らしくいることが最良の縁結びとなるでしょう。',
-      '月が示すのは、あなたの周囲に重要な出会いやターニングポイントが近づいているということ。心の準備を整えておきましょう。',
-    ],
-    work: [
-      'あなたの努力は必ず実を結ぶ時期が来ます。今の選択が将来の大きな転機になる可能性を星が示しています。信念を持って進んでください。',
-      '仕事上での変化を恐れないでください。星の配置は新しい挑戦があなたに良い結果をもたらすことを告げています。',
-    ],
-    money: [
-      '金運の波が徐々に上昇しています。今は無駄遣いを避け、学びや自己投資に使うことで運気がさらに高まります。',
-      '臨時収入や思わぬチャンスが近づいています。アンテナを張り、小さなサインも見逃さないようにしましょう。',
-    ],
-    human: [
-      '周囲との調和を意識することで、人間関係が大きく好転する時期です。誰かへの感謝の言葉が、大切な縁を強くします。',
-      '誠実なあなたの姿勢は、必ず周囲の心を動かします。今は表面的な関係より、深い対話を大切にしてください。',
-    ],
-    future: [
-      '今のあなたには大きな可能性が宿っています。星が示す道は決して平坦ではありませんが、その先に光が待っています。',
-      '変化を恐れず、自分の直感を信じてください。宇宙はあなたが思う以上に、あなたの願いを知っています。',
-    ],
-  };
-
-  const LUCKY = {
-    aries:       { color:'赤', item:'コイン', place:'東', day:'火曜日' },
-    taurus:      { color:'緑', item:'花', place:'南', day:'金曜日' },
-    gemini:      { color:'黄', item:'本', place:'西', day:'水曜日' },
-    cancer:      { color:'白', item:'貝殻', place:'北', day:'月曜日' },
-    leo:         { color:'金', item:'アクセサリー', place:'南東', day:'日曜日' },
-    virgo:       { color:'ベージュ', item:'手帳', place:'北西', day:'水曜日' },
-    libra:       { color:'ピンク', item:'鏡', place:'西', day:'金曜日' },
-    scorpio:     { color:'深紅', item:'水晶', place:'北', day:'火曜日' },
-    sagittarius: { color:'青', item:'地図', place:'東南', day:'木曜日' },
-    capricorn:   { color:'グレー', item:'時計', place:'北', day:'土曜日' },
-    aquarius:    { color:'水色', item:'星のチャーム', place:'西', day:'土曜日' },
-    pisces:      { color:'紫', item:'音楽', place:'北西', day:'木曜日' },
-  };
-
-  const CONCERN_CTA = {
-    love:    { title:'あなたの恋愛の行方を、<br>もっと詳しく鑑定しませんか？', desc:'今の簡易鑑定では触れられなかった、相手の気持ちや縁の深さ、最善のアプローチを電話占いでお聞きください。' },
-    marriage:{ title:'婚期・縁結びの詳しい鑑定を<br>受けてみませんか？', desc:'結婚に関するご相談は、より詳細な情報が鑑定精度を高めます。電話でじっくり話しながら鑑定を受けてみてください。' },
-    work:    { title:'仕事の転機、次の一手を<br>占い師に相談しませんか？', desc:'転職・昇進・独立…人生の大きな決断こそ、プロの占い師に相談して確信を持って進んでください。' },
-    money:   { title:'あなたの金運の詳細を<br>鑑定してもらいませんか？', desc:'金運を引き寄せるタイミングや方法を、専門の占い師が詳しくアドバイスします。' },
-    human:   { title:'人間関係の悩みを<br>占い師に打ち明けませんか？', desc:'言いにくいことも、匿名の電話占いなら安心して話せます。第三者の視点が問題解決の糸口になります。' },
-    future:  { title:'あなたの未来をもっと深く<br>鑑定してもらいませんか？', desc:'総合的な運命の流れや、あなたが気づいていない可能性を、占い師が丁寧に紐解きます。' },
-  };
-
-  let selectedConcern = '';
-
-  function selectConcern(btn, val) {
-    document.querySelectorAll('.concern-btn').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-    selectedConcern = val;
-    checkReady();
-  }
-
-  function checkReady() {
-    const sign = document.getElementById('sign').value;
-    const name = document.getElementById('username').value.trim();
-    document.getElementById('divine-btn').disabled = !(sign && name && selectedConcern);
-  }
-
-  document.getElementById('sign').addEventListener('change', checkReady);
-  document.getElementById('username').addEventListener('input', checkReady);
-
-  function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-  function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-
-  function divineStart() {
-    const signKey = document.getElementById('sign').value;
-    const name = document.getElementById('username').value.trim();
-    const concern = selectedConcern;
-    const sign = SIGNS[signKey];
-    const lucky = LUCKY[signKey];
-    const msgs = MESSAGES[concern] || MESSAGES.future;
-    const cta = CONCERN_CTA[concern] || CONCERN_CTA.future;
-
-    document.getElementById('res-emoji').textContent = sign.emoji;
-    document.getElementById('res-name').textContent = name + 'さんへ ― ' + sign.name + 'の鑑定';
-    document.getElementById('res-keyword').textContent = sign.keyword;
-    document.getElementById('res-message').textContent = rand(msgs);
-
-    document.getElementById('cta-title').innerHTML = cta.title;
-    document.getElementById('cta-desc').textContent = cta.desc;
-
-    const lv = randInt(55, 95);
-    const wv = randInt(50, 90);
-    const mv = randInt(45, 92);
-    const tv = Math.round((lv + wv + mv) / 3);
-
-    const label = v => v >= 85 ? '大吉' : v >= 70 ? '吉' : v >= 55 ? '小吉' : '末吉';
-
-    document.getElementById('bar-love-val').textContent = label(lv);
-    document.getElementById('bar-work-val').textContent = label(wv);
-    document.getElementById('bar-money-val').textContent = label(mv);
-    document.getElementById('bar-total-val').textContent = label(tv);
-
-    document.getElementById('result').style.display = 'block';
-    document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    setTimeout(() => {
-      document.getElementById('bar-love').style.width = lv + '%';
-      document.getElementById('bar-work').style.width = wv + '%';
-      document.getElementById('bar-money').style.width = mv + '%';
-      document.getElementById('bar-total').style.width = tv + '%';
-    }, 200);
-
-    document.getElementById('lucky-row').innerHTML = `
-      <div class="lucky-item"><div class="li-label">ラッキーカラー</div>${lucky.color}</div>
-      <div class="lucky-item"><div class="li-label">ラッキーアイテム</div>${lucky.item}</div>
-      <div class="lucky-item"><div class="li-label">ラッキー方位</div>${lucky.place}</div>
-      <div class="lucky-item"><div class="li-label">ラッキーデー</div>${lucky.day}</div>
-    `;
+  function toggleFaq(el) {
+    el.parentElement.classList.toggle('open');
   }
 </script>
 </body>
