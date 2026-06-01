@@ -155,6 +155,33 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
 });
 
+// ポップアップからの手動トリガー
+chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
+  if (msg.type === 'POST_KOIMIKUJI_NOW') {
+    // 重複チェックをスキップして強制投稿
+    const today = getTodayKey();
+    const data = FORTUNE_DATA[today];
+    if (!data) { sendResponse({ ok: false, msg: '今日のデータがありません' }); return; }
+    const idx = Math.floor(Math.random() * data.koi.length);
+    const [label, text] = data.koi[idx].split('｜');
+    const specials = data.special.length > 0 ? `\n${data.special.join(' ')}` : '';
+    const tweetText =
+`📚まちのほんやさん 恋みくじ
+${data.date}${specials}
+
+🔮 ${label}
+${text}
+
+九星：${data.kyusei} ／ 干支：${data.eto} ／ ${data.rokuyo}
+
+#恋みくじ #占い #恋愛運 #まちのほんやさん`;
+    chrome.tabs.create({
+      url: `https://twitter.com/intent/tweet?autopost=1&text=${encodeURIComponent(tweetText)}`
+    });
+    sendResponse({ ok: true });
+  }
+});
+
 // 拡張起動時にアラームをセット
 chrome.runtime.onStartup.addListener(setupDailyAlarm);
 chrome.runtime.onInstalled.addListener(setupDailyAlarm);

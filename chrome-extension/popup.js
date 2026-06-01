@@ -88,4 +88,17 @@ document.getElementById('btn-tweet').addEventListener('click', () => {
   status.textContent = '3秒後に自動投稿します ✓';
 });
 
+// 恋みくじ今すぐ投稿
+document.getElementById('btn-koimikuji').addEventListener('click', () => {
+  const koiStatus = document.getElementById('koi-status');
+  koiStatus.textContent = '投稿中…';
+  chrome.runtime.sendMessage({ type: 'POST_KOIMIKUJI_NOW' }, (res) => {
+    if (res && res.ok) {
+      koiStatus.textContent = '✓ Xの投稿画面を開きました（3秒後に自動投稿）';
+    } else {
+      koiStatus.textContent = res?.msg || 'エラーが発生しました';
+    }
+  });
+});
+
 loadArticle();
