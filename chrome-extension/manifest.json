@@ -3,7 +3,7 @@
   "name": "note → X 拡散ツール",
   "version": "1.1",
   "description": "noteの記事を開くだけでXに自動投稿。APIキー不要・完全無料でnote記事をXで拡散してフォロワーと売上を増やす。",
-  "permissions": ["activeTab", "scripting", "tabs", "storage"],
+  "permissions": ["activeTab", "scripting", "tabs", "storage", "alarms"],
   "host_permissions": ["https://note.com/*", "https://twitter.com/*", "https://x.com/*"],
   "background": {
     "service_worker": "background.js"
