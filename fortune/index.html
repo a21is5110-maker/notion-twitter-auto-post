@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>まちのほんやさん 恋みくじ</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Zen+Antique&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Serif JP', serif;
+    background: #fdf6f0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header {
+    width: 100%;
+    background: linear-gradient(135deg, #8b4513 0%, #c8956c 50%, #8b4513 100%);
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 3px 15px rgba(139,69,19,0.3);
+  }
+
+  header h1 {
+    font-family: 'Zen Antique', serif;
+    font-size: 28px;
+    letter-spacing: 4px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  }
+
+  header p {
+    font-size: 12px;
+    margin-top: 5px;
+    opacity: 0.9;
+    letter-spacing: 2px;
+  }
+
+  .today-card {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 400px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(139,69,19,0.15);
+    border: 1px solid #e8d5c4;
+    text-align: center;
+  }
+
+  .today-date {
+    font-size: 14px;
+    color: #8b4513;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+  .calendar-info {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+  }
+
+  .badge {
+    background: #fdf0e8;
+    border: 1px solid #c8956c;
+    color: #8b4513;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .special-badge {
+    background: linear-gradient(135deg, #ffd700, #ff8c00);
+    border: none;
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(255,140,0,0.4);
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 2px 8px rgba(255,140,0,0.4); }
+    50% { box-shadow: 0 2px 20px rgba(255,140,0,0.8); }
+  }
+
+  .special-msg {
+    margin: 12px 0;
+    padding: 12px;
+    background: linear-gradient(135deg, #fff9e6, #fff3d0);
+    border-left: 4px solid #ffd700;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #7a5c00;
+    line-height: 1.8;
+    display: none;
+  }
+
+  /* ガチャ エリア */
+  .gacha-area {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto 30px;
+    text-align: center;
+  }
+
+  .gacha-machine {
+    background: linear-gradient(180deg, #fff 0%, #fdf6f0 100%);
+    border: 3px solid #c8956c;
+    border-radius: 20px;
+    padding: 30px 20px;
+    box-shadow: 0 6px 25px rgba(139,69,19,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gacha-machine::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #c8956c, #ffd700, #c8956c);
+  }
+
+  .gacha-title {
+    font-family: 'Zen Antique', serif;
+    font-size: 22px;
+    color: #8b4513;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+  }
+
+  .gacha-subtitle {
+    font-size: 12px;
+    color: #b08060;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+  }
+
+  /* カプセルアニメーション */
+  .capsule-wrap {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .capsule {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffe0f0, #e91e8c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    box-shadow: 0 4px 20px rgba(233,30,140,0.4);
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+
+  .capsule:active { transform: scale(0.95); }
+
+  .capsule.spinning {
+    animation: spin 0.6s ease-in-out;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.3); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+
+  /* 結果表示 */
+  .result-card {
+    display: none;
+    background: linear-gradient(135deg, #fff9f5, #fff);
+    border: 2px solid #c8956c;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-label {
+    font-size: 11px;
+    color: #b08060;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .result-fortune {
+    font-size: 22px;
+    font-weight: bold;
+    color: #8b4513;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .result-fortune.daikichi { color: #e91e8c; }
+  .result-fortune.kichi { color: #8b4513; }
+  .result-fortune.kyou { color: #666; }
+
+  .result-text {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.8;
+    border-top: 1px solid #e8d5c4;
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+
+  /* ボタン */
+  .btn-gacha {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #e91e8c, #c2185b);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    font-family: 'Noto Serif JP', serif;
+    letter-spacing: 3px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(233,30,140,0.4);
+    transition: all 0.2s;
+    margin-bottom: 12px;
+  }
+
+  .btn-gacha:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(233,30,140,0.5); }
+  .btn-gacha:disabled { background: #ccc; box-shadow: none; cursor: default; transform: none; }
+
+  .btn-tweet {
+    width: 100%;
+    padding: 12px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 14px;
+    font-family: 'Noto Serif JP', serif;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+
+  .btn-tweet:hover { background: #333; }
+
+  .btn-retry {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    color: #8b4513;
+    border: 1px solid #c8956c;
+    border-radius: 30px;
+    font-size: 13px;
+    cursor: pointer;
+    display: none;
+    margin-top: 8px;
+    font-family: 'Noto Serif JP', serif;
+  }
+
+  /* 今週の暦 */
+  .weekly-section {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto 30px;
+  }
+
+  .section-title {
+    font-family: 'Zen Antique', serif;
+    font-size: 16px;
+    color: #8b4513;
+    text-align: center;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e8d5c4;
+  }
+
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .week-day {
+    background: #fff;
+    border: 1px solid #e8d5c4;
+    border-radius: 8px;
+    padding: 8px 4px;
+    text-align: center;
+    font-size: 10px;
+    color: #8b4513;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .week-day:hover { background: #fdf0e8; border-color: #c8956c; }
+
+  .week-day .wday { color: #b08060; font-size: 9px; }
+  .week-day .wdate { font-size: 14px; font-weight: bold; margin: 2px 0; }
+  .week-day .wspecial { font-size: 8px; color: #e91e8c; }
+  .week-day.today { background: #fdf0e8; border-color: #e91e8c; border-width: 2px; }
+
+  footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: #b08060;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📚 まちのほんやさん</h1>
+  <p>〜 恋 み く じ 〜</p>
+</header>
+
+<!-- 今日の暦 -->
+<div class="today-card">
+  <div class="today-date" id="today-date">読み込み中…</div>
+  <div class="calendar-info" id="calendar-info"></div>
+  <div class="special-msg" id="special-msg"></div>
+</div>
+
+<!-- ガチャ -->
+<div class="gacha-area">
+  <div class="gacha-machine">
+    <div class="gacha-title">恋みくじを引く</div>
+    <div class="gacha-subtitle">カプセルをタップして今日の恋を占う</div>
+
+    <div class="capsule-wrap">
+      <div class="capsule" id="capsule" onclick="pullGacha()">💕</div>
+    </div>
+
+    <div class="result-card" id="result-card">
+      <div class="result-label">✦ 今日の恋みくじ ✦</div>
+      <div class="result-fortune" id="result-fortune"></div>
+      <div class="result-text" id="result-text"></div>
+    </div>
+
+    <button class="btn-gacha" id="btn-gacha" onclick="pullGacha()">
+      ✦ みくじを引く ✦
+    </button>
+
+    <button class="btn-tweet" id="btn-tweet" onclick="tweetResult()">
+      𝕏 結果をXでシェア
+    </button>
+
+    <button class="btn-retry" id="btn-retry" onclick="resetGacha()">
+      もう一度引く
+    </button>
+  </div>
+</div>
+
+<!-- 今週の暦 -->
+<div class="weekly-section">
+  <div class="section-title">今週の暦</div>
+  <div class="week-grid" id="week-grid"></div>
+</div>
+
+<footer>
+  まちのほんやさん 恋みくじ<br>
+  毎日更新 ｜ 今日もあなたに良い縁を
+</footer>
+
+<script src="data.js"></script>
+<script>
+const EMOJIS = ['💕','💖','🌸','✨','🦋','🌹','💫','🍀'];
+let pulled = false;
+let currentResult = null;
+let todayData = null;
+
+function init() {
+  todayData = getTodayData();
+  const key = getTodayKey();
+
+  if (!todayData) {
+    document.getElementById('today-date').textContent = '本日の占いは準備中です';
+    return;
+  }
+
+  // 今日の暦表示
+  document.getElementById('today-date').textContent = todayData.date;
+
+  const infoEl = document.getElementById('calendar-info');
+  infoEl.innerHTML = `
+    <span class="badge">九星：${todayData.kyusei}</span>
+    <span class="badge">干支：${todayData.eto}</span>
+    <span class="badge">${todayData.rokuyo}</span>
+    ${todayData.special.map(s => `<span class="special-badge">${s}</span>`).join('')}
+  `;
+
+  if (todayData.special.length > 0) {
+    const msgEl = document.getElementById('special-msg');
+    msgEl.textContent = todayData.special_msg;
+    msgEl.style.display = 'block';
+  }
+
+  // 今週の暦
+  const grid = document.getElementById('week-grid');
+  const days = ['日','月','火','水','木','金','土'];
+  Object.entries(FORTUNE_DATA).forEach(([dateKey, data]) => {
+    const d = new Date(dateKey);
+    const isToday = dateKey === key;
+    const cell = document.createElement('div');
+    cell.className = 'week-day' + (isToday ? ' today' : '');
+    cell.innerHTML = `
+      <div class="wday">${days[d.getDay()]}</div>
+      <div class="wdate">${d.getDate()}</div>
+      <div class="wspecial">${data.special.length > 0 ? '★' : ''}</div>
+    `;
+    cell.title = data.special.join(' ') || data.rokuyo;
+    grid.appendChild(cell);
+  });
+
+  // カプセルを毎秒ランダムに変える
+  setInterval(() => {
+    if (!pulled) {
+      document.getElementById('capsule').textContent =
+        EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+    }
+  }, 1500);
+}
+
+function pullGacha() {
+  if (pulled || !todayData) return;
+
+  const capsule = document.getElementById('capsule');
+  const btn = document.getElementById('btn-gacha');
+  btn.disabled = true;
+
+  // スピンアニメーション
+  capsule.classList.add('spinning');
+
+  setTimeout(() => {
+    capsule.classList.remove('spinning');
+    pulled = true;
+
+    // ランダムで結果を選ぶ
+    const idx = Math.floor(Math.random() * todayData.koi.length);
+    const raw = todayData.koi[idx];
+    const [label, text] = raw.split('｜');
+
+    currentResult = { label, text, data: todayData };
+
+    // 結果表示
+    const resultCard = document.getElementById('result-card');
+    const resultFortune = document.getElementById('result-fortune');
+    const resultText = document.getElementById('result-text');
+
+    resultFortune.textContent = label;
+    resultFortune.className = 'result-fortune ' +
+      (label.includes('大吉') ? 'daikichi' : label.includes('凶') ? 'kyou' : 'kichi');
+    resultText.textContent = text;
+    resultCard.style.display = 'block';
+
+    // ボタン切り替え
+    btn.style.display = 'none';
+    document.getElementById('btn-tweet').style.display = 'flex';
+    document.getElementById('btn-retry').style.display = 'block';
+
+    capsule.textContent = '🎴';
+  }, 700);
+}
+
+function resetGacha() {
+  pulled = false;
+  currentResult = null;
+  document.getElementById('result-card').style.display = 'none';
+  document.getElementById('btn-gacha').style.display = 'block';
+  document.getElementById('btn-gacha').disabled = false;
+  document.getElementById('btn-tweet').style.display = 'none';
+  document.getElementById('btn-retry').style.display = 'none';
+  document.getElementById('capsule').textContent = '💕';
+}
+
+function tweetResult() {
+  if (!currentResult) return;
+  const d = currentResult.data;
+  const specials = d.special.length > 0 ? `\n${d.special.join(' ')}` : '';
+  const text =
+`📚まちのほんやさん 恋みくじ
+${d.date}${specials}
+
+🔮 ${currentResult.label}
+${currentResult.text}
+
+九星：${d.kyusei} ／ 干支：${d.eto} ／ ${d.rokuyo}
+
+#恋みくじ #占い #恋愛運 #まちのほんやさん`;
+
+  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+init();
+</script>
+</body>
+</html>
