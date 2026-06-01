@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>秘書に聞く｜霊視鑑定 こころのまつきよ</title>
+  <meta name="description" content="こころのまつきよの専属秘書がご案内します。鑑定の流れ・料金・ご相談方法など、何でもお気軽にどうぞ。" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #08040f;
+      --bg2:    #100820;
+      --card:   #130a22;
+      --border: #2e1a50;
+      --gold:   #c8a04a;
+      --gold2:  #eedda0;
+      --purple: #9b6dc5;
+      --muted:  #9480b0;
+      --text:   #f0e8ff;
+      --rose:   #d4708a;
+      --r:      14px;
+    }
+
+    body {
+      font-family: 'Noto Serif JP', serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.9;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ---- 星空背景 ---- */
+    .sky {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 50% at 30% 10%, rgba(155,109,197,.18), transparent),
+        radial-gradient(ellipse 60% 40% at 75% 85%, rgba(212,112,138,.12), transparent),
+        var(--bg);
+    }
+    .sky::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(1px 1px at  8% 12%, #fff, transparent),
+        radial-gradient(1px 1px at 22%  4%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 45% 18%, #f8e9a1, transparent),
+        radial-gradient(1px 1px at 63%  8%, #fff, transparent),
+        radial-gradient(1px 1px at 82% 22%, #fff, transparent),
+        radial-gradient(1px 1px at 12% 38%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 35% 55%, #f8e9a1, transparent),
+        radial-gradient(1px 1px at 57% 47%, #fff, transparent),
+        radial-gradient(1px 1px at 78% 60%, #fff, transparent),
+        radial-gradient(2px 2px at 20% 72%, #f8e9a1, transparent),
+        radial-gradient(1px 1px at 50% 82%, #fff, transparent),
+        radial-gradient(1px 1px at 88% 75%, #fff, transparent),
+        radial-gradient(1px 1px at  5% 90%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 70% 92%, #f8e9a1, transparent);
+      opacity: .55;
+    }
+
+    .w {
+      position: relative; z-index: 1;
+      max-width: 720px; margin: 0 auto; padding: 0 20px;
+    }
+
+    /* ---- HEADER ---- */
+    .page-header {
+      text-align: center;
+      padding: 50px 20px 30px;
+      position: relative; z-index: 1;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted); font-size: .8rem; text-decoration: none;
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 4px 14px; margin-bottom: 28px;
+      transition: color .2s, border-color .2s;
+    }
+    .back-link:hover { color: var(--gold); border-color: var(--gold); }
+
+    .secretary-badge {
+      display: inline-block;
+      background: rgba(200,160,74,.1);
+      border: 1px solid rgba(200,160,74,.35);
+      border-radius: 999px;
+      padding: 4px 18px;
+      font-size: .75rem; color: var(--gold);
+      letter-spacing: .15em;
+      margin-bottom: 18px;
+    }
+    .page-header h1 {
+      font-size: clamp(1.5rem, 4.5vw, 2rem);
+      font-weight: 700;
+      color: var(--gold2);
+      line-height: 1.45;
+      letter-spacing: .04em;
+      text-shadow: 0 0 40px rgba(200,160,74,.4);
+      margin-bottom: 12px;
+    }
+    .page-header p {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    /* ---- SECRETARY AVATAR ---- */
+    .secretary-intro {
+      display: flex; align-items: center; gap: 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px 22px;
+      margin: 0 0 28px;
+      position: relative; z-index: 1;
+    }
+    .sec-avatar {
+      width: 72px; height: 72px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #3a1060, #7b2ff7);
+      border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 0 20px rgba(123,47,247,.35);
+      animation: sec-glow 3s ease-in-out infinite;
+    }
+    @keyframes sec-glow {
+      0%,100% { box-shadow: 0 0 20px rgba(123,47,247,.35); }
+      50%      { box-shadow: 0 0 36px rgba(200,160,74,.4); }
+    }
+    .sec-name { font-size: .95rem; font-weight: 700; color: var(--gold2); margin-bottom: 3px; }
+    .sec-title {
+      font-size: .75rem; color: var(--gold);
+      border: 1px solid rgba(200,160,74,.3);
+      border-radius: 999px; padding: 1px 10px;
+      display: inline-block; margin-bottom: 8px;
+    }
+    .sec-greeting { font-size: .875rem; color: var(--muted); line-height: 1.8; }
+
+    /* ---- CHAT WINDOW ---- */
+    .chat-window {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      min-height: 280px;
+      padding: 20px;
+      margin-bottom: 20px;
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 16px;
+      overflow-y: auto;
+      max-height: 420px;
+    }
+
+    /* Secretary message */
+    .msg-sec {
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .msg-sec-avatar {
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #3a1060, #7b2ff7);
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .msg-sec-bubble {
+      background: linear-gradient(135deg, #1a0a30, #200c3c);
+      border: 1px solid var(--border);
+      border-radius: 0 12px 12px 12px;
+      padding: 12px 16px;
+      font-size: .875rem;
+      color: var(--text);
+      line-height: 1.85;
+      max-width: 88%;
+      animation: fadeInUp .3s ease;
+    }
+
+    /* User message */
+    .msg-user {
+      display: flex; justify-content: flex-end;
+      animation: fadeInUp .3s ease;
+    }
+    .msg-user-bubble {
+      background: linear-gradient(135deg, #3a1060, #5a1890);
+      border: 1px solid rgba(155,109,197,.4);
+      border-radius: 12px 0 12px 12px;
+      padding: 10px 16px;
+      font-size: .875rem;
+      color: var(--gold2);
+      max-width: 75%;
+    }
+
+    /* Typing indicator */
+    .typing-indicator {
+      display: flex; gap: 10px; align-items: center;
+    }
+    .typing-dots {
+      display: flex; gap: 5px; padding: 14px 16px;
+      background: linear-gradient(135deg, #1a0a30, #200c3c);
+      border: 1px solid var(--border);
+      border-radius: 0 12px 12px 12px;
+    }
+    .typing-dots span {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--purple);
+      animation: dot-bounce .9s ease-in-out infinite;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: .15s; }
+    .typing-dots span:nth-child(3) { animation-delay: .30s; }
+    @keyframes dot-bounce {
+      0%,100% { transform: translateY(0); opacity: .4; }
+      50%      { transform: translateY(-5px); opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---- QUESTION BUTTONS ---- */
+    .questions-label {
+      font-size: .75rem; color: var(--gold);
+      letter-spacing: .12em; text-align: center;
+      margin-bottom: 12px;
+      position: relative; z-index: 1;
+    }
+    .questions-grid {
+      display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 28px;
+      position: relative; z-index: 1;
+    }
+    .q-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      text-align: left;
+      color: var(--text);
+      font-size: .875rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all .2s;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .q-btn:hover:not(:disabled) {
+      border-color: var(--gold);
+      background: linear-gradient(135deg, var(--card), #1c0a36);
+      color: var(--gold2);
+    }
+    .q-btn:disabled {
+      opacity: .4; cursor: default;
+    }
+    .q-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+    /* ---- CTA ---- */
+    .cta-area {
+      background: linear-gradient(160deg, #1c0a36, #2e0d5c);
+      border: 1px solid var(--gold);
+      border-radius: var(--r);
+      padding: 36px 24px;
+      text-align: center;
+      box-shadow: 0 0 60px rgba(155,109,197,.15);
+      margin-bottom: 40px;
+      position: relative; z-index: 1;
+    }
+    .cta-area h2 {
+      font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+      font-weight: 700; color: var(--gold2);
+      line-height: 1.5; margin-bottom: 10px;
+    }
+    .cta-area p {
+      color: var(--muted); font-size: .875rem;
+      margin-bottom: 22px; line-height: 1.9;
+    }
+    .btn-main {
+      display: block; width: 100%;
+      background: linear-gradient(135deg, #7b2ff7, #4a00b4);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      color: var(--gold2);
+      padding: 18px 24px;
+      font-size: 1.05rem;
+      font-family: inherit; font-weight: 700;
+      letter-spacing: .06em;
+      text-decoration: none;
+      transition: all .25s;
+      box-shadow: 0 6px 36px rgba(123,47,247,.5);
+      animation: glow 2.8s ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%,100% { box-shadow: 0 6px 36px rgba(123,47,247,.5); }
+      50%      { box-shadow: 0 6px 56px rgba(200,160,74,.4), 0 0 0 4px rgba(200,160,74,.1); }
+    }
+    .btn-main:hover { transform: translateY(-3px); }
+    .btn-main .sub { display: block; font-size: .75rem; font-weight: 400; opacity: .8; margin-top: 4px; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .75rem;
+      line-height: 2;
+      position: relative; z-index: 1;
+    }
+
+    .divider {
+      display: flex; align-items: center; gap: 10px;
+      margin: 24px 0;
+      position: relative; z-index: 1;
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
+    .divider span { color: var(--gold); font-size: 1rem; }
+
+    .reset-btn {
+      display: block; margin: 0 auto 8px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .75rem;
+      font-family: inherit;
+      padding: 4px 14px;
+      cursor: pointer;
+      transition: all .2s;
+      position: relative; z-index: 1;
+    }
+    .reset-btn:hover { border-color: var(--purple); color: var(--purple); }
+  </style>
+</head>
+<body>
+<div class="sky"></div>
+
+<div class="page-header">
+  <div class="w">
+    <a href="index.html" class="back-link">← こころのまつきよ トップへ</a>
+    <div class="secretary-badge">SECRETARY</div>
+    <h1>秘書にご相談ください</h1>
+    <p>鑑定のこと、何でもお気軽にどうぞ。</p>
+  </div>
+</div>
+
+<div class="w">
+
+  <!-- Secretary intro -->
+  <div class="secretary-intro">
+    <div class="sec-avatar">🌸</div>
+    <div>
+      <div class="sec-name">紫乃（しの）</div>
+      <span class="sec-title">こころのまつきよ 専属秘書</span>
+      <p class="sec-greeting">
+        はじめまして。専属秘書の紫乃と申します。<br>
+        鑑定に関するご不明点やご不安など、どんなことでもお答えします。<br>
+        下のボタンから、気になる質問を選んでみてください。
+      </p>
+    </div>
+  </div>
+
+  <!-- Chat window -->
+  <div class="chat-window" id="chatWindow">
+    <div class="msg-sec" id="initialMsg">
+      <div class="msg-sec-avatar">🌸</div>
+      <div class="msg-sec-bubble">
+        いらっしゃいませ。<br>
+        こころのまつきよの専属秘書、紫乃です。<br>
+        ご質問はどちらですか？下のボタンからお選びください。✦
+      </div>
+    </div>
+  </div>
+
+  <!-- Question buttons -->
+  <div class="questions-label">— ご質問をお選びください —</div>
+  <div class="questions-grid" id="questionsGrid">
+    <button class="q-btn" onclick="ask(this, 'flow')">
+      <span class="q-icon">📋</span>
+      <span>鑑定の流れを教えてください</span>
+    </button>
+    <button class="q-btn" onclick="ask(this, 'price')">
+      <span class="q-icon">💴</span>
+      <span>料金はいくらですか？</span>
+    </button>
+    <button class="q-btn" onclick="ask(this, 'topics')">
+      <span class="q-icon">💬</span>
+      <span>どんな相談ができますか？</span>
+    </button>
+    <button class="q-btn" onclick="ask(this, 'firsttime')">
+      <span class="q-icon">🌱</span>
+      <span>初めてでも大丈夫ですか？</span>
+    </button>
+    <button class="q-btn" onclick="ask(this, 'privacy')">
+      <span class="q-icon">🔒</span>
+      <span>個人情報・秘密は守られますか？</span>
+    </button>
+    <button class="q-btn" onclick="ask(this, 'master')">
+      <span class="q-icon">🔮</span>
+      <span>鑑定士について教えてください</span>
+    </button>
+  </div>
+
+  <button class="reset-btn" onclick="resetChat()">↺ 最初からやり直す</button>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- CTA -->
+  <div class="cta-area">
+    <h2>準備ができたら、<br>こころのまつきよに申し込む</h2>
+    <p>
+      ご不明点はすべて秘書にお任せください。<br>
+      Coconalaの安全な決済システムで、匿名でもご利用いただけます。
+    </p>
+    <a href="https://coconala.com/services/4064307" class="btn-main" target="_blank" rel="noopener">
+      ✦ 今すぐ鑑定を申し込む ✦
+      <span class="sub">¥1,500〜 ｜ 評価⭐5.0 ｜ Coconala安全決済</span>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© こころのまつきよ｜復縁霊視鑑定</p>
+  <p style="margin-top:6px;">
+    本サイトは Coconala 上のサービスの紹介ページです。<br>
+    鑑定はエンターテイメント・スピリチュアル目的であり、結果を保証するものではありません。
+  </p>
+</footer>
+
+<script>
+  const answers = {
+    flow: {
+      q: '鑑定の流れを教えてください',
+      a: `かしこまりました。鑑定の流れをご説明します。✦
+
+①【Coconalaで申し込み】
+ページ下部のボタンから Coconala のサービスページへ進み、プランをお選びください。
+
+②【ご状況をお伝え】
+購入後、Coconala のメッセージ機能でご相談内容（お相手のこと・現在の状況）をお送りください。
+
+③【鑑定・鑑定書のお届け】
+まつきよが霊視・手相鑑定を行い、丁寧な鑑定書をテキストでお届けします。
+
+④【フォローアップ】
+鑑定後のご質問にも対応しています。一人で悩まなくて大丈夫です。
+
+所要時間は通常 1〜2 日以内となっております。`
+    },
+    price: {
+      q: '料金はいくらですか？',
+      a: `料金プランは3種類ございます。✦
+
+【BASIC ¥1,500〜】
+彼の本音・今後の流れの基本鑑定です。はじめての方にもおすすめです。
+
+【LUNCH +¥3,500】
+基本鑑定に加え、今後の分岐点を詳しく分析します。「どう動けばいいか」を具体的に知りたい方向けです。
+
+【DINNER +¥8,500】 ✦ 人気
+全項目を徹底的に深掘りする完全鑑定です。複雑な状況・長期的な見通しを知りたい方に多くご選択いただいています。
+
+すべて Coconala の安全な決済システムを通じてお支払いいただけます。`
+    },
+    topics: {
+      q: 'どんな相談ができますか？',
+      a: `こころのまつきよは、復縁・複雑恋愛に特化した霊視鑑定士です。✦
+
+主なご相談内容：
+
+✦ 既読スルー・音信不通の彼の本音
+✦ 復縁できる可能性・タイミング
+✦ 今後の関係の流れと転機
+✦ 動くべきベストタイミング
+✦ 既婚者・W不倫・片思いなどの複雑な事情
+✦ 「諦めるべきか続けるべきか」の判断
+
+どんな複雑な状況でも批判せず、丁寧に寄り添います。友人には話せないことも、ここで話してみてください。`
+    },
+    firsttime: {
+      q: '初めてでも大丈夫ですか？',
+      a: `もちろんです。はじめてのお客様が多くいらっしゃいます。✦
+
+「占いや霊視を頼ったことがない」「本当に当たるの？」という不安も当然です。まずはメッセージで状況をお話しいただくだけで大丈夫です。
+
+プレッシャーをかけることは一切ありません。
+「相談しようか迷っている」という段階でも、まずご連絡ください。
+
+こころのまつきよは「やさしく、でも曖昧にせず」をモットーに、あなたが自分で判断できる状態になれるよう、伴走する鑑定スタイルです。`
+    },
+    privacy: {
+      q: '個人情報・秘密は守られますか？',
+      a: `はい、プライバシーは完全に守られます。✦
+
+Coconala のプラットフォームを通じたやり取りのため、個人情報（本名・住所・電話番号など）が鑑定士に直接伝わることはありません。
+
+ニックネームでのご利用も可能です。
+
+また、鑑定内容はもちろん秘密厳守です。既婚者との関係、不倫、W不倫など、誰にも話せない内容でも安心してご相談ください。
+
+「秘密にしたい」こと自体が、まつきよに相談される理由のひとつです。`
+    },
+    master: {
+      q: '鑑定士について教えてください',
+      a: `まつきよについてご紹介します。✦
+
+【こころのまつきよ】
+30代女性の復縁・複雑恋愛に特化した霊視鑑定士です。
+
+霊視と手相を組み合わせた独自の鑑定スタイルで、相手の感情・関係の今後・行動時期を丁寧にお伝えします。
+
+「やさしく、でも曖昧にせず」をモットーに、感情的な判断から守るための、伴走型の鑑定を提供しています。
+
+評価：⭐ 5.0（Coconala 公式レビューより）
+お客様のご感想：「安心して鑑定をお願いできました。」
+
+あなたの状況を、しっかりと視てくれる鑑定士です。`
+    }
+  };
+
+  let usedQuestions = new Set();
+
+  function ask(btn, key) {
+    if (btn.disabled) return;
+
+    const { q, a } = answers[key];
+    const chatWindow = document.getElementById('chatWindow');
+
+    // Add user message
+    const userMsg = document.createElement('div');
+    userMsg.className = 'msg-user';
+    userMsg.innerHTML = `<div class="msg-user-bubble">${q}</div>`;
+    chatWindow.appendChild(userMsg);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+
+    // Disable button
+    btn.disabled = true;
+    usedQuestions.add(key);
+
+    // Show typing indicator
+    const typing = document.createElement('div');
+    typing.className = 'typing-indicator';
+    typing.innerHTML = `
+      <div class="msg-sec-avatar">🌸</div>
+      <div class="typing-dots">
+        <span></span><span></span><span></span>
+      </div>`;
+    chatWindow.appendChild(typing);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+
+    // Show answer after delay
+    setTimeout(() => {
+      chatWindow.removeChild(typing);
+
+      const secMsg = document.createElement('div');
+      secMsg.className = 'msg-sec';
+      secMsg.innerHTML = `
+        <div class="msg-sec-avatar">🌸</div>
+        <div class="msg-sec-bubble">${a.replace(/\n/g, '<br>')}</div>`;
+      chatWindow.appendChild(secMsg);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+
+      // If all questions answered, show closing message
+      if (usedQuestions.size === Object.keys(answers).length) {
+        setTimeout(() => {
+          const finalMsg = document.createElement('div');
+          finalMsg.className = 'msg-sec';
+          finalMsg.innerHTML = `
+            <div class="msg-sec-avatar">🌸</div>
+            <div class="msg-sec-bubble">
+              以上がご案内できる内容です。✦<br>
+              ご不明点は解消されましたでしょうか？<br>
+              準備ができましたら、ぜひこころのまつきよに申し込んでみてください。<br>
+              あなたの状況が、少しでも明るくなることを願っています。🌙
+            </div>`;
+          chatWindow.appendChild(finalMsg);
+          chatWindow.scrollTop = chatWindow.scrollHeight;
+        }, 600);
+      }
+    }, 1200);
+  }
+
+  function resetChat() {
+    const chatWindow = document.getElementById('chatWindow');
+    // Keep only the first message
+    while (chatWindow.children.length > 1) {
+      chatWindow.removeChild(chatWindow.lastChild);
+    }
+    // Re-enable all buttons
+    document.querySelectorAll('.q-btn').forEach(btn => btn.disabled = false);
+    usedQuestions.clear();
+    chatWindow.scrollTop = 0;
+  }
+</script>
+</body>
+</html>
