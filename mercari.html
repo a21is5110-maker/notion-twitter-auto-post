@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>彼の気持ち＆今後の流れを霊視します｜こころのまつきよ</title>
+  <meta name="description" content="既読スルー・音信不通・復縁…彼の本音を霊視で視ます。¥1,500〜。評価⭐5.0。" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #ff4757;
+      --red2: #ff6b81;
+      --bg: #f5f5f5;
+      --white: #ffffff;
+      --border: #e8e8e8;
+      --text: #1a1a1a;
+      --muted: #888;
+      --green: #2ed573;
+      --r: 8px;
+    }
+    body {
+      font-family: -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ---- HEADER ---- */
+    .header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex; align-items: center; gap: 12px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .header-logo {
+      font-size: 1.3rem; font-weight: 900;
+      color: var(--red); letter-spacing: -.02em;
+    }
+    .header-search {
+      flex: 1;
+      background: var(--bg); border: none; border-radius: 20px;
+      padding: 8px 16px; font-size: .875rem; color: var(--muted);
+    }
+
+    /* ---- LAYOUT ---- */
+    .page { max-width: 480px; margin: 0 auto; }
+
+    /* ---- PRODUCT IMAGE ---- */
+    .product-image {
+      background: linear-gradient(135deg, #1a0830, #3d1278);
+      aspect-ratio: 1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 32px;
+      position: relative;
+    }
+    .product-image .main-icon { font-size: 5rem; margin-bottom: 16px; }
+    .product-image h2 {
+      color: #eedda0; font-size: 1.1rem; font-weight: 700;
+      line-height: 1.5; letter-spacing: .04em;
+    }
+    .product-image .sub { color: #9480b0; font-size: .85rem; margin-top: 8px; }
+    .badge-new {
+      position: absolute; top: 16px; left: 16px;
+      background: var(--red); color: #fff;
+      font-size: .72rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 4px;
+    }
+    .badge-slots {
+      position: absolute; top: 16px; right: 16px;
+      background: rgba(0,0,0,.5); color: #fff;
+      font-size: .72rem; padding: 3px 10px; border-radius: 4px;
+    }
+
+    /* ---- CONTENT ---- */
+    .content { background: var(--white); padding: 16px; }
+
+    .title-row { margin-bottom: 4px; }
+    .product-title {
+      font-size: 1rem; font-weight: 700; line-height: 1.5; color: var(--text);
+    }
+    .rating-row {
+      display: flex; align-items: center; gap: 8px;
+      margin: 8px 0 12px; font-size: .85rem;
+    }
+    .stars { color: #f8971d; }
+    .rating-num { font-weight: 700; color: var(--text); }
+    .review-count { color: var(--muted); }
+
+    .price-row {
+      display: flex; align-items: baseline; gap: 8px;
+      margin-bottom: 4px;
+    }
+    .price-main { font-size: 1.8rem; font-weight: 900; color: var(--red); }
+    .price-tax { font-size: .8rem; color: var(--muted); }
+    .price-range { font-size: .85rem; color: var(--muted); margin-bottom: 16px; }
+
+    /* ---- BUY BUTTON ---- */
+    .btn-buy {
+      display: block; width: 100%;
+      background: var(--red);
+      color: #fff; border: none; border-radius: 4px;
+      padding: 16px; font-size: 1.05rem; font-weight: 700;
+      text-align: center; text-decoration: none;
+      cursor: pointer; transition: background .15s;
+      margin-bottom: 10px;
+    }
+    .btn-buy:active { background: #e0001a; }
+    .btn-like {
+      display: block; width: 100%;
+      background: var(--white); color: var(--text);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 14px; font-size: .95rem; font-weight: 600;
+      text-align: center; text-decoration: none;
+      cursor: pointer; margin-bottom: 16px;
+    }
+
+    .safety-note {
+      display: flex; align-items: center; gap: 6px;
+      font-size: .78rem; color: var(--muted);
+      padding: 10px 0; border-top: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    /* ---- DIVIDER ---- */
+    .divider { height: 8px; background: var(--bg); margin: 0 -16px; }
+
+    /* ---- SECTION ---- */
+    .section { padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .section:last-child { border-bottom: none; }
+    .section-title {
+      font-size: .8rem; font-weight: 700; color: var(--muted);
+      letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;
+    }
+
+    /* ---- PLANS ---- */
+    .plan-list { display: flex; flex-direction: column; gap: 10px; }
+    .plan-item {
+      border: 1.5px solid var(--border); border-radius: var(--r);
+      padding: 14px; cursor: pointer; transition: border-color .15s;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .plan-item.selected { border-color: var(--red); background: #fff5f5; }
+    .plan-item-left { flex: 1; }
+    .plan-name { font-size: .9rem; font-weight: 700; margin-bottom: 3px; }
+    .plan-desc { font-size: .78rem; color: var(--muted); line-height: 1.5; }
+    .plan-price-col { text-align: right; flex-shrink: 0; margin-left: 12px; }
+    .plan-price-val { font-size: 1.1rem; font-weight: 900; color: var(--red); }
+    .plan-badge {
+      display: inline-block; background: var(--red); color: #fff;
+      font-size: .65rem; font-weight: 700; padding: 1px 6px;
+      border-radius: 3px; margin-bottom: 4px;
+    }
+    .radio { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 50%; flex-shrink: 0; margin-left: 10px; display: flex; align-items: center; justify-content: center; }
+    .radio.checked { border-color: var(--red); }
+    .radio.checked::after { content: ''; width: 8px; height: 8px; background: var(--red); border-radius: 50%; }
+
+    /* ---- DESCRIPTION ---- */
+    .desc-text { font-size: .9rem; line-height: 1.9; color: #333; white-space: pre-line; }
+    .desc-toggle { color: var(--red); font-size: .85rem; margin-top: 10px; cursor: pointer; }
+
+    /* ---- CHECKLIST ---- */
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .check-list li { display: flex; gap: 10px; font-size: .875rem; color: #333; align-items: flex-start; }
+    .check-list li::before { content: '✓'; color: var(--red); font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+
+    /* ---- SELLER ---- */
+    .seller-row { display: flex; gap: 12px; align-items: center; }
+    .seller-avatar {
+      width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #4a1a8a, #8e2de2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .seller-name { font-weight: 700; font-size: .95rem; margin-bottom: 3px; }
+    .seller-meta { font-size: .78rem; color: var(--muted); }
+    .seller-desc { font-size: .875rem; color: #333; line-height: 1.8; margin-top: 12px; }
+
+    /* ---- REVIEW ---- */
+    .review-item { padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .review-item:last-child { border-bottom: none; }
+    .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .review-user { font-size: .85rem; font-weight: 600; }
+    .review-date { font-size: .75rem; color: var(--muted); }
+    .review-stars { color: #f8971d; font-size: .8rem; margin-bottom: 6px; }
+    .review-text { font-size: .875rem; color: #333; line-height: 1.7; }
+
+    /* ---- FAQ ---- */
+    .faq-item { padding: 14px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { display: flex; justify-content: space-between; font-size: .875rem; font-weight: 600; color: var(--text); gap: 12px; }
+    .faq-q .arr { color: var(--muted); transition: transform .2s; flex-shrink: 0; }
+    .faq-item.open .faq-q .arr { transform: rotate(180deg); }
+    .faq-a { font-size: .85rem; color: var(--muted); line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height .3s, padding .3s; }
+    .faq-item.open .faq-a { max-height: 300px; padding-top: 10px; }
+
+    /* ---- BOTTOM BAR ---- */
+    .bottom-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex; gap: 10px; align-items: center;
+      max-width: 480px; margin: 0 auto;
+    }
+    .bottom-price { font-size: 1.1rem; font-weight: 900; color: var(--red); flex-shrink: 0; }
+    .bottom-buy {
+      flex: 1;
+      background: var(--red); color: #fff;
+      border: none; border-radius: 4px;
+      padding: 14px; font-size: .95rem; font-weight: 700;
+      cursor: pointer; text-align: center;
+      text-decoration: none; display: block;
+    }
+    .pb { padding-bottom: 80px; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-logo">占いマルシェ</div>
+  <div class="header-search">復縁・既読スルー・彼の気持ち…</div>
+</div>
+
+<div class="page pb">
+
+  <!-- PRODUCT IMAGE -->
+  <div class="product-image">
+    <span class="badge-new">NEW</span>
+    <span class="badge-slots">残り2枠</span>
+    <div class="main-icon">🔮</div>
+    <h2>彼の気持ちと今後の流れを<br>手相＆霊視で視ます</h2>
+    <p class="sub">既読スルー・音信不通・復縁</p>
+  </div>
+
+  <div class="content">
+
+    <!-- TITLE & PRICE -->
+    <div class="title-row">
+      <div class="product-title">【既読スルー・音信不通】彼の気持ちと今後の流れを手相&霊視で視ます</div>
+    </div>
+    <div class="rating-row">
+      <span class="stars">★★★★★</span>
+      <span class="rating-num">5.0</span>
+      <span class="review-count">（1件）</span>
+      <span style="color:var(--muted);font-size:.78rem;">｜ こころのまつきよ</span>
+    </div>
+    <div class="price-row">
+      <span class="price-main" id="current-price">¥1,500</span>
+      <span class="price-tax">税込</span>
+    </div>
+    <p class="price-range">プランにより¥1,500〜¥10,000</p>
+
+    <!-- BUY BUTTONS -->
+    <a href="https://coconala.com/services/4064307" class="btn-buy" target="_blank" rel="noopener">
+      購入する
+    </a>
+    <a href="https://coconala.com/services/4064307" class="btn-like" target="_blank" rel="noopener">
+      詳細・プランを確認する
+    </a>
+    <div class="safety-note">
+      🔒 Coconalaの安全な決済システムで保護されています
+    </div>
+
+  </div><!-- /content -->
+
+  <div class="divider"></div>
+
+  <!-- PLANS -->
+  <div class="content">
+    <div class="section">
+      <div class="section-title">プランを選ぶ</div>
+      <div class="plan-list">
+        <div class="plan-item selected" onclick="selectPlan(this, 1500, '基本鑑定')">
+          <div class="plan-item-left">
+            <div class="plan-name">🌙 基本鑑定</div>
+            <div class="plan-desc">彼の気持ち・今後の流れ・行動タイミング</div>
+          </div>
+          <div class="plan-price-col">
+            <div class="plan-price-val">¥1,500</div>
+          </div>
+          <div class="radio checked" id="radio-0"></div>
+        </div>
+        <div class="plan-item" onclick="selectPlan(this, 5000, '流れ＆分岐点分析')">
+          <div class="plan-item-left">
+            <div class="plan-badge">人気No.1</div>
+            <div class="plan-name">✦ 流れ＆分岐点分析</div>
+            <div class="plan-desc">基本鑑定＋ターニングポイント・複数シナリオ</div>
+          </div>
+          <div class="plan-price-col">
+            <div class="plan-price-val">¥5,000</div>
+          </div>
+          <div class="radio" id="radio-1"></div>
+        </div>
+        <div class="plan-item" onclick="selectPlan(this, 10000, '完全深掘り鑑定')">
+          <div class="plan-item-left">
+            <div class="plan-name">🔮 完全深掘り鑑定</div>
+            <div class="plan-desc">全項目徹底鑑定＋LINE文面アドバイス付き</div>
+          </div>
+          <div class="plan-price-col">
+            <div class="plan-price-val">¥10,000</div>
+          </div>
+          <div class="radio" id="radio-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- DESCRIPTION -->
+  <div class="content">
+    <div class="section">
+      <div class="section-title">商品の説明</div>
+      <div class="desc-text" id="desc">「もう限界…」そう感じているあなたへ。
+
+既読スルー、音信不通、曖昧なまま止まっている関係——
+不安だから送りたい気持ち、すごくわかります。
+でも、「なんとなく送る」は、かなりの確率で逆効果なんです。
+
+私は霊視と手相で「彼の今の本音」と「あなたが動くべきタイミング」を具体的にお伝えします。感覚ではなく、状況ベースで判断できる状態にします。
+
+やさしく、でも曖昧にせず。それが私のスタイルです。</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">こんな方に</div>
+      <ul class="check-list">
+        <li>既読スルーが続いて、彼の気持ちが全くわからない</li>
+        <li>音信不通になって、どう動けばいいか判断できない</li>
+        <li>複雑な事情（既婚者・不倫・年の差）があって誰にも話せない</li>
+        <li>「大丈夫」と言われ続けたのに何も変わらなかった経験がある</li>
+        <li>復縁したいが、今動くべきか確信が持てない</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SELLER -->
+  <div class="content">
+    <div class="section">
+      <div class="section-title">出品者</div>
+      <div class="seller-row">
+        <div class="seller-avatar">🌙</div>
+        <div>
+          <div class="seller-name">こころのまつきよ｜復縁霊視</div>
+          <div class="seller-meta">⭐ 5.0 ｜ 霊視歴10年以上 ｜ 返信：平均2時間以内</div>
+        </div>
+      </div>
+      <div class="seller-desc">30代女性の復縁・複雑恋愛に特化した霊視鑑定士。どんな複雑な事情でも批判せず、やさしく・でも曖昧にせず向き合います。</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- REVIEWS -->
+  <div class="content">
+    <div class="section">
+      <div class="section-title">レビュー（1件）</div>
+      <div class="review-item">
+        <div class="review-header">
+          <span class="review-user">miwakorirakumaさん</span>
+          <span class="review-date">2026年</span>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">安心して鑑定をお願いできました。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- FAQ -->
+  <div class="content">
+    <div class="section">
+      <div class="section-title">よくある質問</div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><span>複雑な関係（不倫・既婚者）でも相談できますか？</span><span class="arr">▼</span></div>
+        <div class="faq-a">はい、どんな状況でも批判せず対応します。匿名でのご利用も可能です。</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><span>鑑定にはどのくらい時間がかかりますか？</span><span class="arr">▼</span></div>
+        <div class="faq-a">平均2時間以内にお返事しています。最長24時間以内を目安にしています。</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><span>初めてで緊張しています。大丈夫ですか？</span><span class="arr">▼</span></div>
+        <div class="faq-a">初めての方がほとんどです。購入前のメッセージでのご相談も歓迎します。</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q"><span>生年月日がわからなくても鑑定できますか？</span><span class="arr">▼</span></div>
+        <div class="faq-a">大丈夫です。なくても霊視は可能です。あれば精度が上がります。</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <div class="bottom-price" id="bottom-price">¥1,500</div>
+  <a href="https://coconala.com/services/4064307" class="bottom-buy" target="_blank" rel="noopener">
+    購入する
+  </a>
+</div>
+
+<script>
+  let radios = [
+    document.getElementById('radio-0'),
+    document.getElementById('radio-1'),
+    document.getElementById('radio-2'),
+  ];
+
+  function selectPlan(el, price, name) {
+    document.querySelectorAll('.plan-item').forEach((p, i) => {
+      p.classList.remove('selected');
+      radios[i].classList.remove('checked');
+      radios[i].innerHTML = '';
+    });
+    el.classList.add('selected');
+    const idx = [...document.querySelectorAll('.plan-item')].indexOf(el);
+    radios[idx].classList.add('checked');
+    document.getElementById('current-price').textContent = '¥' + price.toLocaleString();
+    document.getElementById('bottom-price').textContent = '¥' + price.toLocaleString();
+  }
+
+  function toggleFaq(el) {
+    el.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
