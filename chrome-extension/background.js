@@ -66,14 +66,18 @@ const FORTUNE_DATA = {
 const KOIMIKUJI_URL = 'https://note.com/miraclecycle369';
 
 function buildKoimikujiTweet(data) {
-  const idx = Math.floor(Math.random() * data.koi.length);
-  const [label, text] = data.koi[idx].split('｜');
   const special = data.special.length > 0 ? `${data.special.join(' ')}\n` : '';
+  const medals = ['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣'];
+
+  const ranking = data.koi.map((item, i) => {
+    const [label] = item.split('｜');
+    return `${medals[i]}${label}`;
+  }).join('\n');
 
   const footer = `\n\n${KOIMIKUJI_URL}`;
-  const budget = 280 - 25; // URLは23文字扱い
+  const budget = 280 - 25;
 
-  let body = `📚まちのほんやさん 恋みくじ\n${data.date}\n${special}\n🔮 ${label}\n${text}\n\n九星：${data.kyusei} 干支：${data.eto} ${data.rokuyo}`;
+  let body = `📚まちのほんやさん 恋みくじ\n${data.date}\n${special}\n${ranking}\n\n九星：${data.kyusei} 干支：${data.eto} ${data.rokuyo}`;
   if (body.length > budget) body = body.slice(0, budget - 1) + '…';
 
   return body + footer;
