@@ -13,14 +13,11 @@ function updateCounter() {
 }
 
 function buildTweet(title, intro, url) {
-  // URL は Twitter内部で自動的に23文字扱い
   const urlPart = `\n\n${url}`;
-  const urlLen  = 23 + 2; // 改行2文字 + URL23文字
-  const budget  = MAX_LEN - urlLen;
-
-  let body = intro || title;
+  const budget  = MAX_LEN - 25;
+  let body = (intro && intro.length > 0) ? intro : title;
+  if (!body) body = '記事を読む';
   if (body.length > budget) body = body.slice(0, budget - 1) + '…';
-
   return body + urlPart;
 }
 
@@ -40,29 +37,30 @@ async function loadArticle() {
   }
 
   const tab = tabs[0];
-  if (!tab || !tab.url || !tab.url.includes('note.com')) {
+  const pageUrl = tab?.url || '';
+
+  if (!pageUrl.includes('note.com')) {
     showError('note.com の記事ページを開いた状態でご利用ください。');
     titleEl.textContent = '—';
     return;
   }
 
+  // タブのURLとタイトルをまず使ってツイート文を作る（確実に表示）
+  const pageTitle = tab.title ? tab.title.replace(/\s*[\|｜]\s*note.*$/, '').trim() : '';
+  titleEl.textContent = pageTitle || pageUrl;
+  tweetArea.value = buildTweet(pageTitle, '', pageUrl);
+  updateCounter();
+
+  // content.jsで本文の導入部も取得して上書き
   try {
-    // content script が確実に存在するよう inject する
-    await chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      files: ['content.js'],
-    });
-  } catch {
-    // 既に inject 済みの場合はエラーになるので無視
-  }
+    await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['content.js'] });
+  } catch {}
 
   chrome.tabs.sendMessage(tab.id, { type: 'GET_ARTICLE' }, (res) => {
-    if (chrome.runtime.lastError || !res) {
-      showError('記事データを取得できませんでした。ページを再読み込みして再度お試しください。');
-      return;
-    }
-    titleEl.textContent = res.title || '（タイトル不明）';
-    tweetArea.value = buildTweet(res.title, res.intro, res.url);
+    if (chrome.runtime.lastError || !res) return; // 失敗してもURLだけのツイートが既に入っている
+    if (res.title) titleEl.textContent = res.title;
+    // URLは必ずtab.urlを使う（確実）
+    tweetArea.value = buildTweet(res.title || pageTitle, res.intro, pageUrl);
     updateCounter();
   });
 }
@@ -73,31 +71,24 @@ function showError(msg) {
 }
 
 document.getElementById('btn-reload').addEventListener('click', loadArticle);
-
 tweetArea.addEventListener('input', updateCounter);
 
 document.getElementById('btn-tweet').addEventListener('click', () => {
   const text = tweetArea.value.trim();
   if (!text) return;
   if (text.length > MAX_LEN) {
-    showError(`${text.length - MAX_LEN}文字オーバーです。ツイート文を短くしてください。`);
+    showError(`${text.length - MAX_LEN}文字オーバーです。`);
     return;
   }
-  const url = `https://twitter.com/intent/tweet?autopost=1&text=${encodeURIComponent(text)}`;
-  chrome.tabs.create({ url });
+  chrome.tabs.create({ url: `https://twitter.com/intent/tweet?autopost=1&text=${encodeURIComponent(text)}` });
   status.textContent = '3秒後に自動投稿します ✓';
 });
 
-// 恋みくじ今すぐ投稿
 document.getElementById('btn-koimikuji').addEventListener('click', () => {
   const koiStatus = document.getElementById('koi-status');
   koiStatus.textContent = '投稿中…';
   chrome.runtime.sendMessage({ type: 'POST_KOIMIKUJI_NOW' }, (res) => {
-    if (res && res.ok) {
-      koiStatus.textContent = '✓ Xの投稿画面を開きました（3秒後に自動投稿）';
-    } else {
-      koiStatus.textContent = res?.msg || 'エラーが発生しました';
-    }
+    koiStatus.textContent = res?.ok ? '✓ 3秒後に自動投稿されます' : (res?.msg || 'エラーが発生しました');
   });
 });
 
