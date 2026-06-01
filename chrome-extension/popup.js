@@ -83,9 +83,9 @@ document.getElementById('btn-tweet').addEventListener('click', () => {
     showError(`${text.length - MAX_LEN}文字オーバーです。ツイート文を短くしてください。`);
     return;
   }
-  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+  const url = `https://twitter.com/intent/tweet?autopost=1&text=${encodeURIComponent(text)}`;
   chrome.tabs.create({ url });
-  status.textContent = 'Xの投稿画面を開きました ✓';
+  status.textContent = '3秒後に自動投稿します ✓';
 });
 
 loadArticle();

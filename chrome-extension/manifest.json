@@ -3,8 +3,8 @@
   "name": "note → X 拡散ツール",
   "version": "1.0",
   "description": "noteの記事導入部をXに投稿してnoteへ流入させる",
-  "permissions": ["activeTab", "scripting"],
-  "host_permissions": ["https://note.com/*"],
+  "permissions": ["activeTab", "scripting", "tabs"],
+  "host_permissions": ["https://note.com/*", "https://twitter.com/*", "https://x.com/*"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -16,6 +16,11 @@
     {
       "matches": ["https://note.com/*"],
       "js": ["content.js"]
+    },
+    {
+      "matches": ["https://twitter.com/intent/tweet*", "https://x.com/intent/tweet*"],
+      "js": ["autopost.js"],
+      "run_at": "document_idle"
     }
   ]
 }
