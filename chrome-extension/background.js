@@ -64,18 +64,14 @@ const FORTUNE_DATA = {
 
 // 恋みくじのリンク先URL（GitHub Pages 公開後はそちらに変更）
 const KOIMIKUJI_URL = 'https://note.com/miraclecycle369';
-const TAGS = '#恋みくじ #占い #恋愛運 #まちのほんやさん';
 
 function buildKoimikujiTweet(data) {
   const idx = Math.floor(Math.random() * data.koi.length);
   const [label, text] = data.koi[idx].split('｜');
   const special = data.special.length > 0 ? `${data.special.join(' ')}\n` : '';
 
-  // 固定パーツ（URLとハッシュタグ）
-  const footer = `\n\n${KOIMIKUJI_URL}\n${TAGS}`;
-  // URLはTwitter内部で23文字扱い
-  const footerLen = 23 + 1 + TAGS.length + 2; // \n\n + URL + \n + tags
-  const budget = 280 - footerLen;
+  const footer = `\n\n${KOIMIKUJI_URL}`;
+  const budget = 280 - 25; // URLは23文字扱い
 
   let body = `📚まちのほんやさん 恋みくじ\n${data.date}\n${special}\n🔮 ${label}\n${text}\n\n九星：${data.kyusei} 干支：${data.eto} ${data.rokuyo}`;
   if (body.length > budget) body = body.slice(0, budget - 1) + '…';
