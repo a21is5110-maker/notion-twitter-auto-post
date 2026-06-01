@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>note → X 拡散</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 360px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      background: #fff;
+      color: #1a1a1a;
+    }
+    header {
+      background: #000;
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    header span { font-size: 18px; }
+    .body { padding: 12px 14px; }
+    .label {
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .title-box {
+      font-size: 13px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+      padding: 6px 8px;
+      background: #f5f5f5;
+      border-radius: 6px;
+      word-break: break-all;
+    }
+    textarea {
+      width: 100%;
+      height: 130px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 13px;
+      line-height: 1.6;
+      resize: vertical;
+      outline: none;
+      font-family: inherit;
+    }
+    textarea:focus { border-color: #1da1f2; }
+    .counter {
+      text-align: right;
+      font-size: 11px;
+      color: #999;
+      margin-top: 3px;
+    }
+    .counter.over { color: #e0245e; font-weight: bold; }
+    .error {
+      color: #e0245e;
+      font-size: 12px;
+      margin: 8px 0;
+      padding: 6px 8px;
+      background: #fff0f3;
+      border-radius: 6px;
+    }
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    button {
+      flex: 1;
+      padding: 9px;
+      border: none;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    button:hover { opacity: 0.85; }
+    #btn-tweet {
+      background: #000;
+      color: #fff;
+    }
+    #btn-reload {
+      background: #f0f0f0;
+      color: #333;
+      flex: 0 0 auto;
+      width: 38px;
+      font-size: 16px;
+    }
+    #status {
+      font-size: 11px;
+      color: #1da1f2;
+      margin-top: 6px;
+      min-height: 16px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header><span>𝕏</span> note → X 拡散ツール</header>
+  <div class="body">
+    <div class="label">記事タイトル</div>
+    <div class="title-box" id="title">読み込み中…</div>
+
+    <div class="label">ツイート文（編集可）</div>
+    <textarea id="tweet-text" placeholder="記事の導入部を読み込み中…"></textarea>
+    <div class="counter" id="counter">0 / 280</div>
+
+    <div class="error" id="error" style="display:none"></div>
+
+    <div class="actions">
+      <button id="btn-reload" title="再読み込み">↺</button>
+      <button id="btn-tweet">Xに投稿する</button>
+    </div>
+    <div id="status"></div>
+
+    <div style="margin-top:12px;border-top:1px solid #eee;padding-top:12px;">
+      <div class="label">恋みくじ（今日分）</div>
+      <button id="btn-koimikuji" style="width:100%;margin-top:6px;background:linear-gradient(135deg,#e91e8c,#c2185b);color:#fff;border:none;border-radius:20px;padding:10px;font-size:13px;font-weight:bold;cursor:pointer;">
+        📚 今すぐ恋みくじをXに投稿
+      </button>
+      <div id="koi-status" style="font-size:11px;color:#e91e8c;margin-top:4px;text-align:center;min-height:16px;"></div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
