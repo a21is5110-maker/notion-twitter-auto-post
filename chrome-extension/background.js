@@ -62,6 +62,27 @@ const FORTUNE_DATA = {
   }
 };
 
+// 恋みくじのリンク先URL（GitHub Pages 公開後はそちらに変更）
+const KOIMIKUJI_URL = 'https://note.com/miraclecycle369';
+const TAGS = '#恋みくじ #占い #恋愛運 #まちのほんやさん';
+
+function buildKoimikujiTweet(data) {
+  const idx = Math.floor(Math.random() * data.koi.length);
+  const [label, text] = data.koi[idx].split('｜');
+  const special = data.special.length > 0 ? `${data.special.join(' ')}\n` : '';
+
+  // 固定パーツ（URLとハッシュタグ）
+  const footer = `\n\n${KOIMIKUJI_URL}\n${TAGS}`;
+  // URLはTwitter内部で23文字扱い
+  const footerLen = 23 + 1 + TAGS.length + 2; // \n\n + URL + \n + tags
+  const budget = 280 - footerLen;
+
+  let body = `📚まちのほんやさん 恋みくじ\n${data.date}\n${special}\n🔮 ${label}\n${text}\n\n九星：${data.kyusei} 干支：${data.eto} ${data.rokuyo}`;
+  if (body.length > budget) body = body.slice(0, budget - 1) + '…';
+
+  return body + footer;
+}
+
 async function postKoimikuji() {
   const today = getTodayKey();
   const storageKey = `koimikuji_${today}`;
@@ -71,21 +92,7 @@ async function postKoimikuji() {
   const data = FORTUNE_DATA[today];
   if (!data) return;
 
-  const idx = Math.floor(Math.random() * data.koi.length);
-  const [label, text] = data.koi[idx].split('｜');
-  const specials = data.special.length > 0 ? `\n${data.special.join(' ')}` : '';
-
-  const tweetText =
-`📚まちのほんやさん 恋みくじ
-${data.date}${specials}
-
-🔮 ${label}
-${text}
-
-九星：${data.kyusei} ／ 干支：${data.eto} ／ ${data.rokuyo}
-
-#恋みくじ #占い #恋愛運 #まちのほんやさん`;
-
+  const tweetText = buildKoimikujiTweet(data);
   const saved = {};
   saved[storageKey] = true;
   await chrome.storage.local.set(saved);
@@ -158,23 +165,10 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 // ポップアップからの手動トリガー
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   if (msg.type === 'POST_KOIMIKUJI_NOW') {
-    // 重複チェックをスキップして強制投稿
     const today = getTodayKey();
     const data = FORTUNE_DATA[today];
     if (!data) { sendResponse({ ok: false, msg: '今日のデータがありません' }); return; }
-    const idx = Math.floor(Math.random() * data.koi.length);
-    const [label, text] = data.koi[idx].split('｜');
-    const specials = data.special.length > 0 ? `\n${data.special.join(' ')}` : '';
-    const tweetText =
-`📚まちのほんやさん 恋みくじ
-${data.date}${specials}
-
-🔮 ${label}
-${text}
-
-九星：${data.kyusei} ／ 干支：${data.eto} ／ ${data.rokuyo}
-
-#恋みくじ #占い #恋愛運 #まちのほんやさん`;
+    const tweetText = buildKoimikujiTweet(data);
     chrome.tabs.create({
       url: `https://twitter.com/intent/tweet?autopost=1&text=${encodeURIComponent(tweetText)}`
     });
