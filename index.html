@@ -1,528 +1,960 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>復縁・複雑恋愛｜霊視鑑定 こころのまつきよ</title>
-  <meta name="description" content="相手の気持ちが分からず苦しい…復縁・複雑恋愛に特化した霊視鑑定士「こころのまつきよ」が、今のあなたの状況を丁寧に視ます。" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>恋のリーチ｜こころのまつきよ 復縁・霊視鑑定</title>
+  <meta name="description" content="既読スルー・音信不通・復縁…彼の気持ちを霊視で視ます。スロットを回して今日のあなたへの鑑定を受け取って。" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0a0015;font-family:'Hiragino Kaku Gothic ProN','Hiragino Sans',Meiryo,sans-serif;overflow:hidden;}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    .card{
+      position:relative;
+      width:min(1024px,100vw,100dvw);height:min(1024px,100vw,100dvh);
+      background:linear-gradient(145deg,#2d0b55 0%,#4a1060 30%,#6b1a7a 55%,#9b2a8a 75%,#c44b8a 90%,#e07aa0 100%);
+      border-radius:24px;overflow:hidden;
+      display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+      padding:4% 5% 3%;
+      box-shadow:0 0 80px rgba(200,80,150,.5),inset 0 0 60px rgba(255,255,255,.03);
+    }
+    @keyframes card-shake{0%,100%{transform:translate(0,0);}10%{transform:translate(-7px,-3px);}25%{transform:translate(8px,3px);}40%{transform:translate(-5px,4px);}55%{transform:translate(6px,-3px);}70%{transform:translate(-3px,2px);}}
+    .card.shake{animation:card-shake .45s ease both;}
+    @keyframes fever-bg{0%{background:linear-gradient(145deg,#2d0b55,#6b1a7a,#c44b8a);}25%{background:linear-gradient(200deg,#500090,#d42090,#ff80c0);}50%{background:linear-gradient(260deg,#800020,#ff4080,#ffa0c0);}75%{background:linear-gradient(320deg,#200080,#c040e0,#ff80ff);}100%{background:linear-gradient(145deg,#2d0b55,#6b1a7a,#c44b8a);}}
+    .card.fever{animation:fever-bg 1.2s linear infinite;}
 
-    :root {
-      --bg:     #08040f;
-      --bg2:    #100820;
-      --card:   #130a22;
-      --border: #2e1a50;
-      --gold:   #c8a04a;
-      --gold2:  #eedda0;
-      --purple: #9b6dc5;
-      --muted:  #9480b0;
-      --text:   #f0e8ff;
-      --rose:   #d4708a;
-      --r:      14px;
-    }
+    #flashOverlay{position:absolute;inset:0;z-index:100;background:rgba(255,220,240,0);pointer-events:none;border-radius:inherit;transition:background .07s;}
+    #burstGlow{position:absolute;inset:-20%;z-index:5;pointer-events:none;border-radius:50%;opacity:0;}
+    #burstGlow.burst{animation:burst .9s ease-out forwards;}
+    @keyframes burst{0%{opacity:0;transform:scale(.5);}30%{opacity:1;transform:scale(1.3);background:radial-gradient(ellipse at center,rgba(255,220,80,.7) 0%,transparent 55%);}100%{opacity:0;transform:scale(3);}}
+    #feverParticles{position:absolute;inset:0;z-index:50;pointer-events:none;overflow:hidden;}
+    .fever-star{position:absolute;animation:star-burst linear forwards;font-size:clamp(14px,3vw,30px);}
+    @keyframes star-burst{0%{transform:translate(0,0)scale(.2)rotate(0deg);opacity:1;}60%{opacity:1;}100%{transform:translate(var(--dx),var(--dy))scale(1.6)rotate(var(--dr));opacity:0;}}
+    #feverRings{position:absolute;inset:0;z-index:6;pointer-events:none;display:none;align-items:center;justify-content:center;}
+    .f-ring{position:absolute;border-radius:50%;border:3px solid transparent;width:clamp(80px,20vw,200px);height:clamp(80px,20vw,200px);animation:ring-ex 1.4s ease-out infinite;}
+    .f-ring:nth-child(2){animation-delay:.35s;}.f-ring:nth-child(3){animation-delay:.7s;}.f-ring:nth-child(4){animation-delay:1.05s;}
+    @keyframes ring-ex{0%{transform:scale(.3);border-color:rgba(255,220,80,.9);opacity:1;}100%{transform:scale(3.5);border-color:transparent;opacity:0;}}
 
-    body {
-      font-family: 'Noto Serif JP', serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.9;
-      overflow-x: hidden;
-    }
+    .bg-sparkle{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+    .bg-sparkle span{position:absolute;border-radius:50%;background:rgba(255,220,240,.15);animation:float-up linear infinite;}
+    @keyframes float-up{0%{transform:translateY(110%)scale(.5);opacity:0;}20%{opacity:.6;}80%{opacity:.3;}100%{transform:translateY(-10%)scale(1.2);opacity:0;}}
 
-    /* ---- 星空背景 ---- */
-    .sky {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 70% 50% at 30% 10%, rgba(155,109,197,.18), transparent),
-        radial-gradient(ellipse 60% 40% at 75% 85%, rgba(212,112,138,.12), transparent),
-        var(--bg);
-    }
-    .sky::after {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        radial-gradient(1px 1px at  8% 12%, #fff, transparent),
-        radial-gradient(1px 1px at 22%  4%, #fff, transparent),
-        radial-gradient(1.5px 1.5px at 45% 18%, #f8e9a1, transparent),
-        radial-gradient(1px 1px at 63%  8%, #fff, transparent),
-        radial-gradient(1px 1px at 82% 22%, #fff, transparent),
-        radial-gradient(1px 1px at 12% 38%, #fff, transparent),
-        radial-gradient(1.5px 1.5px at 35% 55%, #f8e9a1, transparent),
-        radial-gradient(1px 1px at 57% 47%, #fff, transparent),
-        radial-gradient(1px 1px at 78% 60%, #fff, transparent),
-        radial-gradient(2px 2px at 20% 72%, #f8e9a1, transparent),
-        radial-gradient(1px 1px at 50% 82%, #fff, transparent),
-        radial-gradient(1px 1px at 88% 75%, #fff, transparent),
-        radial-gradient(1px 1px at  5% 90%, #fff, transparent),
-        radial-gradient(1.5px 1.5px at 70% 92%, #f8e9a1, transparent);
-      opacity: .55;
-    }
+    .title-area{text-align:center;z-index:10;flex-shrink:0;}
+    .main-title{font-size:clamp(26px,6vw,60px);font-weight:900;letter-spacing:.12em;color:#fff;text-shadow:0 0 20px rgba(255,160,200,.9),0 0 40px rgba(200,80,160,.6);}
+    .sub-title{margin-top:4px;font-size:clamp(11px,2.2vw,22px);color:rgba(255,220,240,.85);letter-spacing:.15em;}
 
-    /* ---- LAYOUT ---- */
-    .w { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 0 20px; }
+    .lamp-row{display:flex;gap:clamp(6px,1.5vw,18px);z-index:10;flex-shrink:0;}
+    .lamp{width:clamp(10px,2vw,20px);height:clamp(10px,2vw,20px);border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff8fc,#e066b0);box-shadow:0 0 8px rgba(230,100,180,.5);animation:lamp-blink 2.4s ease-in-out infinite;}
+    .lamp:nth-child(2n){animation-delay:.4s;background:radial-gradient(circle at 35% 35%,#fffbe0,#f0c040);}
+    .lamp:nth-child(3n){animation-delay:.8s;}.lamp:nth-child(4n){animation-delay:1.2s;}.lamp:nth-child(5n){animation-delay:1.6s;}.lamp:nth-child(6n){animation-delay:2.0s;}
+    @keyframes lamp-blink{0%,100%{opacity:1;box-shadow:0 0 10px rgba(230,100,180,.8);}50%{opacity:.3;box-shadow:0 0 4px rgba(230,100,180,.2);}}
+    .lamp-row.reach-lamp .lamp{animation:lamp-chase .09s linear infinite;}
+    .lamp-row.reach-lamp .lamp:nth-child(n){animation-delay:0s;}
+    @keyframes lamp-chase{0%,100%{opacity:1;background:radial-gradient(#fff,#ffb0e0);box-shadow:0 0 18px #ffb0e0;}50%{opacity:.1;background:radial-gradient(#3a003a,#6a006a);}}
+    .lamp-row.fever-lamp .lamp{animation:fever-lamp .2s linear infinite;}
+    .lamp-row.fever-lamp .lamp:nth-child(3n+1){animation-delay:0s;}.lamp-row.fever-lamp .lamp:nth-child(3n+2){animation-delay:.07s;}.lamp-row.fever-lamp .lamp:nth-child(3n){animation-delay:.13s;}
+    @keyframes fever-lamp{0%{background:radial-gradient(#fff,#ff8080);box-shadow:0 0 20px #ff8080;}16%{background:radial-gradient(#fff,#ffb040);}33%{background:radial-gradient(#fff,#ffff40);}50%{background:radial-gradient(#fff,#40ff80);}66%{background:radial-gradient(#fff,#40c0ff);}83%{background:radial-gradient(#fff,#c040ff);}100%{background:radial-gradient(#fff,#ff8080);box-shadow:0 0 20px #ff8080;}}
 
-    /* ---- HERO ---- */
-    .hero {
-      text-align: center;
-      padding: 70px 20px 50px;
-      position: relative; z-index: 1;
-    }
-    .hero-icon { font-size: 3.2rem; display: block; margin-bottom: 14px; animation: float 5s ease-in-out infinite; }
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .machine-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;z-index:10;gap:clamp(6px,1.5vw,16px);}
+    .machine-body{display:flex;align-items:center;justify-content:center;gap:clamp(8px,2vw,24px);width:100%;position:relative;}
 
-    .hero-catch {
-      font-size: clamp(1.05rem, 3.5vw, 1.25rem);
-      color: var(--muted);
-      letter-spacing: .1em;
-      margin-bottom: 14px;
+    .reel-container{
+      position:relative;width:clamp(90px,22vw,220px);height:clamp(90px,22vw,220px);
+      background:rgba(0,0,0,.45);border-radius:12px;border:2px solid rgba(255,180,220,.35);overflow:hidden;
+      box-shadow:inset 0 0 20px rgba(0,0,0,.6),0 0 12px rgba(200,100,160,.3);transition:box-shadow .2s,border-color .2s;
     }
-    h1 {
-      font-size: clamp(1.7rem, 5vw, 2.5rem);
-      font-weight: 700;
-      color: var(--gold2);
-      line-height: 1.4;
-      letter-spacing: .04em;
-      text-shadow: 0 0 40px rgba(200,160,74,.45);
-      margin-bottom: 18px;
-    }
-    .hero-sub {
-      color: var(--muted);
-      font-size: .95rem;
-      max-width: 500px;
-      margin: 0 auto 36px;
-      line-height: 2;
-    }
-    .hero-name {
-      display: inline-block;
-      border: 1px solid var(--gold);
-      border-radius: 999px;
-      padding: 5px 22px;
-      font-size: .85rem;
-      color: var(--gold);
-      letter-spacing: .12em;
-      margin-bottom: 36px;
-    }
+    .reel-container::before,.reel-container::after{content:'';position:absolute;left:0;right:0;height:30%;z-index:2;pointer-events:none;}
+    .reel-container::before{top:0;background:linear-gradient(to bottom,rgba(30,5,50,.92),transparent);}
+    .reel-container::after{bottom:0;background:linear-gradient(to top,rgba(30,5,50,.92),transparent);}
+    .reel-center-highlight{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);height:34%;border-top:1.5px solid rgba(255,200,230,.5);border-bottom:1.5px solid rgba(255,200,230,.5);z-index:3;pointer-events:none;}
+    .reel-container.stopped .reel-center-highlight{border-color:rgba(255,200,230,.95);animation:hl-pulse 1.6s ease-in-out infinite;}
+    @keyframes hl-pulse{0%,100%{box-shadow:0 0 22px rgba(255,200,230,.7),0 0 50px rgba(255,140,200,.4);}50%{box-shadow:0 0 40px rgba(255,200,230,1),0 0 90px rgba(255,140,200,.8);}}
+    .reel-container.reach-reel{border-color:rgba(255,220,80,.9)!important;animation:rp .5s ease-in-out infinite alternate;}
+    @keyframes rp{from{box-shadow:inset 0 0 20px rgba(0,0,0,.6),0 0 30px rgba(255,200,60,.8);}to{box-shadow:inset 0 0 20px rgba(0,0,0,.6),0 0 55px rgba(255,220,100,1),0 0 110px rgba(255,180,60,.9);}}
+    .reel-container.fever-reel{border-color:rgba(255,255,255,.95)!important;animation:fever-rp .25s ease-in-out infinite alternate!important;}
+    /* 停止バウンス */
+    @keyframes reel-snap-bounce{0%{transform:scaleY(1.1)}55%{transform:scaleY(.94)}80%{transform:scaleY(1.03)}100%{transform:scaleY(1)}}
+    .reel-snap{animation:reel-snap-bounce .35s ease-out both;}
+    @keyframes fever-rp{from{box-shadow:inset 0 0 20px rgba(0,0,0,.6),0 0 40px rgba(255,220,80,.9);}to{box-shadow:inset 0 0 20px rgba(0,0,0,.6),0 0 70px rgba(255,255,120,1),0 0 140px rgba(255,200,60,1);}}
 
-    /* ---- PAIN SECTION ---- */
-    .pain-card {
-      background: linear-gradient(135deg, var(--card), #1a0d30);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 36px 28px;
-      margin-bottom: 16px;
-    }
-    .pain-title {
-      color: var(--rose);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .pain-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .pain-list li {
-      display: flex; align-items: flex-start; gap: 10px;
-      font-size: .95rem; color: var(--muted); line-height: 1.7;
-    }
-    .pain-list li::before { content: '…'; color: var(--rose); flex-shrink: 0; font-size: 1.1rem; }
+    .reel-strip{position:absolute;left:0;right:0;top:0;will-change:transform;}
+    .reel-cell{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    .reel-cell img{width:88%;height:88%;object-fit:cover;border-radius:8px;display:block;}
+    .reel-cell .fallback{width:88%;height:88%;border-radius:8px;background:linear-gradient(135deg,rgba(200,80,150,.4),rgba(100,20,120,.6));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;}
+    .reel-cell .fallback .icon{font-size:clamp(18px,4vw,40px);}
+    .reel-cell .fallback .label{font-size:clamp(6px,1.2vw,12px);color:rgba(255,220,240,.9);text-align:center;line-height:1.3;font-weight:700;}
+    .reel-divider{width:2px;height:clamp(90px,22vw,220px);background:linear-gradient(to bottom,transparent,rgba(255,180,220,.4),transparent);}
 
-    /* ---- DIVIDER ---- */
-    .divider {
-      display: flex; align-items: center; gap: 10px;
-      margin: 32px 0;
+    /* ── 通常リーチバナー ── */
+    #reachBanner{
+      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)scale(.3);z-index:30;
+      background:linear-gradient(135deg,rgba(60,0,90,.95),rgba(100,10,60,.95));
+      border:2px solid rgba(255,220,80,.7);border-radius:16px;
+      padding:clamp(8px,2vw,18px) clamp(20px,5vw,50px);text-align:center;
+      opacity:0;pointer-events:none;transition:transform .48s cubic-bezier(.34,1.56,.64,1),opacity .3s;
+      box-shadow:0 0 40px rgba(255,200,60,.5);white-space:nowrap;
     }
-    .divider::before, .divider::after {
-      content: ''; flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--border), transparent);
-    }
-    .divider span { color: var(--gold); font-size: 1rem; }
+    #reachBanner.show{opacity:1;transform:translate(-50%,-50%)scale(1);}
+    .reach-banner-text{font-size:clamp(20px,5vw,52px);font-weight:900;letter-spacing:.15em;color:#fff;text-shadow:0 0 18px rgba(255,220,80,1);animation:banner-shine 1s ease-in-out infinite alternate;}
+    @keyframes banner-shine{from{text-shadow:0 0 18px rgba(255,220,80,1);}to{text-shadow:0 0 30px rgba(255,255,120,1),0 0 70px rgba(255,200,60,1);}}
+    .reach-banner-sub{font-size:clamp(10px,2vw,18px);color:rgba(255,240,180,.85);letter-spacing:.12em;margin-top:4px;}
 
-    /* ---- INTRO ---- */
-    .sec-label {
-      text-align: center; font-size: .78rem;
-      letter-spacing: .15em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 10px;
+    /* ── フィーバーバナー（スーパーリーチ） ── */
+    #feverBanner{
+      position:absolute;inset:0;z-index:35;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:clamp(6px,1.5vw,14px);
+      opacity:0;pointer-events:none;transition:opacity .4s;
+      padding:4%;
     }
-    h2 {
-      text-align: center;
-      font-size: clamp(1.3rem, 4vw, 1.9rem);
-      font-weight: 700;
-      color: var(--gold2);
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
+    #feverBanner.show{opacity:1;}
+    .fever-crown{font-size:clamp(20px,5vw,52px);animation:crown-bounce .5s ease-in-out infinite alternate;}
+    @keyframes crown-bounce{from{transform:translateY(0);}to{transform:translateY(-8px);}}
+    .fever-deco{width:clamp(120px,30vw,320px);height:3px;background:linear-gradient(90deg,transparent,rgba(255,220,80,.9),#fff,rgba(255,220,80,.9),transparent);}
+    .fever-title{font-size:clamp(24px,6vw,68px);font-weight:900;letter-spacing:.18em;color:#fff;display:block;text-shadow:0 0 20px rgba(255,220,80,1),0 0 50px rgba(255,160,40,.9);animation:fever-glow .4s ease-in-out infinite alternate;}
+    @keyframes fever-glow{from{text-shadow:0 0 20px rgba(255,220,80,1);transform:scale(1);}to{text-shadow:0 0 35px rgba(255,255,100,1),0 0 80px rgba(255,200,60,1);transform:scale(1.04);}}
+    .fever-sub{font-size:clamp(11px,2.2vw,22px);letter-spacing:.12em;color:rgba(255,240,180,.92);font-weight:700;}
 
-    .profile-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 32px 28px;
-      display: flex; gap: 24px; align-items: flex-start;
-      flex-wrap: wrap;
+    /* ── フィーバー中の絵柄表示（大） ── */
+    #feverSymbol{
+      width:clamp(80px,18vw,170px);height:clamp(80px,18vw,170px);
+      border-radius:50%;overflow:hidden;
+      border:4px solid rgba(255,220,80,.95);
+      box-shadow:0 0 30px rgba(255,200,60,.8),0 0 70px rgba(255,160,40,.5);
+      animation:sym-pulse .8s ease-in-out infinite alternate;
+      flex-shrink:0;
     }
-    .profile-avatar {
-      width: 90px; height: 90px; border-radius: 50%; flex-shrink: 0;
-      background: linear-gradient(135deg, #4a1a8a, #8e2de2);
-      border: 2px solid var(--gold);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.5rem;
+    @keyframes sym-pulse{
+      from{box-shadow:0 0 30px rgba(255,200,60,.8),0 0 70px rgba(255,160,40,.5);transform:scale(1);}
+      to  {box-shadow:0 0 55px rgba(255,230,80,1),0 0 110px rgba(255,180,60,.9);transform:scale(1.06);}
     }
-    .profile-info { flex: 1; min-width: 180px; }
-    .profile-name { font-size: 1.2rem; font-weight: 700; color: var(--gold2); margin-bottom: 4px; }
-    .profile-tag {
-      display: inline-block;
-      background: rgba(200,160,74,.12);
-      border: 1px solid rgba(200,160,74,.3);
-      border-radius: 999px;
-      padding: 2px 12px;
-      font-size: .75rem; color: var(--gold);
-      margin-bottom: 10px;
-    }
-    .profile-desc { font-size: .9rem; color: var(--muted); line-height: 1.9; }
+    #feverSymbol img{width:100%;height:100%;object-fit:cover;display:block;}
+    #feverSymbol .fallback{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:linear-gradient(135deg,rgba(200,80,150,.5),rgba(100,20,120,.7));}
+    #feverSymbol .fallback .icon{font-size:clamp(24px,6vw,56px);}
+    #feverSymbolName{font-size:clamp(12px,2.5vw,24px);color:rgba(255,240,180,.95);font-weight:900;letter-spacing:.1em;text-shadow:0 0 10px rgba(255,200,60,.8);}
 
-    /* ---- FEATURES ---- */
-    .features { display: flex; flex-direction: column; gap: 14px; }
-    .feat-item {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 22px 22px;
-      display: flex; gap: 16px; align-items: flex-start;
+    /* ── STARTボタン ── */
+    .start-btn{
+      margin-top:clamp(8px,2vw,18px);padding:clamp(10px,2vw,16px) clamp(28px,8vw,72px);
+      font-size:clamp(13px,3vw,26px);font-weight:900;letter-spacing:.15em;color:#fff;
+      background:linear-gradient(135deg,#c0459a,#8a1b70);
+      border:none;border-radius:60px;cursor:pointer;
+      box-shadow:0 4px 24px rgba(180,60,140,.6),inset 0 1px 0 rgba(255,255,255,.2);
+      transition:transform .1s,box-shadow .1s;position:relative;overflow:hidden;
     }
-    .feat-icon { font-size: 1.6rem; flex-shrink: 0; padding-top: 2px; }
-    .feat-title { font-size: .95rem; font-weight: 700; color: var(--gold2); margin-bottom: 5px; }
-    .feat-desc { font-size: .875rem; color: var(--muted); line-height: 1.8; }
+    .start-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,.12),transparent 60%);border-radius:inherit;pointer-events:none;}
+    .start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(180,60,140,.8);}
+    .start-btn:active{transform:translateY(1px);}
+    .start-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 
-    /* ---- VOICE ---- */
-    .voices { display: flex; flex-direction: column; gap: 14px; }
-    .voice-item {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--rose);
-      border-radius: 0 var(--r) var(--r) 0;
-      padding: 20px 22px;
+    /* ── 結果オーバーレイ（「メルカリ占いへ」リンクなし） ── */
+    .result-area{
+      position:absolute;inset:0;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:clamp(10px,2.5vw,24px);
+      background:rgba(20,4,40,.86);backdrop-filter:blur(8px);
+      z-index:55;opacity:0;pointer-events:none;transition:opacity .6s ease;
+      padding:8%;border-radius:24px;
     }
-    .voice-stars { color: var(--gold); font-size: .85rem; letter-spacing: 2px; margin-bottom: 8px; }
-    .voice-text { font-size: .9rem; color: var(--muted); line-height: 1.9; }
-    .voice-user { font-size: .8rem; color: var(--purple); margin-top: 10px; }
+    .result-area.visible{opacity:1;pointer-events:auto;}
+    .result-message{font-size:clamp(18px,4.5vw,46px);font-weight:900;letter-spacing:.1em;color:#fff;text-shadow:0 0 20px rgba(255,160,200,1),0 0 50px rgba(200,80,160,.7);animation:msg-glow 2s ease-in-out infinite;}
+    @keyframes msg-glow{0%,100%{text-shadow:0 0 20px rgba(255,160,200,1);}50%{text-shadow:0 0 35px rgba(255,200,230,1),0 0 80px rgba(220,100,180,1);}}
+    .result-product-name{font-size:clamp(13px,2.8vw,28px);color:rgba(255,220,240,.95);text-align:center;letter-spacing:.06em;}
+    .cta-main{
+      display:block;padding:clamp(12px,2.5vw,22px) clamp(32px,9vw,90px);
+      font-size:clamp(14px,3vw,28px);font-weight:900;color:#2d0050;
+      background:linear-gradient(135deg,#ffcce8,#ffb0d8,#ffd8f0);
+      border:none;border-radius:60px;cursor:pointer;text-decoration:none;text-align:center;
+      box-shadow:0 4px 24px rgba(255,160,200,.5),inset 0 1px 0 rgba(255,255,255,.5);
+      transition:transform .15s,box-shadow .15s;letter-spacing:.08em;
+    }
+    .cta-main:hover{transform:scale(1.05);box-shadow:0 6px 34px rgba(255,160,200,.9);}
+    .close-btn{
+      position:absolute;top:4%;right:4%;
+      background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:50%;
+      width:clamp(28px,5vw,48px);height:clamp(28px,5vw,48px);
+      font-size:clamp(14px,2.5vw,22px);color:rgba(255,220,240,.9);cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .close-btn:hover{background:rgba(255,255,255,.22);}
 
-    /* ---- CTA ---- */
-    .cta-card {
-      background: linear-gradient(160deg, #1c0a36, #2e0d5c);
-      border: 1px solid var(--gold);
-      border-radius: var(--r);
-      padding: 48px 28px;
-      text-align: center;
-      box-shadow: 0 0 80px rgba(155,109,197,.2);
-    }
-    .cta-card .icon { font-size: 2.4rem; display: block; margin-bottom: 14px; }
-    .cta-card h3 {
-      font-size: clamp(1.2rem, 3.5vw, 1.7rem);
-      font-weight: 700; color: var(--gold2);
-      line-height: 1.5; margin-bottom: 14px;
-    }
-    .cta-card p { color: var(--muted); font-size: .9rem; margin-bottom: 28px; line-height: 2; }
+    .footer-area{z-index:10;flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:4px;}
+    .sub-link{font-size:clamp(10px,2vw,18px);color:rgba(255,200,235,.7);text-decoration:none;letter-spacing:.1em;border-bottom:1px solid rgba(255,200,235,.3);padding-bottom:1px;transition:color .2s;}
+    .sub-link:hover{color:#fff;}
+    .brand-tag{font-size:clamp(9px,1.6vw,14px);color:rgba(255,200,240,.4);letter-spacing:.12em;margin-top:2px;}
 
-    .cta-points {
-      display: flex; flex-direction: column; gap: 8px;
-      margin-bottom: 32px; text-align: left;
-    }
-    .cta-pt { display: flex; gap: 10px; align-items: flex-start; font-size: .9rem; color: var(--text); }
-    .cta-pt .ck { color: var(--gold); flex-shrink: 0; }
+    @media(max-width:600px){body{align-items:flex-start;overflow-y:auto;}.card{width:100vw;height:100vw;min-height:360px;border-radius:0;}}
 
-    .btn-main {
-      display: block; width: 100%;
-      background: linear-gradient(135deg, #7b2ff7, #4a00b4);
-      border: 2px solid var(--gold);
-      border-radius: 12px;
-      color: var(--gold2);
-      padding: 20px 24px;
-      font-size: 1.1rem;
-      font-family: inherit; font-weight: 700;
-      letter-spacing: .06em;
-      text-decoration: none;
-      transition: all .25s;
-      box-shadow: 0 6px 36px rgba(123,47,247,.5);
-      animation: glow 2.8s ease-in-out infinite;
-    }
-    @keyframes glow {
-      0%,100% { box-shadow: 0 6px 36px rgba(123,47,247,.5); }
-      50%      { box-shadow: 0 6px 56px rgba(200,160,74,.4), 0 0 0 4px rgba(200,160,74,.1); }
-    }
-    .btn-main:hover { transform: translateY(-3px); }
-    .btn-main .sub { display: block; font-size: .78rem; font-weight: 400; opacity: .8; margin-top: 5px; }
-
-    .cta-note { font-size: .75rem; color: var(--muted); margin-top: 14px; line-height: 1.8; }
-
-    /* ---- FAQ ---- */
-    .faq { display: flex; flex-direction: column; }
-    .faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
-    .faq-q {
-      display: flex; justify-content: space-between; gap: 12px;
-      cursor: pointer; font-size: .95rem; font-weight: 700; color: var(--gold2);
-    }
-    .faq-q .arr { color: var(--muted); transition: transform .25s; flex-shrink: 0; }
-    .faq-item.open .faq-q .arr { transform: rotate(180deg); }
-    .faq-a {
-      color: var(--muted); font-size: .875rem; line-height: 1.9;
-      max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s;
-    }
-    .faq-item.open .faq-a { max-height: 300px; padding-top: 12px; }
-
-    /* ---- FOOTER ---- */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 36px 20px;
-      text-align: center;
-      color: var(--muted);
-      font-size: .78rem;
-      line-height: 2;
-      position: relative; z-index: 1;
-    }
-
-    section { margin-bottom: 60px; }
+    /* ======== LP追加スタイル ======== */
+    body{background:#08040f;display:block;}
+    .lp-hero{text-align:center;padding:40px 20px 24px;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(155,89,182,.2),transparent);}
+    .lp-hero-icon{font-size:2.4rem;display:block;margin-bottom:10px;animation:lp-float 4s ease-in-out infinite;}
+    @keyframes lp-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+    .lp-hero h1{font-size:clamp(1.4rem,5vw,2.2rem);font-weight:900;color:#eedda0;line-height:1.4;text-shadow:0 0 30px rgba(200,160,74,.4);margin-bottom:10px;}
+    .lp-hero p{color:#9480b0;font-size:.875rem;line-height:1.9;max-width:460px;margin:0 auto 20px;}
+    .lp-badge{display:inline-block;border:1px solid #c8a04a;border-radius:999px;padding:4px 18px;font-size:.78rem;color:#c8a04a;letter-spacing:.1em;margin-bottom:20px;}
+    .slot-wrap{display:flex;justify-content:center;padding:0 0 32px;}
+    .lp-services{padding:32px 20px;max-width:520px;margin:0 auto;}
+    .lp-sec-label{text-align:center;font-size:.75rem;letter-spacing:.15em;color:#c8a04a;margin-bottom:8px;}
+    .lp-sec-title{text-align:center;font-size:clamp(1rem,3vw,1.4rem);font-weight:700;color:#eedda0;margin-bottom:20px;}
+    .lp-grid{display:flex;flex-direction:column;gap:10px;}
+    .lp-item{background:#160c28;border:1px solid #2e1a50;border-radius:10px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;text-decoration:none;color:#f0e8ff;transition:border-color .2s,transform .15s;}
+    .lp-item:hover{border-color:#c8a04a;transform:translateX(3px);}
+    .lp-il{display:flex;align-items:center;gap:10px;}
+    .lp-ic{font-size:1.4rem;flex-shrink:0;}
+    .lp-name{font-weight:700;font-size:.875rem;color:#eedda0;margin-bottom:2px;}
+    .lp-desc{font-size:.75rem;color:#9480b0;}
+    .lp-badge2{display:inline-block;background:rgba(200,160,74,.15);border:1px solid rgba(200,160,74,.3);border-radius:999px;padding:1px 7px;font-size:.68rem;color:#c8a04a;margin-bottom:2px;}
+    .lp-arrow{color:#c8a04a;font-size:.9rem;flex-shrink:0;}
+    .lp-profile{padding:0 20px 40px;max-width:520px;margin:0 auto;}
+    .lp-pcard{background:#160c28;border:1px solid #2e1a50;border-radius:10px;padding:20px 16px;display:flex;gap:14px;align-items:flex-start;}
+    .lp-pa{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#4a1a8a,#8e2de2);border:2px solid #c8a04a;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+    .lp-pn{font-weight:700;color:#eedda0;font-size:.9rem;margin-bottom:3px;}
+    .lp-pm{font-size:.75rem;color:#9480b0;margin-bottom:6px;}
+    .lp-pd{font-size:.85rem;color:#ccc;line-height:1.9;}
+    .lp-footer{text-align:center;padding:28px 20px;color:#9480b0;font-size:.75rem;border-top:1px solid #2e1a50;line-height:2;}
   </style>
 </head>
 <body>
-<div class="sky"></div>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="w">
-    <span class="hero-icon">🔮</span>
-    <p class="hero-catch">― 復縁・複雑恋愛 霊視鑑定 ―</p>
-    <h1>相手の気持ちが分からなくて<br>もう限界…そう感じていませんか</h1>
-    <p class="hero-sub">
-      やさしく、でも曖昧にせず。<br>
-      あなたの状況を霊視で丁寧に視ます。
-    </p>
-    <span class="hero-name">こころのまつきよ｜復縁霊視</span>
+<!-- ヒーロー -->
+<div class="lp-hero">
+  <span class="lp-hero-icon">🔮</span>
+  <h1>スロットを回して<br>今日の鑑定を受け取って</h1>
+  <p>既読スルー、音信不通、曖昧なまま…<br>彼の気持ちと今後の流れを手相&霊視で視ます。</p>
+  <span class="lp-badge">こころのまつきよ｜復縁霊視</span>
+</div>
 
-    <a href="https://coconala.com/services/4064307" class="btn-main" target="_blank" rel="noopener">
-      ✦ 今すぐ鑑定を申し込む ✦
-      <span class="sub">¥1,500〜 ｜ 評価 ⭐5.0 ｜ Coconalaで安全に購入</span>
+<!-- スロット -->
+<div class="slot-wrap">
+<div class="card" id="card">
+
+  <div id="flashOverlay"></div>
+  <div id="burstGlow"></div>
+  <div id="feverParticles"></div>
+  <div id="feverRings"></div>
+  <div class="bg-sparkle" id="bgSparkle"></div>
+
+  <!-- フィーバーバナー（スーパーリーチ中） -->
+  <div id="feverBanner">
+    <div class="fever-crown">👑</div>
+    <div class="fever-deco"></div>
+    <!-- 絵柄を大きく表示 -->
+    <div id="feverSymbol">
+      <div class="fallback"><span class="icon">💖</span></div>
+    </div>
+    <div id="feverSymbolName"></div>
+    <div class="fever-deco"></div>
+    <div class="fever-title" style="font-size:clamp(20px,5vw,52px);letter-spacing:.2em;">S U P E R</div>
+    <div class="fever-title">恋 の 扉</div>
+    <div class="fever-sub">ひらくかもしれない、今だけの入口</div>
+  </div>
+
+  <div class="title-area">
+    <div class="main-title">恋のリーチ</div>
+    <div class="sub-title">まだ終わりと決めない</div>
+  </div>
+
+  <div class="lamp-row" id="topLamps"></div>
+
+  <div class="machine-wrap">
+    <div class="machine-body" id="machineBody">
+      <div id="reachBanner">
+        <div class="reach-banner-text">恋のリーチ…</div>
+        <div class="reach-banner-sub">まだ、つながっている</div>
+      </div>
+    </div>
+    <button class="start-btn" id="startBtn">はじめる</button>
+  </div>
+
+  <div class="lamp-row" id="bottomLamps"></div>
+
+  <div class="footer-area">
+    <a class="sub-link" href="https://jp.mercari.com/item/m40907308030" target="_blank" rel="noopener">数秘術も見る</a>
+    <span class="brand-tag">こころのまつきよ</span>
+  </div>
+
+  <!-- 結果オーバーレイ（「メルカリ占いへ」リンク削除済み） -->
+  <div class="result-area" id="resultArea">
+    <button class="close-btn" id="closeBtn" aria-label="閉じる">×</button>
+    <div class="result-message">入口がひらきました</div>
+    <div class="result-product-name" id="resultProductName"></div>
+    <a class="cta-main" id="ctaMain" href="#" target="_blank" rel="noopener">この鑑定を見る</a>
+  </div>
+</div>
+
+<script>
+/* =============================================
+   URL 定数（差し替えはここだけ）
+============================================= */
+const LINKS = {
+  entry:      'https://jp.mercari.com/item/m70420260643',  // 恋で迷う気持ちを整える
+  honshin:    'https://jp.mercari.com/item/m10829164338',  // 本心鑑定
+  ume:        'https://jp.mercari.com/item/m93765665086',  // 梅鑑定
+  take:       'https://jp.mercari.com/item/m52818735827',  // 竹鑑定
+  matsutake:  'https://jp.mercari.com/item/m54108890247',  // 松茸鑑定
+  matsu:      'https://jp.mercari.com/item/m14295068440',  // 松鑑定（確率5%）
+  numerology: 'https://jp.mercari.com/item/m40907308030',  // 数秘術
+};
+
+/* =============================================
+   画像パス定数（assets/ フォルダに配置）
+============================================= */
+const IMAGES = {
+  entry:      'assets/entry-999.jpg',
+  honshin:    'assets/honshin.jpg',
+  ume:        'assets/ume.jpg',
+  take:       'assets/take.jpg',
+  matsutake:  'assets/matsutake.jpg',
+  matsu:      'assets/matsu.jpg',
+  numerology: 'assets/numerology.jpg',
+};
+
+/* =============================================
+   絵柄データ（SYMBOLS[5] = 松鑑定 は確率5%に設定）
+============================================= */
+const SYMBOLS = [
+  {key:'entry',     label:'恋で迷う\n気持ちを整える', icon:'🌸', link:LINKS.entry,     img:IMAGES.entry     },
+  {key:'honshin',   label:'本心鑑定',                icon:'💌', link:LINKS.honshin,   img:IMAGES.honshin   },
+  {key:'ume',       label:'梅鑑定',                  icon:'🌺', link:LINKS.ume,       img:IMAGES.ume       },
+  {key:'take',      label:'竹鑑定',                  icon:'🎋', link:LINKS.take,      img:IMAGES.take      },
+  {key:'matsutake', label:'松茸鑑定',                icon:'🍄', link:LINKS.matsutake, img:IMAGES.matsutake },
+  {key:'matsu',     label:'松鑑定',                  icon:'🌿', link:LINKS.matsu,     img:IMAGES.matsu     }, // ← 5%
+  {key:'numerology',label:'数秘術',                  icon:'✨', link:LINKS.numerology,img:IMAGES.numerology},
+];
+
+/* =============================================
+   当たり確率設定（ここだけ変更すれば OK）
+   WIN_RATE : 3本全揃いになる確率 0〜1（0.3 = 30%）
+   MATSU_WIN_RATE : 全揃い時に松鑑定が選ばれる確率 0〜1
+============================================= */
+const WIN_RATE      = 0.30;  // 30% の確率で3本全揃い当たり
+const MATSU_WIN_RATE = 0.05; // 全揃い当たり中に松鑑定が出る確率 5%
+
+/* 通常の絵柄重み（リーチ外れ用） */
+const WEIGHTS = [95/6, 95/6, 95/6, 95/6, 95/6, 5, 95/6];
+
+function weightedRandIndex(){
+  let r = Math.random() * 100;
+  for(let i=0;i<WEIGHTS.length;i++){
+    r -= WEIGHTS[i];
+    if(r <= 0) return i;
+  }
+  return WEIGHTS.length - 1;
+}
+
+/* 当たりスピン用：全リール共通の絵柄インデックスを決める */
+function winSymbolIndex(){
+  if(Math.random() < MATSU_WIN_RATE) return 5; // 松鑑定
+  // 残り6種から均等選択
+  const pool = [0,1,2,3,4,6];
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+/* 外れスピン用：3本が全部同じにならないように決める */
+function setLosingIndices(){
+  const indices = [];
+  for(let r=0;r<RC;r++) indices.push(weightedRandIndex());
+  // 万一3本揃ってしまったら真ん中だけ1つずらす
+  if(indices[0]===indices[1] && indices[1]===indices[2]){
+    indices[1] = (indices[1] + 1) % SC;
+  }
+  return indices;
+}
+
+const SC = SYMBOLS.length;  // 7
+const RC = 3;               // リール数
+
+/* 最初に止めるリール番号と、その後の連鎖順
+   左(0)が止まったら右(2)を止め、右が止まったら真ん中(1)を止める */
+const FIRST_STOP_REEL  = 0;      // 最初に止まるリール
+const FIRST_STOP_DELAY = 1500;   // ms（回転開始からの時間）
+
+/* ── 背景粒子 ── */
+const spEl = document.getElementById('bgSparkle');
+for(let i=0;i<22;i++){
+  const s=document.createElement('span'); const sz=4+Math.random()*12;
+  s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;bottom:${-sz}px;animation-duration:${5+Math.random()*8}s;animation-delay:${Math.random()*8}s;`;
+  spEl.appendChild(s);
+}
+
+/* ── フィーバーリング ── */
+const ringsEl=document.getElementById('feverRings');
+for(let i=0;i<4;i++){const r=document.createElement('div');r.className='f-ring';ringsEl.appendChild(r);}
+
+/* ── ランプ ── */
+function buildLamps(id,n){const el=document.getElementById(id);for(let i=0;i<n;i++){const l=document.createElement('div');l.className='lamp';el.appendChild(l);}}
+buildLamps('topLamps',14); buildLamps('bottomLamps',14);
+
+/* =============================================
+   リール構築
+============================================= */
+let CELL_H = 0;
+
+const reelState = Array.from({length:RC},(_,i)=>({
+  stopIndex: i*2 % SC, spinning:false, stripEl:null, containerEl:null
+}));
+
+/* spinData.offsetY:
+   「上→下方向」のスクロールを実現するため、
+   offsetY は「負の大きな値」からスタートし、
+   フレームごとに増加（0 に近づく）する。
+   0 に近づくと wrap で一周分引いて繰り返す。
+
+   視覚的に：strip の translateY が増加
+   = strip が下に移動
+   = 画面上では絵柄が「上から下へ」流れる ✓
+*/
+const spinData = Array.from({length:RC},()=>({
+  offsetY: 0,
+  phase:   'idle',
+  speed:   0,
+  targetY: 0,
+  jigglePhase:  0,
+  jiggleFrames: 0,
+  onStopped: null,  // 視覚的停止後に呼ぶコールバック
+}));
+
+let animFrames = [0,0,0];
+let allStopped = false, reachMode = false, feverMode = false;
+let feverTimers = [];
+
+/* ── リール構築 ── */
+function buildReels(){
+  const body = document.getElementById('machineBody');
+  const banner = document.getElementById('reachBanner');
+  body.innerHTML=''; body.appendChild(banner);
+
+  for(let r=0;r<RC;r++){
+    if(r>0){const d=document.createElement('div');d.className='reel-divider';body.appendChild(d);}
+    const cont=document.createElement('div'); cont.className='reel-container'; cont.id=`reel-${r}`;
+    const hl=document.createElement('div'); hl.className='reel-center-highlight'; cont.appendChild(hl);
+    const strip=document.createElement('div'); strip.className='reel-strip'; strip.id=`strip-${r}`;
+
+    // 3コピー分セルを生成
+    for(let i=0;i<SC*3;i++){
+      const sym=SYMBOLS[i%SC];
+      const cell=document.createElement('div'); cell.className='reel-cell';
+
+      // 画像を試みる。エラー時はフォールバック
+      function makeFb(){ const fb=document.createElement('div'); fb.className='fallback'; fb.innerHTML=`<span class="icon">${sym.icon}</span><span class="label">${sym.label.replace(/\n/g,'<br>')}</span>`; return fb; }
+      cell.appendChild(makeFb());
+
+      const img=new Image(); img.src=sym.img; img.alt=sym.label.replace(/\n/g,'');
+      img.onload=()=>{cell.innerHTML=''; cell.appendChild(img);};
+      img.onerror=()=>{ /* フォールバックのまま */ };
+
+      strip.appendChild(cell);
+    }
+    cont.appendChild(strip); body.appendChild(cont);
+    reelState[r].stripEl=strip; reelState[r].containerEl=cont;
+  }
+
+  // rAF でサイズ確定後に CELL_H を設定してスナップ
+  requestAnimationFrame(()=>{
+    const c=document.getElementById('reel-0');
+    CELL_H = c ? c.getBoundingClientRect().width : 120;
+    for(let r=0;r<RC;r++) snapReel(r, reelState[r].stopIndex);
+  });
+}
+
+/* ── スナップ（アニメなし） ── */
+function snapReel(r, idx){
+  if(CELL_H===0) return;
+  const s=reelState[r].stripEl; if(!s) return;
+  /* 各セルの高さ = CELL_H（aspect-ratio:1 なので width=height）
+     セル idx を中央に表示する translateY = -(idx * CELL_H) + (cH - CELL_H)/2
+     cH = CELL_H なので = -(idx * CELL_H)
+  */
+  const y = -(idx * CELL_H);
+  s.style.transition='none'; s.style.transform=`translateY(${y}px)`;
+  spinData[r].offsetY = y;
+}
+
+/*
+   ── 停止目標 Y の計算（上→下スクロール用）──
+
+   上→下スクロール: offsetY が増加していく（0 に近づく）。
+   セル idx の「自然なスナップ位置」= -(idx * CELL_H)。
+   これは 0 以下の値（idx > 0 なら負）。
+
+   現在の offsetY（負の値）から増加しつつ
+   「最初に出会う -(idx*CELL_H) + N*loopLen」を目標にする。
+   N は目標が cur より大きい（=前方にある）最小の整数。
+*/
+function getTargetY(r, idx){
+  const loopLen = CELL_H * SC;
+  const base = -(idx * CELL_H);  // 例: idx=3, CELL_H=220 → -660
+  const cur  = spinData[r].offsetY;
+  // cur より少し先を minTarget とし、そこ以上の base+N*loopLen を探す
+  const minTarget = cur + CELL_H * 0.3;
+  let target = base;
+  while(target < minTarget) target += loopLen;
+  return target;
+}
+
+/* =============================================
+   エフェクト
+============================================= */
+function flashCard(alpha=.4, rgb='255,220,240'){
+  const ov=document.getElementById('flashOverlay');
+  ov.style.background=`rgba(${rgb},${alpha})`;
+  setTimeout(()=>ov.style.background='rgba(255,220,240,0)', 130);
+}
+function multiFlash(n, iv, a, rgb){ for(let i=0;i<n;i++) setTimeout(()=>flashCard(a,rgb),i*iv); }
+function shakeCard(){ const c=document.getElementById('card'); c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake'); setTimeout(()=>c.classList.remove('shake'),500); }
+function burstEffect(){ const g=document.getElementById('burstGlow'); g.classList.remove('burst'); void g.offsetWidth; g.classList.add('burst'); }
+
+const EMOJIS=['✨','💫','🌸','💕','🌟','💖','🌺','💎','⭐','🦋'];
+function spawnParticles(n=24){
+  const ctr=document.getElementById('feverParticles');
+  const card=document.getElementById('card');
+  const cw=card.offsetWidth, ch=card.offsetHeight;
+  for(let i=0;i<n;i++){
+    const el=document.createElement('div'); el.className='fever-star';
+    el.textContent=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+    const ox=Math.random()*cw, oy=Math.random()*ch;
+    const dx=(Math.random()-.5)*cw*.9, dy=(Math.random()-.5)*ch*.9, dr=(Math.random()-.5)*540;
+    el.style.cssText=`left:${ox}px;top:${oy}px;--dx:${dx}px;--dy:${dy}px;--dr:${dr}deg;animation-duration:${1+Math.random()*.8}s;animation-delay:${Math.random()*.3}s;`;
+    ctr.appendChild(el);
+    setTimeout(()=>el.remove(),2400);
+  }
+}
+
+function setLampMode(mode){
+  const tl=document.getElementById('topLamps'), bl=document.getElementById('bottomLamps');
+  tl.className='lamp-row'; bl.className='lamp-row';
+  if(mode==='reach'){tl.classList.add('reach-lamp');bl.classList.add('reach-lamp');}
+  else if(mode==='fever'){tl.classList.add('fever-lamp');bl.classList.add('fever-lamp');}
+}
+
+/* ── フィーバー絵柄を表示 ── */
+function showFeverSymbol(sym){
+  const el  = document.getElementById('feverSymbol');
+  const lbl = document.getElementById('feverSymbolName');
+  lbl.textContent = sym.label.replace(/\n/g,'');
+
+  // 画像を試みる
+  el.innerHTML='';
+  const img = new Image(); img.src=sym.img; img.alt=sym.label.replace(/\n/g,'');
+  img.style.cssText='width:100%;height:100%;object-fit:cover;display:block;';
+  img.onerror=()=>{
+    el.innerHTML=`<div class="fallback"><span class="icon">${sym.icon}</span></div>`;
+  };
+  el.appendChild(img);
+}
+
+/* ── フィーバー演出 ── */
+function startFeverEffect(){
+  feverMode=true;
+  const matchSym = SYMBOLS[reelState[0].stopIndex]; // 左=右で揃った絵柄
+  showFeverSymbol(matchSym);
+
+  document.getElementById('card').classList.add('fever');
+  document.getElementById('reachBanner').classList.remove('show');
+  document.getElementById('feverBanner').classList.add('show');
+  setLampMode('fever');
+  document.getElementById('feverRings').style.display='flex';
+
+  multiFlash(5,160,.55,'255,230,80');
+  setTimeout(()=>multiFlash(3,100,.4,'255,200,255'),900);
+  shakeCard(); setTimeout(shakeCard,700); setTimeout(shakeCard,1400);
+  spawnParticles(28); setTimeout(()=>spawnParticles(20),800); setTimeout(()=>spawnParticles(16),1600);
+
+  reelState[1].containerEl.classList.remove('reach-reel');
+  reelState[1].containerEl.classList.add('fever-reel');
+}
+
+function endFeverEffect(){
+  document.getElementById('card').classList.remove('fever');
+  document.getElementById('feverBanner').classList.remove('show');
+  document.getElementById('feverRings').style.display='none';
+}
+
+/* =============================================
+   スピンループ
+
+   方向：上→下（絵柄が上から下へ流れる）
+   実装：offsetY を増加させる（strip が下に移動）
+
+   strip は 3 コピー分（21 セル）。
+   開始位置: -(2*loopLen + stopIndex*CELL_H)
+   （copy3 付近からスタート、十分な上方向の余裕がある）
+
+   ラップ: offsetY が -CELL_H を超えたら loopLen を引く
+   → strip が上へ引き戻されて copy2→copy3 の繰り返しに戻る
+============================================= */
+const SPIN_SPEED  = 32;   // 高速スピン
+const BRAKE_DECAY = 0.92; // ブレーキ時の速度減衰（毎フレーム）
+const BRAKE_MIN   = 14;   // ブレーキ最低速度（距離が大きくても2秒以内に到達）
+const CREEP_SPEED = 2.2;  // 最終接近クリープ速度
+const CREEP_DIST  = 0.9;  // 何セル手前からクリープに切り替えるか（倍率）
+
+function loop(r){
+  const sd    = spinData[r];
+  const strip = reelState[r].stripEl;
+  const cont  = reelState[r].containerEl;
+  if(!strip || CELL_H===0) return;
+
+  const loopLen = CELL_H * SC;
+
+  /* ── ラップ（上→下方向）
+     offsetY と targetY を同量ずらす → dist は変わらず、正常にブレーキが続く。
+  ── */
+  function wrap(){
+    if(sd.offsetY > -CELL_H){
+      sd.offsetY -= loopLen;
+      sd.targetY -= loopLen;
+    }
+  }
+  function apply(){ strip.style.transition='none'; strip.style.transform=`translateY(${sd.offsetY}px)`; }
+
+  // ── フェーズ処理 ──
+
+  if(sd.phase==='spin'){
+    sd.offsetY += SPIN_SPEED; wrap(); apply();
+
+  }else if(sd.phase==='brake'){
+    // 高速ブレーキ。最低 BRAKE_MIN を保証することで距離が大きくても確実に停止。
+    sd.speed = Math.max(BRAKE_MIN, sd.speed * BRAKE_DECAY);
+    sd.offsetY += sd.speed; wrap(); apply();
+
+    const dist = sd.targetY - sd.offsetY;
+    if(dist <= CELL_H * CREEP_DIST){
+      // 目標まで残り CREEP_DIST セル以内 → クリープへ移行
+      sd.phase='creep';
+    }
+
+  }else if(sd.phase==='creep'){
+    // ゆっくり最終接近
+    sd.offsetY += CREEP_SPEED; wrap(); apply();
+
+    const dist = sd.targetY - sd.offsetY;
+
+    // 大幅に通り過ぎた場合（ラップ境界の浮動小数誤差等）→ 次のコピーを目標にしてブレーキへ戻す
+    if(dist < -(CELL_H * 0.5)){
+      sd.targetY += CELL_H * SC;  // 同じ絵柄の次のコピーへ
+      sd.speed = BRAKE_MIN;
+      sd.phase = 'brake';
+    // 誤差を含む到達判定（±CREEP_SPEED 以内なら OK）
+    } else if(dist <= CREEP_SPEED + 1 && dist >= -CREEP_SPEED){
+      // ジグル or 吸着
+      const isMiddle = (r===1);
+      if(isMiddle && feverMode)  sd.phase='fever-jiggle';
+      else if(isMiddle && reachMode) sd.phase='jiggle';
+      else sd.phase='align';
+      sd.jigglePhase=0; sd.jiggleFrames=0;
+    }
+
+  }else if(sd.phase==='jiggle'){
+    /* 通常リーチ：目標付近で2回揺れる
+       前進(+=) = 目標方向、後退(-=) = 逆送り */
+    if(sd.jigglePhase===0){
+      sd.offsetY+=1.2; wrap(); apply();
+      if(++sd.jiggleFrames>16){sd.jigglePhase=1;sd.jiggleFrames=0;flashCard(.3,'255,220,80');}
+    }else if(sd.jigglePhase===1){
+      sd.offsetY-=2.0; apply();           // 逆送り
+      if(++sd.jiggleFrames>22){sd.jigglePhase=2;sd.jiggleFrames=0;}
+    }else if(sd.jigglePhase===2){
+      sd.offsetY+=1.5; wrap(); apply();
+      if(++sd.jiggleFrames>14){sd.jigglePhase=3;sd.jiggleFrames=0;}
+    }else if(sd.jigglePhase===3){
+      sd.offsetY-=1.0; apply();           // 小逆送り
+      if(++sd.jiggleFrames>10) sd.phase='align';
+    }
+
+  }else if(sd.phase==='fever-jiggle'){
+    /* フィーバー：4回揺れる＋大きめ */
+    if(sd.jigglePhase===0){
+      sd.offsetY+=0.9; wrap(); apply();
+      if(++sd.jiggleFrames>20){sd.jigglePhase=1;sd.jiggleFrames=0;flashCard(.4,'255,220,80');}
+    }else if(sd.jigglePhase===1){
+      sd.offsetY-=2.8; apply();
+      if(++sd.jiggleFrames>28){sd.jigglePhase=2;sd.jiggleFrames=0;}
+    }else if(sd.jigglePhase===2){
+      sd.offsetY+=1.3; wrap(); apply();
+      if(++sd.jiggleFrames>18){sd.jigglePhase=3;sd.jiggleFrames=0;flashCard(.35,'255,180,255');}
+    }else if(sd.jigglePhase===3){
+      sd.offsetY-=2.2; apply();
+      if(++sd.jiggleFrames>20){sd.jigglePhase=4;sd.jiggleFrames=0;}
+    }else if(sd.jigglePhase===4){
+      sd.offsetY+=0.7; wrap(); apply();
+      if(++sd.jiggleFrames>24){sd.jigglePhase=5;sd.jiggleFrames=0;flashCard(.5,'255,255,120');}
+    }else if(sd.jigglePhase===5){
+      sd.offsetY-=1.5; apply();
+      if(++sd.jiggleFrames>16){sd.jigglePhase=6;sd.jiggleFrames=0;}
+    }else if(sd.jigglePhase===6){
+      sd.offsetY+=0.5; wrap(); apply();
+      if(++sd.jiggleFrames>32) sd.phase='align';
+    }
+
+  }else if(sd.phase==='align'){
+    /* ── 直接スナップ方式 ──
+       CSS transition は使わない。
+       stopIndex から translateY を一発計算して即座に表示する。
+       → 補間中に別セルが見える問題を完全に排除。
+       停止感は reel-snap クラスのバウンスアニメで演出する。
+    */
+    const loopLen = CELL_H * SC;
+    const base = -(reelState[r].stopIndex * CELL_H); // 目標セルの基準位置
+    let ty = base;
+    while(ty > -CELL_H)        ty -= loopLen; // 正値に近すぎる → 1周引く
+    while(ty < -(2 * loopLen)) ty += loopLen; // 深すぎる → 1周足す
+
+    strip.style.transition = 'none';
+    strip.style.transform   = `translateY(${ty}px)`;
+    void strip.offsetWidth; // 強制リフロー（スナップを確定させる）
+
+    // 停止バウンス演出
+    cont.classList.add('reel-snap');
+
+    sd.offsetY = ty; sd.phase = 'stopped';
+
+    // 描画確定後（100ms）に spinning=false & 次リール起動 & 当たり判定
+    setTimeout(()=>{
+      reelState[r].spinning=false;
+      cont.classList.add('stopped');
+      cont.classList.remove('reach-reel','fever-reel','reel-snap');
+
+      // 停止エフェクト
+      const remaining = reelState.filter(s=>s.spinning).length;
+      if(remaining===0){
+        multiFlash(4,100,.65,'255,220,80');
+        setTimeout(()=>multiFlash(3,80,.5,'255,200,230'),350);
+        shakeCard(); burstEffect(); spawnParticles(32);
+        if(feverMode) endFeverEffect();
+      }else{
+        flashCard(.32,'255,220,240');
+      }
+
+      // 次のリールを止めるコールバック（止まる順番を保証）
+      if(spinData[r].onStopped){
+        spinData[r].onStopped();
+        spinData[r].onStopped = null;
+      }
+
+      checkAllStopped();
+    }, 100);
+
+    return; // ループ終了
+  }
+
+  animFrames[r] = requestAnimationFrame(()=>loop(r));
+}
+
+/* ── stopReel：目標 Y を計算してブレーキ開始 ── */
+function stopReel(r){
+  spinData[r].targetY = getTargetY(r, reelState[r].stopIndex);
+  spinData[r].speed   = SPIN_SPEED;
+  spinData[r].phase   = 'brake';
+  spinData[r].jigglePhase  = 0;
+  spinData[r].jiggleFrames = 0;
+}
+
+/* ── 停止チェック（3本全揃い判定）──
+   左→右が止まった時点でリーチ演出（テンション演出のみ）。
+   3本全部止まってから「全揃いか否か」を判定する。
+   ・3本全揃い → スーパーリーチ演出 → 結果表示
+   ・揃わず    → 通常結果表示
+*/
+function checkAllStopped(){
+
+  // ── 左(0)と右(2)が揃ったらリーチ演出（まだ真ん中は回転中）──
+  if(!reelState[0].spinning && !reelState[2].spinning && reelState[1].spinning && !reachMode){
+    if(reelState[0].stopIndex === reelState[2].stopIndex){
+      reachMode=true;
+      document.getElementById('reachBanner').classList.add('show');
+      setLampMode('reach');
+      flashCard(.5,'255,220,80');
+      shakeCard();
+      reelState[1].containerEl.classList.add('reach-reel');
+    }
+  }
+
+  // ── 3本全部停止 ──
+  const allDone = reelState.every(rs=>!rs.spinning);
+  if(allDone && !allStopped){
+    allStopped=true;
+    setLampMode('normal');
+    document.getElementById('reachBanner').classList.remove('show');
+
+    // 3本全揃いか確認
+    const allMatch = reelState[0].stopIndex === reelState[1].stopIndex &&
+                     reelState[1].stopIndex === reelState[2].stopIndex;
+
+    if(allMatch){
+      // 3本全揃い → スーパーリーチ（フィーバー）演出 → 結果表示
+      feverTimers.push(setTimeout(startFeverEffect, 200));
+      setTimeout(showResult, 3500);
+    } else {
+      // 揃わなかった場合は通常結果へ
+      if(feverMode) endFeverEffect();
+      reachMode=false;
+      setTimeout(showResult, 700);
+    }
+  }
+}
+
+/* =============================================
+   スピン開始
+============================================= */
+function spin(){
+  if(CELL_H===0){
+    const c=document.getElementById('reel-0');
+    CELL_H = c ? c.getBoundingClientRect().width : 120;
+  }
+
+  allStopped=false; reachMode=false; feverMode=false;
+  feverTimers.forEach(t=>clearTimeout(t)); feverTimers=[];
+
+  document.getElementById('reachBanner').classList.remove('show');
+  document.getElementById('feverBanner').classList.remove('show');
+  document.getElementById('card').classList.remove('fever');
+  document.getElementById('feverParticles').innerHTML='';
+  document.getElementById('feverRings').style.display='none';
+  setLampMode('normal');
+
+  const loopLen = CELL_H * SC;
+
+  // 当たり or 外れを事前決定
+  if(Math.random() < WIN_RATE){
+    // 3本全揃い当たり：全リール同じ絵柄
+    const idx = winSymbolIndex();
+    for(let r=0;r<RC;r++) reelState[r].stopIndex = idx;
+  } else {
+    // 外れ：3本揃わないように設定
+    const losing = setLosingIndices();
+    for(let r=0;r<RC;r++) reelState[r].stopIndex = losing[r];
+  }
+
+  for(let r=0;r<RC;r++){
+    reelState[r].spinning  = true;
+    reelState[r].containerEl.classList.remove('stopped','reach-reel','fever-reel');
+
+    /* 開始 offsetY：
+       -(2*loopLen + stopIndex*CELL_H)
+       ≒ strip を画面上方 2 ループ+α 分ずらした位置からスタート
+       → 上→下スクロールで十分な走行距離を確保 */
+    const startY = -(2*loopLen + reelState[r].stopIndex * CELL_H);
+    spinData[r].offsetY     = startY;
+    spinData[r].phase       = 'spin';
+    spinData[r].speed       = SPIN_SPEED;
+    spinData[r].targetY     = startY; // 仮置き（stopReel 時に更新）
+    spinData[r].jigglePhase = 0;
+    spinData[r].jiggleFrames= 0;
+    spinData[r].onStopped   = null;
+
+    const strip = reelState[r].stripEl;
+    strip.style.transition='none';
+    strip.style.transform=`translateY(${startY}px)`;
+
+    if(animFrames[r]) cancelAnimationFrame(animFrames[r]);
+    animFrames[r] = requestAnimationFrame(()=>loop(r));
+  }
+
+  // 止まる順番：左(0) が止まったら右(2)、右が止まったら真ん中(1)
+  // コールバック連鎖で視覚的停止順を保証する
+  spinData[0].onStopped = ()=>{
+    stopReel(2);
+    spinData[2].onStopped = ()=>{
+      stopReel(1);
+    };
+  };
+  // 左リールを最初に止める
+  setTimeout(()=>stopReel(FIRST_STOP_REEL), FIRST_STOP_DELAY);
+
+  document.getElementById('startBtn').disabled=true;
+  document.getElementById('resultArea').classList.remove('visible');
+}
+
+/* =============================================
+   結果表示（真ん中リール=1 の絵柄をメインに）
+============================================= */
+function showResult(){
+  const sym=SYMBOLS[reelState[1].stopIndex];
+  document.getElementById('resultProductName').textContent=sym.label.replace(/\n/g,'');
+  document.getElementById('ctaMain').href=sym.link;
+  document.getElementById('resultArea').classList.add('visible');
+}
+
+/* =============================================
+   イベント
+============================================= */
+document.getElementById('startBtn').addEventListener('click', spin);
+document.getElementById('closeBtn').addEventListener('click',()=>{
+  document.getElementById('resultArea').classList.remove('visible');
+  document.getElementById('startBtn').disabled=false;
+  allStopped=false; reachMode=false; feverMode=false;
+  feverTimers.forEach(t=>clearTimeout(t)); feverTimers=[];
+  document.getElementById('card').classList.remove('fever');
+  document.getElementById('feverBanner').classList.remove('show');
+  document.getElementById('feverRings').style.display='none';
+  setLampMode('normal');
+});
+
+buildReels();
+
+window.addEventListener('resize',()=>{
+  const c=document.getElementById('reel-0');
+  if(c){ CELL_H=c.getBoundingClientRect().width; }
+  for(let r=0;r<RC;r++) snapReel(r, reelState[r].stopIndex);
+});
+</script>
+
+</div><!-- /slot-wrap -->
+
+<!-- 全メニュー -->
+<div class="lp-services">
+  <div class="lp-sec-label">Services</div>
+  <div class="lp-sec-title">全ての鑑定メニュー</div>
+  <div class="lp-grid">
+    <a href="https://jp.mercari.com/item/m70420260643" class="lp-item" target="_blank" rel="noopener">
+      <div class="lp-il"><div class="lp-ic">🌸</div><div><div class="lp-name">恋で迷う気持ちを整える</div><div class="lp-desc">今の気持ちを整理して前に進むための鑑定</div></div></div>
+      <div class="lp-arrow">→</div>
+    </a>
+    <a href="https://jp.mercari.com/item/m10829164338" class="lp-item" target="_blank" rel="noopener">
+      <div class="lp-il"><div class="lp-ic">💌</div><div><div class="lp-name">本心鑑定</div><div class="lp-desc">彼の本当の気持ちを霊視で視ます</div></div></div>
+      <div class="lp-arrow">→</div>
+    </a>
+    <a href="https://jp.mercari.com/item/m93765665086" class="lp-item" target="_blank" rel="noopener">
+      <div class="lp-il"><div class="lp-ic">🌺</div><div><div class="lp-name">梅鑑定</div><div class="lp-desc">今の状況と近い未来の流れを読む</div></div></div>
+      <div class="lp-arrow">→</div>
+    </a>
+    <a href="https://jp.mercari.com/item/m52818735827" class="lp-item" target="_blank" rel="noopener">
+      <div class="lp-il"><div class="lp-ic">🎋</div><div><div class="lp-badge2">人気</div><div class="lp-name">竹鑑定</div><div class="lp-desc">関係の今後と動くべきタイミングを鑑定</div></div></div>
+      <div class="lp-arrow">→</div>
+    </a>
+    <a href="https://jp.mercari.com/item/m54108890247" class="lp-item" target="_blank" rel="noopener">
+      <div class="lp-il"><div class="lp-ic">🍄</div><div><div class="lp-badge2">人気</div><div class="lp-name">松茸鑑定</div><div class="lp-desc">復縁・複雑恋愛の深掘り鑑定</div></div></div>
+      <div class="lp-arrow">→</div>
+    </a>
+    <a href="https://jp.mercari.com/item/m14295068440" class="lp-item" target="_blank" rel="noopener">
+      <div class="lp-il"><div class="lp-ic">🌿</div><div><div class="lp-badge2" style="color:#d4708a;border-color:rgba(212,112,138,.3);background:rgba(212,112,138,.1);">限定5%</div><div class="lp-name">松鑑定</div><div class="lp-desc">最上位の完全鑑定。スロットで引き当てると出現</div></div></div>
+      <div class="lp-arrow">→</div>
+    </a>
+    <a href="https://jp.mercari.com/item/m40907308030" class="lp-item" target="_blank" rel="noopener">
+      <div class="lp-il"><div class="lp-ic">✨</div><div><div class="lp-name">数秘術</div><div class="lp-desc">生年月日から運命の数字と恋愛パターンを読む</div></div></div>
+      <div class="lp-arrow">→</div>
     </a>
   </div>
 </div>
 
-<div class="w">
-
-  <!-- PAIN -->
-  <section>
-    <div class="pain-card">
-      <div class="pain-title">こんなお気持ちではありませんか？</div>
-      <ul class="pain-list">
-        <li>連絡が来なくなって、今どう思われているのか分からない</li>
-        <li>復縁できる可能性があるのか、もう諦めるべきなのか</li>
-        <li>好きな人に既婚者・複雑な事情があって誰にも相談できない</li>
-        <li>行動するタイミングが分からず、ずっと立ち止まっている</li>
-        <li>友人には言えない、でも一人で抱えるのはもう辛い</li>
-      </ul>
+<!-- プロフィール -->
+<div class="lp-profile">
+  <div class="lp-pcard">
+    <div class="lp-pa">🌙</div>
+    <div>
+      <div class="lp-pn">こころのまつきよ</div>
+      <div class="lp-pm">⭐5.0 ｜ 復縁・複雑恋愛 霊視専門 ｜ 返信：平均2時間以内</div>
+      <div class="lp-pd">30代女性の復縁・複雑恋愛に特化した霊視鑑定士。やさしく、でも曖昧にせず。どんな複雑な事情でも批判せず向き合います。</div>
     </div>
-  </section>
+  </div>
+</div>
 
-  <div class="divider"><span>✦</span></div>
-
-  <!-- PROFILE -->
-  <section>
-    <div class="sec-label">About</div>
-    <h2>鑑定士のご紹介</h2>
-    <div class="profile-card">
-      <div class="profile-avatar">🌙</div>
-      <div class="profile-info">
-        <div class="profile-name">こころのまつきよ</div>
-        <span class="profile-tag">復縁・複雑恋愛 霊視専門</span>
-        <p class="profile-desc">
-          30代女性の復縁・複雑恋愛に特化した霊視鑑定士。<br>
-          「やさしく、でも曖昧にせず」をモットーに、相手の感情・関係の今後・行動時期を丁寧にお伝えします。感情的な判断から守るための、伴走型の鑑定スタイルが特徴です。
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"><span>✦</span></div>
-
-  <!-- FEATURES -->
-  <section>
-    <div class="sec-label">Service</div>
-    <h2>彼の気持ちと今後の流れを<br>手相&霊視で詳しく視ます</h2>
-    <div class="features">
-      <div class="feat-item">
-        <div class="feat-icon">💭</div>
-        <div>
-          <div class="feat-title">彼の本音・今の感情</div>
-          <div class="feat-desc">既読スルー・音信不通・曖昧な関係…その本当の理由を霊視で視ます。「連絡すべきか、待つべきか」が明確になります。</div>
-        </div>
-      </div>
-      <div class="feat-item">
-        <div class="feat-icon">🌿</div>
-        <div>
-          <div class="feat-title">今後の関係の流れ・転機</div>
-          <div class="feat-desc">このまま進むとどうなるか、転機はいつ来るか。感覚ではなく「状況ベースで判断できる状態」にします。</div>
-        </div>
-      </div>
-      <div class="feat-item">
-        <div class="feat-icon">📩</div>
-        <div>
-          <div class="feat-title">動くべきタイミング・行動アドバイス</div>
-          <div class="feat-desc">「不安だから送る」はほぼ逆効果です。最善のタイミングと言葉を具体的にお伝えします。</div>
-        </div>
-      </div>
-      <div class="feat-item">
-        <div class="feat-icon">🤝</div>
-        <div>
-          <div class="feat-title">複雑な事情にも対応</div>
-          <div class="feat-desc">既婚者・W不倫・片思い・年の差など、誰にも言えない状況でも批判せず丁寧に向き合います。</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <section>
-    <div class="sec-label">Pricing</div>
-    <h2>料金プラン</h2>
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-        <div>
-          <div style="font-size:.8rem;color:var(--gold);letter-spacing:.1em;margin-bottom:4px;">BASIC</div>
-          <div style="font-weight:700;color:var(--gold2);">基本鑑定</div>
-          <div style="font-size:.85rem;color:var(--muted);margin-top:4px;">彼の気持ち・今後の流れ</div>
-        </div>
-        <div style="font-size:1.6rem;font-weight:700;color:var(--gold2);">¥1,500</div>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--purple);border-radius:var(--r);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-        <div>
-          <div style="font-size:.8rem;color:var(--purple);letter-spacing:.1em;margin-bottom:4px;">LUNCH</div>
-          <div style="font-weight:700;color:var(--gold2);">流れ&分岐点分析</div>
-          <div style="font-size:.85rem;color:var(--muted);margin-top:4px;">基本鑑定＋今後の分岐点を詳細に</div>
-        </div>
-        <div style="font-size:1.6rem;font-weight:700;color:var(--gold2);">+¥3,500</div>
-      </div>
-      <div style="background:linear-gradient(135deg,var(--card),#1d0a38);border:1px solid var(--gold);border-radius:var(--r);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-        <div>
-          <div style="font-size:.8rem;color:var(--gold);letter-spacing:.1em;margin-bottom:4px;">DINNER ✦ 人気</div>
-          <div style="font-weight:700;color:var(--gold2);">完全深掘り鑑定</div>
-          <div style="font-size:.85rem;color:var(--muted);margin-top:4px;">基本鑑定＋全項目を徹底的に</div>
-        </div>
-        <div style="font-size:1.6rem;font-weight:700;color:var(--gold2);">+¥8,500</div>
-      </div>
-    </div>
-    <p style="text-align:center;font-size:.8rem;color:var(--muted);margin-top:14px;">⭐ 総合評価 5.0 ｜ Coconala安全決済</p>
-  </section>
-
-  <div class="divider"><span>✦</span></div>
-
-  <!-- CTA 1 -->
-  <section>
-    <div class="cta-card">
-      <span class="icon">🌙</span>
-      <h3>一人で抱え込まないでください。<br>あなたの状況を、視させてください。</h3>
-      <p>
-        どこにも言えない複雑な気持ち、ここで話してみてください。<br>
-        Coconalaのメッセージ機能から、まず無料でご相談いただけます。
-      </p>
-      <div class="cta-points">
-        <div class="cta-pt"><span class="ck">✦</span>30代女性の復縁・複雑恋愛に特化</div>
-        <div class="cta-pt"><span class="ck">✦</span>やさしく、でも曖昧にせず本音をお伝え</div>
-        <div class="cta-pt"><span class="ck">✦</span>匿名OK・秘密厳守・安心の個別鑑定</div>
-        <div class="cta-pt"><span class="ck">✦</span>Coconala上で安全にやり取り</div>
-      </div>
-      <a href="https://coconala.com/services/4064307" class="btn-main" target="_blank" rel="noopener">
-        ✦ こころのまつきよに鑑定を申し込む ✦
-        <span class="sub">¥1,500〜 ｜ 評価⭐5.0 ｜ Coconala安全決済</span>
-      </a>
-      <p class="cta-note">※ Coconalaの安全な決済システムを使用しています</p>
-    </div>
-  </section>
-
-  <div class="divider"><span>✦</span></div>
-
-  <!-- VOICES -->
-  <section>
-    <div class="sec-label">Review</div>
-    <h2>実際のお客様の声</h2>
-    <div class="voices">
-      <div class="voice-item">
-        <div class="voice-stars">★★★★★</div>
-        <div class="voice-text">「安心して鑑定をお願いできました。」</div>
-        <div class="voice-user">— miwakorirakumaさん ｜ Coconala 認証済みレビュー</div>
-      </div>
-    </div>
-    <p style="text-align:center;font-size:.8rem;color:var(--muted);margin-top:16px;">
-      ⭐ 総合評価 5.0 ／ Coconalaの公式レビューより
-    </p>
-  </section>
-
-  <div class="divider"><span>✦</span></div>
-
-  <!-- FAQ -->
-  <section>
-    <div class="sec-label">FAQ</div>
-    <h2>よくあるご質問</h2>
-    <div class="faq">
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span>初めてで緊張しています。大丈夫ですか？</span>
-          <span class="arr">▼</span>
-        </div>
-        <div class="faq-a">はじめての方が多くいらっしゃいます。まずはメッセージでご状況をお聞かせいただくだけで大丈夫です。プレッシャーをかけることは一切ありません。</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span>複雑な事情があって話しにくいのですが…</span>
-          <span class="arr">▼</span>
-        </div>
-        <div class="faq-a">既婚者との関係、不倫、W不倫など、どんな複雑な状況でもお話しいただけます。批判や否定は一切しません。あなたの状況に寄り添います。</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span>鑑定はどのような形式ですか？</span>
-          <span class="arr">▼</span>
-        </div>
-        <div class="faq-a">Coconala上でのテキストメッセージ形式での鑑定です。ご自身のペースでやり取りいただけます。</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span>個人情報は守られますか？</span>
-          <span class="arr">▼</span>
-        </div>
-        <div class="faq-a">Coconalaのプラットフォーム上でやり取りするため、個人情報が直接伝わることはありません。ニックネームでのご利用も可能です。</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section>
-    <div class="cta-card">
-      <span class="icon">🔮</span>
-      <h3>あなたの恋愛に、<br>光を見つけましょう。</h3>
-      <p>今一番辛いあなたへ。<br>一人で抱えなくていいです。まず話してみてください。</p>
-      <a href="https://coconala.com/services/4064307" class="btn-main" target="_blank" rel="noopener">
-        ✦ こころのまつきよに鑑定を申し込む ✦
-        <span class="sub">¥1,500〜 ｜ Coconalaで詳細・料金を確認する</span>
-      </a>
-    </div>
-  </section>
-
-</div><!-- /.w -->
-
-<footer>
+<div class="lp-footer">
   <p>© こころのまつきよ｜復縁霊視鑑定</p>
-  <p style="margin-top:6px;">
-    本サイトは Coconala 上のサービスの紹介ページです。<br>
-    鑑定はエンターテイメント・スピリチュアル目的であり、結果を保証するものではありません。
-  </p>
-</footer>
+  <p style="margin-top:4px;">本サイトはメルカリ・Coconala上のサービスの紹介ページです。<br>鑑定はエンターテイメント・スピリチュアル目的であり、結果を保証するものではありません。</p>
+</div>
 
-<script>
-  function toggleFaq(el) {
-    el.parentElement.classList.toggle('open');
-  }
-</script>
 </body>
 </html>
